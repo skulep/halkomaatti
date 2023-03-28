@@ -1,0 +1,205 @@
+//Add Bootstrap specific code before the import
+
+$primary: #42F1BD;
+$secondary: #C4FFED;
+
+$warning: #edffbc;
+$danger: #ff7c6b;
+$success: #6dffb6;
+$defaultbtn: #E5E5E5;
+
+$theme-colors: (
+    "primary": $primary,
+    "warning": $warning,
+    "danger": $danger,
+    "success": $success
+);
+
+$custom-color: (
+    "icon-background": rgba(107, 255, 119, 0.5)
+);
+
+$theme-colors: map-merge($theme-colors, $custom-color);
+
+
+//Import Bootstrap
+@import "./bootstrap-5.3.0-alpha1/scss/bootstrap";
+
+
+/////////////////   Header stuff
+/// 
+/// 
+.navbar {
+    font-size: 18px;
+    background-color: #42F1BD;
+    border-bottom: 2px solid #000000;
+
+        //Only effective with navigation-bar-list
+        &-list {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            display: inline-flex;
+            margin: 0px -10px;
+    
+            //List items
+            li {
+                margin: 0px 10px;
+                display: flex;
+                align-items: center;
+                
+    
+                //Button
+                .bi {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 20px;
+                }
+            }
+        }
+    
+
+}
+
+
+
+//Bottom Navigation bar (footer)
+//////////////////////////////////
+
+.bottom-nav-bar {
+    font-size: 18px;
+    background-color: #42F1BD;
+    border-top: 1px solid #31ac87;
+
+    //Only effective with navigation-bar-list
+    &-list {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        display: flex;
+        margin: 0px -10px;
+
+        //List items
+        li {
+            margin: 0px 10px;
+            display: flex;
+            align-items: center;
+            
+
+            //Button
+            .bi {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+//
+//Box info box, mini.
+.card {
+    background-image: url("https://www.stockvault.net/data/2011/02/06/117456/preview16.jpg");
+    background-size: cover;
+    width: 90%;
+    height: fit-content;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card-font {
+
+    color:#FFFFFF;
+
+    &-l {
+        font-size: 40px;
+    }
+
+    &-m {
+        font-size: 24px;
+    }
+
+    &-s {
+        font-size: 12px;
+    }
+
+}
+
+
+.alert {
+    width: 80%;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+//
+////////////////////////////////
+/// Box Info Page
+
+.box-info-box {
+    border: 1px solid #000000;
+    padding: 0px;
+    margin: auto;
+}
+
+
+//
+//
+//Login
+
+::after, ::before {
+  box-sizing: border-box;
+}
+.text-center {
+    text-align: center !important;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+  }
+
+
+
+
+
+
+
+    //
+  //           Customer Side
+  ////////////////////////////////////////////////////////////////
+  /// 
+.text-on-img {
+    z-index: 99;
+    font-size: 36px;
+    color: #FFFFFF;
+    margin-top: -100px;
+}
+
+.banner{position:relative}
+.banner img{width:100%}
+.banner .container{position: absolute; left:0; right:0; top:50%; text-align:center; transform:translateY(-50%)}
+
+.location-list {
+    padding: 5px;
+    align-items: center;
+    align-content: center;
+}
+
+.store-thumbnail {
+    background-size: cover;
+    width: 100%;
+}
+
+.img-container {
+    max-height: 250px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
