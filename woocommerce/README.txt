@@ -1,0 +1,1 @@
+editing these will override the default woocommerce templates.

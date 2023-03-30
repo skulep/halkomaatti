@@ -11610,4 +11610,13 @@ textarea.form-control-lg {
   max-height: 250px;
   overflow: hidden;
   margin-bottom: 20px;
+}
+
+.woocommerce-cart-item {
+  background-color: #e0ffdf;
+  border: 1px solid #6dffb6;
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
 }/*# sourceMappingURL=main.css.map */
