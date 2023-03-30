@@ -175,6 +175,13 @@ function get_custom_script() {
 }
 add_action( 'wp_enqueue_scripts', 'get_custom_script' );
 
+//Integrating Firebase
+function enqueue_firebase_script() {
+	wp_register_script('firebase', get_stylesheet_directory_uri().'/js/firebase.js', array(), '1.0.0', true);
+	wp_enqueue_script( 'firebase' );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_firebase_script' );
+
 /**
  * Implement the Custom Header feature.
  */
@@ -207,4 +214,19 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
+}
+
+//woocommerce hooks
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+
+add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
+
+function my_theme_wrapper_start() {
+    echo '<section id="main">';
+}
+
+function my_theme_wrapper_end() {
+    echo '</section>';
 }

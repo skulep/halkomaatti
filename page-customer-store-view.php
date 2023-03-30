@@ -32,29 +32,10 @@ get_header('customer');
 
 		<h5 class="text-center">Items and services</h5>
 
-		<div class="row img-container">
-			<div class="col-12 col-md-8">
-				<button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-					<img src="https://images.pexels.com/photos/235964/pexels-photo-235964.jpeg?cs=srgb&dl=pexels-pixabay-235964.jpg&fm=jpg" alt="Firewood Large" class="img-thumbnail store-thumbnail">
-				</button>
-			</div>
-			<div class="col-6 col-md-4">
-				<img src="https://thumbs.dreamstime.com/b/firewood-9635309.jpg" alt="Firewood Small" class="img-thumbnail store-thumbnail">
-			</div>
-		</div>
+		<?php echo do_shortcode ( '[products columns=4 limit=16]' ); ?>
+
 
 		
-		<div class="row img-container">
-			<div class="col-6 col-md-4"><img src="https://img.freepik.com/free-vector/vector-opened-box-brown-matches-isolated-gray-background_1284-46510.jpg" alt="Matches" class="img-thumbnail store-thumbnail"></div>
-			<div class="col-6 col-md-4"><img src="https://cdn.pixabay.com/photo/2015/01/18/14/16/phone-603048__480.jpg" alt="Device Charging" class="img-thumbnail store-thumbnail"></div>
-			<div class="col-6 col-md-4"><img src="https://thumbs.dreamstime.com/b/female-hands-hold-hand-warmers-isolated-background-169670365.jpg" alt="Hand Warmers" class="img-thumbnail store-thumbnail"></div>
-		</div>
-
-		
-		<div class="row img-container">
-			<div class="col-6">Placeholder Div</div>
-			<div class="col-6">Placeholder Div</div>
-		</div>
 		
 
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
