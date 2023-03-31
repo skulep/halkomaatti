@@ -34,6 +34,15 @@
   	</button>
   	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     	<div class="navbar-nav display-flex">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    		Locations
+  		</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Tuira</a>
+				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti2</a>
+				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti3</a>
+			</div>
+			<a class="nav-item nav-link" href="http://localhost/wordpress/cart/">Cart</a>
 			<a class="nav-item nav-link" href="#">About</a>
     	</div>
   	</div>
