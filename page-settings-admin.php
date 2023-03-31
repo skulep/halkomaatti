@@ -3,7 +3,7 @@
 Template Name: Admin Settings
 */
 
-get_header();
+get_header('admin');
 ?>
 
 	<main id="primary" class="site-main">
@@ -35,4 +35,4 @@ get_header();
 
 <?php
 get_sidebar();
-get_footer();
+get_footer('admin');

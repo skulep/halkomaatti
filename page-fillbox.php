@@ -5,7 +5,7 @@ Template Name: Admin Fill Box
 p class: h3 mb-3 fw-normal
 */
 
-get_header();
+get_header('admin');
 ?>
 
 <main class="form-signin w-150 m-auto">
@@ -70,4 +70,4 @@ get_header();
 
 <?php
 get_sidebar();
-get_footer();
+get_footer('admin');

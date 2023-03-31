@@ -33,4 +33,4 @@ get_header('customer');
 
 <?php
 get_sidebar();
-get_footer('customer');
+get_footer();

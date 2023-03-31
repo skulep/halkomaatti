@@ -4,7 +4,7 @@ Template Name: Admin Notifications
 */
 
 
-get_header();
+get_header('admin');
 ?>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -115,4 +115,4 @@ get_header();
 
 <?php
 get_sidebar();
-get_footer();
+get_footer('admin');

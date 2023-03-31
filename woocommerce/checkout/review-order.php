@@ -20,8 +20,8 @@ defined( 'ABSPATH' ) || exit;
 <table class="shop_table woocommerce-checkout-review-order-table woocommerce-checkout-cart">
 	<thead>
 		<tr>
-			<th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+			<th class="product-name border border-success"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+			<th class="product-total border border-success"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,8 +53,8 @@ defined( 'ABSPATH' ) || exit;
 	<tfoot>
 
 		<tr class="cart-subtotal">
-			<th><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
-			<td><?php wc_cart_totals_subtotal_html(); ?></td>
+			<th class="border border-success"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+			<td class="border border-success"><?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
 
 		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>

@@ -4,7 +4,7 @@ Template Name: Admin Login
 type="submit" -- button type
 */
 
-get_header();
+get_header('admin');
 ?>
 
 
@@ -32,4 +32,4 @@ get_header();
 
 <?php
 get_sidebar();
-get_footer();
+get_footer('admin');

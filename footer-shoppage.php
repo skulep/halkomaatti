@@ -12,7 +12,7 @@
 ?>
 
 	<footer id="colophon" class="site-footer">
-	<!-- Empty. Exists so that the customer site won't break -->
+
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
