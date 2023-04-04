@@ -11469,6 +11469,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.btn-rounded {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+}
+
 .navbar {
   font-size: 18px;
   background-color: #42F1BD;
@@ -11613,6 +11621,15 @@ textarea.form-control-lg {
 }
 
 .woocommerce-cart-item {
+  background-color: #e0ffdf;
+  border: 1px solid #6dffb6;
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.woocommerce-checkout-cart {
   background-color: #e0ffdf;
   border: 1px solid #6dffb6;
   width: 90%;
