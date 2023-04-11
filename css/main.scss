@@ -210,11 +210,19 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     z-index: 99;
     font-size: 36px;
     color: #FFFFFF;
-    margin-top: -100px;
+    display: flex;
+    align-self: center;
+    align-content: center;
 }
 
 .banner{position:relative}
-.banner img{width:100%}
+.banner-img {
+    width:100%;
+    background-image: url("https://www.stockvault.net/data/2011/02/06/117456/preview16.jpg");
+    @extend .img-fluid;
+    min-height: 330px;
+    max-height: 550px;
+}
 .banner .container{position: absolute; left:0; right:0; top:50%; text-align:center; transform:translateY(-50%)}
 
 .location-list {
