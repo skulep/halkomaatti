@@ -43,7 +43,7 @@
 				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti3</a>
 			</div>
 			<a class="btn nav-item me-auto p-2" type="button" href="http://localhost/wordpress/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
-			<a class="btn nav-item nav-link me-auto p-2" type="button" href="#"><i class="bi bi-info-circle"></i> About</a>
+			<a class="btn nav-item nav-link me-auto p-2" type="button" href="http://localhost/wordpress/customer-info/"><i class="bi bi-info-circle"></i> About</a>
     	</div>
   	</div>
 </nav>
