@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-4 d-flex justify-content-front">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#locationModal">
-							<i class="bi bi-geo-alt"></i>
+							<i class="bi bi-geo-alt"></i> Location Info
 						</button>
 					</div>
 
@@ -26,7 +26,7 @@
 
 					<div class="col-4 d-flex justify-content-end">
 						<a class="btn btn-primary" href="http://localhost/wordpress/cart/" role="button">
-							<i class="bi bi-cart2"></i>
+							Cart <i class="bi bi-cart2"></i>
 						</a>
 					</div>
 				</div>

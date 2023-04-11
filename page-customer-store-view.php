@@ -1,6 +1,9 @@
 <?php
 /*
 Template Name: Customer Store View
+
+extra shortcode that used to be there after products:
+columns=4 limit=16
 */
 
 get_header('customer');
@@ -15,7 +18,7 @@ get_header('customer');
 			<div class="container">
 				<h5 class="text-center">Items and services</h5>
 
-				<?php echo do_shortcode ( '[products columns=4 limit=16]' ); ?>
+				<?php echo do_shortcode ( '[products columns=5 limit=16]' ); ?>
 			</div>
 
 

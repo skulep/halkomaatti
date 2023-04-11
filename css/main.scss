@@ -8,11 +8,17 @@ $danger: #ff7c6b;
 $success: #6dffb6;
 $defaultbtn: #E5E5E5;
 
+$defaultfont: #000000;
+
+$grey-bg: #fafafa;
+$grey-border: #cacaca;
+
 $theme-colors: (
     "primary": $primary,
     "warning": $warning,
     "danger": $danger,
-    "success": $success
+    "success": $success,
+    "defaultfont": $defaultfont
 );
 
 $custom-color: (
@@ -74,7 +80,20 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     
 
 }
+.nav-item {
+    font-size: 16px;
+    color: $defaultfont;
+    margin-left: 1px;
 
+}
+
+.dropdown-menu { 
+    background-color: $secondary;
+}
+
+.dropdown.item {
+    background-color: $primary;
+}
 
 
 //Bottom Navigation bar (footer)
@@ -240,4 +259,21 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     justify-content: center;
     margin: auto;
     margin-bottom: 5px;
+}
+
+//Woocommerce Shop Items
+.woocommerce div.product {
+    background-color: $grey-bg;
+    border: 1px solid $grey-border;
+    border-radius: 25px;
+}
+
+.woocommerce ul.products li.product {
+	background-color: $grey-bg;
+    border: 1px solid $grey-border;
+    border-radius: 25px;
+    min-width: 150px;
+    max-width: 200px;
+    min-height: 350px;
+    max-height: 350px;
 }

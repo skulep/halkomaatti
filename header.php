@@ -34,16 +34,16 @@
   	</button>
   	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     	<div class="navbar-nav display-flex">
-		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    		Locations
+		<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="bi bi-pin-map"></i> Locations
   		</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Tuira</a>
 				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti2</a>
 				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti3</a>
 			</div>
-			<a class="nav-item nav-link" href="http://localhost/wordpress/cart/">Cart</a>
-			<a class="nav-item nav-link" href="#">About</a>
+			<a class="btn nav-item me-auto p-2" type="button" href="http://localhost/wordpress/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
+			<a class="btn nav-item nav-link me-auto p-2" type="button" href="#"><i class="bi bi-info-circle"></i> About</a>
     	</div>
   	</div>
 </nav>
