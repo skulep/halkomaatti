@@ -253,7 +253,9 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 
 
 
-
+.woocommerce .proceed-to-checkout {
+    background-color: $primary;
+}
 
 //
 

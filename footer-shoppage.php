@@ -33,8 +33,8 @@
 			</div>	
 		</div>
 
-		<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby=locationModalLabel" aria-hidden="true">
-  			<div class="modal-dialog modal-lg" role="document">
+		<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+  			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     			<div class="modal-content">
       				<div class="modal-header">
 						<h5 class="modal-title" id="locationModalLabel">Location Info</h5>
@@ -44,7 +44,7 @@
       				</div>
       			<div class="modal-body">
 				  <div class="container">
-					<div class="row w-100 box-info-box">
+					<div class="row w-100 ">
 						<div class="col-lg-8">
 							<iframe
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1683.6863634062288!2d25.551695752358476!3d65.03934838392831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4681d2cf3d4cd4a9%3A0x186f4dca5379003d!2sK-Citymarket%20Oulu%20Rusko!5e0!3m2!1sfi!2sfi!4v1679042615737!5m2!1sfi!2sfi"

@@ -10,17 +10,13 @@ get_header('admin');
 
 <main class="container">
 
-    <h4 class="h3 mb-3 fw-normal">Tuira</h4>
-	<p class="">Oulu, Finland</p>
-	<p class="">53.6346, 353.6443</p>
+    <h4 class="h3 my-3 fw-normal text-center ">Tuira</h4>
+	<p class="text-center">Oulu, Finland</p>
+	<p class="text-center">53.6346, 353.6443</p>
 
     <button type="button" class="btn btn-defaultfont">Info</button>
 
 <div class="container">
-	<p class="text-center">All Boxes</p>
-
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
 
   	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
@@ -48,19 +44,87 @@ get_header('admin');
 			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">5</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">6</button>
+			<button type="button" class="btn btn-primary btn-rounded-square">6</button>
 		</div>
   	</div>
 
 	  <div class="row pt-5 pb-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">7</button>
+			<button type="button" class="btn btn-primary btn-rounded-square">7</button>
 		</div>
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">8</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">9</button>
+			<button type="button" class="btn btn-danger btn-rounded-square">9</button>
+		</div>
+  	</div>
+
+
+
+
+	  <div class="row pt-5 pb-5">
+		<div class="col d-flex justify-content-center">
+			<button type="button" class="btn btn-outline-grey-border">
+
+				<h3>Box 1</h3>
+				<p>Item: firewood</p>
+
+				<div class="col">
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
+					</div>
+
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
+					</div>
+				</div>
+
+			</button>
+		</div>
+
+		<div class="col d-flex justify-content-center">
+			<button type="button" class="btn btn-danger">
+
+				<h3>Box 2</h3>
+				<p>Item: firewood</p>
+
+				<div class="col">
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
+					</div>
+
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
+					</div>
+				</div>
+
+			</button>
+		</div>
+
+		<div class="col d-flex justify-content-center">
+			<button type="button" class="btn btn-primary">
+
+				<h3>Box 3</h3>
+				<p>Item: matches</p>
+
+				<div class="col">
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
+					</div>
+
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
+					</div>
+				</div>
+
+			</button>
 		</div>
   	</div>
 </div>
