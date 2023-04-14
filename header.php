@@ -22,31 +22,32 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'halko' ); ?></a>
 
 
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #42F1BD">
-  	<a class="navbar-brand" href="http://localhost/wordpress/customer">Halkomaatti</a>
-  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    	<span class="navbar-toggler-icon"></span>
-  	</button>
-  	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    	<div class="navbar-nav display-flex">
-		<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<i class="bi bi-pin-map"></i> Locations
-  		</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Tuira</a>
-				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti2</a>
-				<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti3</a>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #42F1BD">
+		<a class="navbar-brand" href="http://localhost/wordpress/customer">Halkomaatti</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav display-flex">
+			<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="bi bi-pin-map"></i> Locations
+			</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Tuira</a>
+					<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti2</a>
+					<a class="dropdown-item" href="http://localhost/wordpress/customer-store-view/">Sijainti3</a>
+				</div>
+				<a class="btn nav-item me-auto p-2" type="button" href="http://localhost/wordpress/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
+				<a class="btn nav-item nav-link me-auto p-2" type="button" href="http://localhost/wordpress/customer-info/"><i class="bi bi-info-circle"></i> About</a>
 			</div>
-			<a class="btn nav-item me-auto p-2" type="button" href="http://localhost/wordpress/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
-			<a class="btn nav-item nav-link me-auto p-2" type="button" href="http://localhost/wordpress/customer-info/"><i class="bi bi-info-circle"></i> About</a>
-    	</div>
-  	</div>
-</nav>
+		</div>
+	</nav>
+
 
 
 	<header id="masthead" class="site-header">

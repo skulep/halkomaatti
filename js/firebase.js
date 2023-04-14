@@ -1,4 +1,5 @@
 //Integrates Firebase and carries the functions required
+/*
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
 
@@ -23,4 +24,4 @@ async function getTestData(db) {
     const testList = testDataSnapshot.docs.map(doc => doc.data());
     print(testList);
     return testList;
-}
+}*/

@@ -260,6 +260,7 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 //
 
 //Woocommerce Cart
+/*
 .woocommerce-cart-item {
     background-color:#e0ffdf;
     border: 1px solid #6dffb6;
@@ -279,6 +280,7 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 }
 
 //Woocommerce Shop Items
+
 .woocommerce div.product {
     background-color: $grey-bg;
     border: 1px solid $grey-border;
@@ -293,4 +295,4 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     max-width: 200px;
     min-height: 350px;
     max-height: 350px;
-}
+}*/

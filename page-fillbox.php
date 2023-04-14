@@ -19,7 +19,7 @@ get_header('admin');
 <div class="container">
 	<p class="text-center">All Boxes</p>
 
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
 
 
   	<div class="row pt-5">
@@ -80,11 +80,11 @@ get_header('admin');
 
 
 <!---- On-click Modal --->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   	<div class="modal-dialog" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        		<h5 class="modal-title" id="exampleModalLabel1">New message</h5>
         		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       		</div>
       		<div class="modal-body">
