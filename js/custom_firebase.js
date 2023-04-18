@@ -8,7 +8,7 @@ async function getTestData(db) {
     print(testList);
     return testList;
 }*/
-
+/*
 
 (function ($) {
     'use strict';
@@ -24,12 +24,16 @@ async function getTestData(db) {
             if (collectionName && documentName) {
                 const docRef = db.collection(collectionName).doc(documentName);
         
-                docRef.get().then(doc => {
+                docRef.get().then(snapshot => {
+                    snapshot.forEach (doc => {
+                        let userData = doc.data();
+                        console.log(userData);
+                    })
                     
                     if (doc.exists) {
 
                         //do code here
-                        console.log('Document data:', doc.data());
+                        console.log('Document data2:', doc.data());
 
 
                     } else {
@@ -47,7 +51,7 @@ async function getTestData(db) {
         showFirestoreDatabase()
     })
 })(jQuery)
-
+*/
 
 //Get Box info and create Box buttons
 
