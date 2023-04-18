@@ -936,8 +936,7 @@
   align-items: center;
   text-decoration-color: rgba(13, 110, 253, 0.5);
   text-underline-offset: 0.5rem;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .icon-link .bi {
   width: 1.5em;

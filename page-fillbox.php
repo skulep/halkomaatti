@@ -10,22 +10,27 @@ get_header('admin');
 
 <main class="container">
 
-    <h4 class="h3 my-3 fw-normal text-center ">Tuira</h4>
-	<p class="text-center">Oulu, Finland</p>
-	<p class="text-center">53.6346, 353.6443</p>
+<div class="row flex">
+	<div class="col">
+		<h4 class="h3 my-3 fw-normal text-center ">Tuira</h4>
+		<p class="text-center">Oulu, Finland</p>
+		<p class="text-center">53.6346, 353.6443</p>
+	</div>
 
-    <button type="button" class="btn btn-defaultfont">Info</button>
+	<div class="col">
+		<p class="text-center">Info</p>
+		<p class="text-center"><i class="bi bi-square-fill icon-green">  Filled Box</i></p>
+		<p class="text-center"><i class="bi bi-square-fill icon-red">  Faulty Box</i></p>
+		<p class="text-center"><i class="bi bi-square-fill icon-grey">  Empty Box</i></p>
+		<p class="text-center">Tap the box to toggle</p>
+	</div>
+</div>
 
 <div class="container">
 
   	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">1
-				<br>
-				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-				</div>
-			</button>
+			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">1</button>
 			
 		</div>
 		<div class="col d-flex justify-content-center">
@@ -50,83 +55,16 @@ get_header('admin');
 
 	  <div class="row pt-5 pb-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-primary btn-rounded-square">7</button>
+			<button type="button" class="btn1 btn-primary btn-rounded-square">7</button>
 		</div>
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">8</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-danger btn-rounded-square">9</button>
+			<button type="button" id="btn-fill" class="btn btn-danger btn-rounded-square">9</button>
 		</div>
   	</div>
 
-
-
-
-	  <div class="row pt-5 pb-5">
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border">
-
-				<h3>Box 1</h3>
-				<p>Item: firewood</p>
-
-				<div class="col">
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
-					</div>
-
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
-					</div>
-				</div>
-
-			</button>
-		</div>
-
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-danger">
-
-				<h3>Box 2</h3>
-				<p>Item: firewood</p>
-
-				<div class="col">
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
-					</div>
-
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
-					</div>
-				</div>
-
-			</button>
-		</div>
-
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-primary">
-
-				<h3>Box 3</h3>
-				<p>Item: matches</p>
-
-				<div class="col">
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Filled</label>
-					</div>
-
-					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-						<label class="form-check-label" for="flexSwitchCheckDefault">Faulty</label>
-					</div>
-				</div>
-
-			</button>
-		</div>
-  	</div>
 </div>
 
 <div class="form-group">
@@ -141,35 +79,6 @@ get_header('admin');
 </div>
 
 <a class="w-100 btn btn-lg btn-primary pb-5" href="http://localhost/wordpress" role="button">Mark as filled</a> 
-
-
-<!---- On-click Modal --->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-  	<div class="modal-dialog" role="document">
-    	<div class="modal-content">
-      		<div class="modal-header">
-        		<h5 class="modal-title" id="exampleModalLabel1">New message</h5>
-        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      		</div>
-      		<div class="modal-body">
-				<form>
-					<div class="mb-3">
-						<label for="recipient-name" class="col-form-label">Recipient:</label>
-						<input type="text" class="form-control" id="recipient-name">
-					</div>
-					<div class="mb-3">
-						<label for="message-text" class="col-form-label">Message:</label>
-						<textarea class="form-control" id="message-text"></textarea>
-					</div>
-				</form>
-      		</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Send message</button>
-			</div>
-    	</div>
-	</div>
-</div>
 
 </main>    
 

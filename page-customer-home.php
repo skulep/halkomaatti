@@ -35,7 +35,7 @@ get_header('customer');
 <h4 class="d-sm-none text-center">In need of wood?<br>Halkomaatti has you covered!</h4>
 
 <div class="vstack gap-3 col-md-8 mx-auto mt-5">
-	<h5 class="text-center">List of Locations</h5>		
+	<h5 class="text-center">List of Locations</h5>	
 	<a href="http://localhost/wordpress/customer-store-view/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tuira (94 km)</a>
 	<a href="http://localhost/wordpress/customer-store-view/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Niittylä (150 km)</a>
 	<a href="http://localhost/wordpress/customer-store-view/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Location 3 (222 km)</a>

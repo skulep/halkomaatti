@@ -175,12 +175,15 @@ function get_custom_script() {
 }
 add_action( 'wp_enqueue_scripts', 'get_custom_script' );
 
-//Integrating Firebase
+//Integrating Firebase -- re.done below
+/*
 function enqueue_firebase_script() {
 	wp_register_script('firebase', get_stylesheet_directory_uri().'/js/firebase.js', array(), '1.0.0', true);
 	wp_enqueue_script( 'firebase' );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_firebase_script' );
+*/
+
 
 /**
  * Implement the Custom Header feature.
@@ -290,3 +293,24 @@ function wc_remove_checkout_fields( $fields ) {
     return $fields;
 }
 add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
+
+
+
+//Firebase func
+
+function custom_firebase_scripts_function()
+{
+ 	wp_enqueue_script('custom_firebase', get_template_directory_uri() . '/js/custom_firebase.js', array('firebase_app', 'firebase_auth', 'firebase_database', 'firebase_firestore', 'firebase'));
+}
+add_action('wp_enqueue_scripts', 'custom_firebase_scripts_function');
+
+function firebase_fetch_func($atts)
+{
+	$a = shortcode_atts( array (
+		'collectionName' => 'testData',
+		'documentName' => 'Norway'
+	), $atts );
+
+    return "<div id='firebase-fetch'>DATA FROM FIREBASE</div>";
+}
+add_shortcode('custom_firebase', 'firebase_fetch_func');

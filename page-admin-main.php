@@ -1,6 +1,8 @@
 <?php
 /*
 Template Name: Admin Main
+
+fireb shortcode <?php echo do_shortcode ( '[custom_firebase]' ); ?>
 */
 
 
@@ -21,6 +23,8 @@ get_header('admin');
         		</div>
     		</div>
 
+			
+		
 			<div class="row d-flex justify-content-center px-3">
         		<div class="card">
 					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Toinen Sijainti</h2>
