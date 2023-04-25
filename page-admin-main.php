@@ -11,31 +11,13 @@ get_header('admin');
 
 
 	<main id="primary" class="site-main">
-		<h1>Box Status</h1>
+		<h1 class="text-center">Box Status</h1>
 
 		<div class="container-fluid px-1 px-md-4 py-5 mx-auto box-status-holder">
-    		<div class="row d-flex justify-content-center px-3">
-        		<div class="card">
-					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Tuira</h2>
-					<p class="card-font ml-auto mr-4 mb-0 card-font-m">20/30</p>
-					<h1 class="card-font ml-auto mr-4 card-font-m">Battery 56%&#176;</h1>
-					<p class="card-font ml-4 mb-4 card-font-s">Previously filled: 15.3.2023</p>
-        		</div>
-    		</div>
-
 			
-		
-			<div class="row d-flex justify-content-center px-3">
-        		<div class="card">
-					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Toinen Sijainti</h2>
-					<p class="card-font ml-auto mr-4 mb-0 card-font-m">25/60</p>
-					<h1 class="card-font ml-auto mr-4 card-font-m">Battery 4%&#176;</h1>
-					<p class="card-font ml-4 mb-4 card-font-s">Previously filled: 11.3.2021</p>
-        		</div>
-    		</div>
 		</div>
 
-		<h1>Notifications</h1>
+		<h1 class="text-center">Notifications</h1>
 		<div class="notif-holder">
 			<div class="alert row alert-primary" role="alert">
 				<div class="col-md-2">
@@ -85,8 +67,9 @@ get_header('admin');
 				</div>
 			</div>
 
-			
-			<a href="http://localhost/wordpress/all-notifications/" class="btn btn-primary btn-lg" role="button" aria-disabled="true">All notifications...</a>
+			<div class="text-center">
+				<a href="http://localhost/wordpress/all-notifications/" class="btn btn-primary btn-lg text-center justify-content-center" role="button" aria-disabled="true">All notifications</a>
+			</div>
 
 		</div>
 		

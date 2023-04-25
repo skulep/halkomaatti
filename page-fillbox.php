@@ -31,7 +31,6 @@ get_header('admin');
   	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">1</button>
-			
 		</div>
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">2</button>
@@ -41,7 +40,7 @@ get_header('admin');
 		</div>
   	</div>
 
-	  <div class="row pt-5">
+	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">4</button>
 		</div>
@@ -53,7 +52,7 @@ get_header('admin');
 		</div>
   	</div>
 
-	  <div class="row pt-5 pb-5">
+	<div class="row pt-5 pb-5">
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">7</button>
 		</div>
@@ -63,6 +62,10 @@ get_header('admin');
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button filled btn-outline-grey-border btn-rounded-square">9</button>
 		</div>
+  	</div>
+
+	<div class="row pt-5 ttfield">
+ 
   	</div>
 
 </div>

@@ -21,10 +21,40 @@ exampleModal1.addEventListener('show.bs.modal', function (event) {
 */
 
 
-//FillBox page -- change box color to red or green
 
+/* Personal notes
+fillbox -- on button click:
+
+run a loop: first create a button for however many boxes there are. fetch data -- box status. 1 = empty, 2 = filled... add the required class/es
+
+on button click: run another loop, this time replace data to firestore. if button has class filled, make status 2. (and so on)
+
+also add a notification -- something like   "30 Boxes refilled. Box #3 and #9 marked as faulty.
+                                            Filler's notice: yes the lock was broken, likely frozen"
+*/
+
+
+// FillBox
+// Generating the buttons
+//FIX - color does not change on click
+//FIX - need to create a div every 3 buttons
+
+$(document).ready(function() {
+  
+  for (var i = 0; i < 2; i++) {
+    console.log(i);
+    var buttonText = i +1;
+    var $newButton = $('<button>', {
+      class: 'btn fill-button empty btn-outline-grey-border btn-rounded-square',
+      text: buttonText
+    });
+    // Append the new button to the body or any other desired element
+    $('.ttfield').append($newButton);
+}
+});
+
+//FillBox page -- change box color on click
 $(".fill-button").on("click", function() {
-  // Toggle the color of the clicked button
 
   if ($(this).hasClass("empty")) {
     $(this).removeClass("empty");
@@ -44,36 +74,51 @@ $(".fill-button").on("click", function() {
 
 
 
-//admin homepage
-
+//admin homepage -- card view element
 var rowDiv = $('<div>', {
   class: 'row d-flex justify-content-center px-3'
 });
 
-// Create the inner div with class "card"
 var cardDiv = $('<div>', {
   class: 'card'
 });
 
-// Create the h2 element with text and classes "card-font", "ml-auto", "mr-4", "mt-3", "mb-0", and "card-font-l"
+//Text elements. NEED TO BE IN A FOR/FOREACH LOOP, WHERE text WILL BE FROM FIREBASE. Same with notifications. Every bit is
 var h2Element = $('<h2>', {
   class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
   text: 'LocationName'
 });
 
-// Create the p element with text and classes "card-font", "ml-auto", "mr-4", "mb-0", and "card-font-m"
 var pElement = $('<p>', {
   class: 'card-font ml-auto mr-4 mb-0 card-font-m',
-  text: 'BoxStatus 25/60'
+  text: 'BoxStatus 25/60, 2 errors'
 });
 
+var h1Element = $('<h1>', {
+  class: 'card-font ml-auto mr-4 card-font-m',
+  text: 'Battery 4%'
+});
 
+var pElement2 = $('<p>', {
+  class: 'card-font ml-4 mb-4 card-font-s',
+  text: 'Previously filled: 11.3.2021'
+});
 
-// Append the h2 and p elements to the card div
-cardDiv.append(h2Element, pElement);
+// Append everything to card div
+cardDiv.append(h2Element, pElement, h1Element, pElement2);
 
 // Append the card div to the row div
 rowDiv.append(cardDiv);
 
 // Append the row div to element. Do this for each one user is "subscribed" to
 $('.box-status-holder').append(rowDiv);
+
+
+
+//
+// Creating Notifications
+
+
+
+
+
