@@ -8,12 +8,12 @@ fireb shortcode <?php echo do_shortcode ( '[custom_firebase]' ); ?>
 
 get_header('admin');
 ?>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 	<main id="primary" class="site-main">
 		<h1>Box Status</h1>
 
-		<div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+		<div class="container-fluid px-1 px-md-4 py-5 mx-auto box-status-holder">
     		<div class="row d-flex justify-content-center px-3">
         		<div class="card">
 					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Tuira</h2>
@@ -33,7 +33,6 @@ get_header('admin');
 					<p class="card-font ml-4 mb-4 card-font-s">Previously filled: 11.3.2021</p>
         		</div>
     		</div>
-
 		</div>
 
 		<h1>Notifications</h1>

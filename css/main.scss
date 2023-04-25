@@ -54,14 +54,25 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 }
 
 .icon-green {
-    color:green;
+    color: $success;
 }
 .icon-red {
-    color:red;
+    color: $danger;
 }
 .icon-grey {
     color: $grey-border;
 }
+
+.fill-button.empty {
+    background-color: $grey-bg;
+}
+.fill-button.filled {
+    background-color: $success;
+}
+.fill-button.faulty {
+    background-color: $danger;
+}
+
 /////////////////   Header stuff
 /// 
 /// 

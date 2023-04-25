@@ -30,38 +30,38 @@ get_header('admin');
 
   	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">1</button>
+			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">1</button>
 			
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">2</button>
+			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">2</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">3</button>
+			<button type="button" class="btn fill-button faulty btn-outline-grey-border btn-rounded-square">3</button>
 		</div>
   	</div>
 
 	  <div class="row pt-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">4</button>
+			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">4</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">5</button>
+			<button type="button" class="btn fill-button faulty btn-outline-grey-border btn-rounded-square">5</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-primary btn-rounded-square">6</button>
+			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">6</button>
 		</div>
   	</div>
 
 	  <div class="row pt-5 pb-5">
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn1 btn-primary btn-rounded-square">7</button>
+			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">7</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn btn-outline-grey-border btn-rounded-square">8</button>
+			<button type="button" class="btn fill-button filled btn-outline-grey-border btn-rounded-square">8</button>
 		</div>
 		<div class="col d-flex justify-content-center">
-			<button type="button" id="btn-fill" class="btn btn-danger btn-rounded-square">9</button>
+			<button type="button" class="btn fill-button filled btn-outline-grey-border btn-rounded-square">9</button>
 		</div>
   	</div>
 
@@ -81,9 +81,6 @@ get_header('admin');
 <a class="w-100 btn btn-lg btn-primary pb-5" href="http://localhost/wordpress" role="button">Mark as filled</a> 
 
 </main>    
-
-
-
 
 
 <?php

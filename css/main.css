@@ -11657,15 +11657,27 @@ textarea.form-control-lg {
 }
 
 .icon-green {
-  color: green;
+  color: #6dffb6;
 }
 
 .icon-red {
-  color: red;
+  color: #ff7c6b;
 }
 
 .icon-grey {
   color: #cacaca;
+}
+
+.fill-button.empty {
+  background-color: #fafafa;
+}
+
+.fill-button.filled {
+  background-color: #6dffb6;
+}
+
+.fill-button.faulty {
+  background-color: #ff7c6b;
 }
 
 .navbar {
