@@ -8,7 +8,11 @@ async function getTestData(db) {
     print(testList);
     return testList;
 }*/
-/*
+
+//Function to fetch data and create 'location cards'
+//admin homepage -- card view element
+//admin homepage -- card view element
+
 
 (function ($) {
     'use strict';
@@ -18,22 +22,83 @@ async function getTestData(db) {
             const firestoreEl = jQuery('#custom-firebase');
         
             // You can get the collectionName and documentName from the shortcode attribute
-            const collectionName = 'test-data';
-            const documentName = 'users'
+            const collectionName = 'Alternate_layout';
+            const documentName = 'Halkomatics'
         
             if (collectionName && documentName) {
                 const docRef = db.collection(collectionName).doc(documentName);
         
-                docRef.get().then(snapshot => {
-                    snapshot.forEach (doc => {
-                        let userData = doc.data();
-                        console.log(userData);
-                    })
-                    
+                docRef.get().then(doc => {  
                     if (doc.exists) {
-
                         //do code here
-                        console.log('Document data2:', doc.data());
+                        var cMatic = doc.data().Matic3;
+
+                        var h2Element = $('<h2>', {
+                            class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
+                            text: cMatic.location
+                          });
+                          
+                          var pElement = $('<p>', {
+                            class: 'card-font ml-auto mr-4 mb-0 card-font-m',
+                            text: cMatic.boxfull + '/' + cMatic.boxtotal + ' boxes have items'
+                          });
+                          
+                          var h1Element = $('<h1>', {
+                            class: 'card-font ml-auto mr-4 card-font-m',
+                            text: cMatic.batteryCharge + '% battery remaining'
+                          });
+                          
+                          var pElement2 = $('<p>', {
+                            class: 'card-font ml-4 mb-4 card-font-s',
+                            text: 'Last filled on ' + cMatic.previouslyUsed
+                          });
+                          
+                          // Append everything to card div
+                          cardDiv.append(h2Element, pElement, h1Element, pElement2);
+                          
+                          // Append the card div to the row div
+                          rowDiv.append(cardDiv);
+                          
+                          // Append the row div to element. Do this for each one user is "subscribed" to
+                          $('.box-status-holder').append(rowDiv);
+
+
+                          //Creating the admin main screen notifications
+                          console.log(cMatic.notifications.size);
+
+                          for (var k = 0; k < 2; k++) {
+                            // Creating Notifications
+                            //Notification types: primary, success, danger, warning
+
+                            //Fix the loop: needs to use k value and use a total length instead of fixed values
+                                var classToAdd = 'alert-' + cMatic.notifications.notif0.class;
+
+                                var notifDiv = $('<div>', {
+                                    class: 'alert row',
+                                    role: 'alert'
+                                });
+                                $(notifDiv).addClass(classToAdd);
+
+                                var notifLocationDiv = $('<div>', {
+                                    class: 'col-md-2',
+                                    text: cMatic.location
+                                });
+                                
+                                var notifMessageDiv = $('<div>', {
+                                    class: 'col-md-8',
+                                    text: cMatic.notifications.notif0.message
+                                });
+                                
+                                var notifTimesDiv = $('<div>', {
+                                    class: 'col-md-2 align-right',
+                                    text: cMatic.notifications.notif0.timestamp
+                                });
+                                
+                                notifDiv.append(notifLocationDiv, notifMessageDiv, notifTimesDiv);
+                                
+                                $('.notif-holder').prepend(notifDiv);
+                          }
+                          
 
 
                     } else {
@@ -51,7 +116,7 @@ async function getTestData(db) {
         showFirestoreDatabase()
     })
 })(jQuery)
-*/
+
 
 //Get Box info and create Box buttons
 

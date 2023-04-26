@@ -72,7 +72,7 @@ $(".fill-button").on("click", function() {
   }
 });
 
-
+/*
 
 //admin homepage -- card view element
 var rowDiv = $('<div>', {
@@ -113,12 +113,20 @@ rowDiv.append(cardDiv);
 // Append the row div to element. Do this for each one user is "subscribed" to
 $('.box-status-holder').append(rowDiv);
 
+*/
 
+//Card div for location and their data
+var rowDiv = $('<div>', {
+  class: 'row d-flex justify-content-center px-3'
+});
+
+var cardDiv = $('<div>', {
+  class: 'card'
+});
 
 //
-// Creating Notifications
 
 
-
+//Create others in a firebase function and append the notifications to notifholder class
 
 
