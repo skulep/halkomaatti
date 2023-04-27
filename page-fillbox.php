@@ -71,17 +71,20 @@ get_header('admin');
 </div>
 
 <div class="form-group">
-	<label for="exampleFormControlTextarea1">Message (optional)</label>
-	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	<label for="message-field">Message (optional)</label>
+	<textarea class="form-control" id="message-field" rows="3"></textarea>
 </div>
 
-<div class="checkbox mb-3">
-	<label>
-		<input type="checkbox" value="remember-me"> Mark as important/critical
-	</label>
-</div>
+<!----- Not priority but make a field required here -->
+<select class="form-select" id="class-select" aria-label="Default select example">
+	<option selected value="primary">Select dispenser state</option>
+	<option value="success">OK</option>
+	<option value="primary">Box filled with no issues</option>
+	<option value="warning">Minor issues</option>
+	<option value="danger">Major issues</option>
+</select>
 
-<a class="w-100 btn btn-lg btn-primary pb-5" href="http://localhost/wordpress" role="button">Mark as filled</a> 
+<a class="w-100 btn confirm-fill btn-lg btn-primary pb-5" id="confirm-fill" role="button" type="button">Mark as filled</a> 
 
 </main>    
 

@@ -13,7 +13,7 @@ async function getTestData(db) {
 //admin homepage -- card view element
 //admin homepage -- card view element
 
-
+/*
 (function ($) {
     'use strict';
     $(document).ready(function () {
@@ -117,6 +117,42 @@ async function getTestData(db) {
     })
 })(jQuery)
 
+*/
+//Get Box info and create Box buttons --- also on button click update all button data + create notification
+//Only on the fillbox page
 
-//Get Box info and create Box buttons
+(function ($) {
+    $( document ).ready(function(){
+    'use strict';
+        $("#confirm-fill").click(function () {
+            const db = firebase.firestore();
 
+            var timestamp = new Date($.now());
+            
+            db.collection("Alternate_layout")
+                .doc("Halkomatics")
+                .set({
+                //pull the data from the form using jquery and update the database
+                matic1: {
+                    notifications: {
+                        notif0: {
+                            class: $("#class-select").val(),
+                            message: $("#message-field").val(),
+                            timestamp: timestamp
+                        }
+                    }
+                }
+                }, {merge: true})
+
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+
+                console.log("finished");
+
+        });
+    });
+})(jQuery)
