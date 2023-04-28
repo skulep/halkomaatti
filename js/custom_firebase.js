@@ -31,26 +31,26 @@ async function getTestData(db) {
                 docRef.get().then(doc => {  
                     if (doc.exists) {
                         //do code here
-                        var cMatic = doc.data().Matic3;
+                        var cMatic = doc.data().matic1;
 
                         var h2Element = $('<h2>', {
                             class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
-                            text: cMatic.location
+                            text: cMatic.adress
                           });
                           
                           var pElement = $('<p>', {
                             class: 'card-font ml-auto mr-4 mb-0 card-font-m',
-                            text: cMatic.boxfull + '/' + cMatic.boxtotal + ' boxes have items'
+                            text: cMatic.boxNum + '/' + cMatic.boxNum + ' boxes are functional'
                           });
                           
                           var h1Element = $('<h1>', {
                             class: 'card-font ml-auto mr-4 card-font-m',
-                            text: cMatic.batteryCharge + '% battery remaining'
+                            text: cMatic.battery + '% battery remaining'
                           });
                           
                           var pElement2 = $('<p>', {
                             class: 'card-font ml-4 mb-4 card-font-s',
-                            text: 'Last filled on ' + cMatic.previouslyUsed
+                            text: 'Last filled on ' + cMatic.lastUsed
                           });
                           
                           // Append everything to card div
@@ -71,7 +71,7 @@ async function getTestData(db) {
                             //Notification types: primary, success, danger, warning
 
                             //Fix the loop: needs to use k value and use a total length instead of fixed values
-                                var classToAdd = 'alert-' + cMatic.notifications.notif0.class;
+                                var classToAdd = 'alert-' + cMatic.notifications.notif1.class;
 
                                 var notifDiv = $('<div>', {
                                     class: 'alert row',
@@ -81,17 +81,17 @@ async function getTestData(db) {
 
                                 var notifLocationDiv = $('<div>', {
                                     class: 'col-md-2',
-                                    text: cMatic.location
+                                    text: cMatic.adress
                                 });
                                 
                                 var notifMessageDiv = $('<div>', {
                                     class: 'col-md-8',
-                                    text: cMatic.notifications.notif0.message
+                                    text: cMatic.notifications.notif1.message
                                 });
                                 
                                 var notifTimesDiv = $('<div>', {
                                     class: 'col-md-2 align-right',
-                                    text: cMatic.notifications.notif0.timestamp
+                                    text: cMatic.notifications.notif1.timestamp
                                 });
                                 
                                 notifDiv.append(notifLocationDiv, notifMessageDiv, notifTimesDiv);
@@ -121,6 +121,7 @@ async function getTestData(db) {
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
 
+
 (function ($) {
     $( document ).ready(function(){
     'use strict';
@@ -129,8 +130,8 @@ async function getTestData(db) {
 
             var timestamp = new Date($.now());
             
-            db.collection("Alternate_layout")
-                .doc("Halkomatics")
+            db.collection("test-data")
+                .doc("wp-notifs")
                 .set({
                 //pull the data from the form using jquery and update the database
                 matic1: {
@@ -140,6 +141,15 @@ async function getTestData(db) {
                             message: $("#message-field").val(),
                             timestamp: timestamp
                         }
+                    },
+                    box1: {
+                        value:  $("#fill-button0").hasClass("empty"),
+                        timestamp: timestamp
+                    },
+
+                    box2: {
+                        value:  $("fill-button1").hasClass("faulty"),
+                        timestamp: timestamp
                     }
                 }
                 }, {merge: true})
@@ -150,9 +160,7 @@ async function getTestData(db) {
                 .catch(function(error) {
                     console.error("Error writing document: ", error);
                 });
-
-                console.log("finished");
-
         });
     });
 })(jQuery)
+

@@ -33,43 +33,61 @@ also add a notification -- something like   "30 Boxes refilled. Box #3 and #9 ma
                                             Filler's notice: yes the lock was broken, likely frozen"
 */
 
-
 // FillBox
 // Generating the buttons
 //FIX - color does not change on click
 //FIX - need to create a div every 3 buttons
 
+
 $(document).ready(function() {
   
+  //Button's Outer Div Class
+  var btnDiv = $('<div>', {
+    class: 'row pt-5 pb-5'
+  });
+
   for (var i = 0; i < 2; i++) {
     console.log(i);
-    var buttonText = i +1;
-    var $newButton = $('<button>', {
+    var buttonText = i + 1;
+    var newButton = $('<button>', {
       class: 'btn fill-button empty btn-outline-grey-border btn-rounded-square',
+      id: 'fill-button' + i,
       text: buttonText
     });
-    // Append the new button to the body or any other desired element
-    $('.ttfield').append($newButton);
-}
+
+    //Button's own class, appending both to btnDiv (which will then append to ttfield)
+    var btnInnerDiv = $('<div>', {
+      class: 'col d-flex justify-content-center'
+    });
+    
+    btnInnerDiv.append(newButton);
+    btnDiv.append(btnInnerDiv);
+
+  }
+  $('.ttfield').append(btnDiv);
 });
 
-//FillBox page -- change box color on click
-$(".fill-button").on("click", function() {
 
-  if ($(this).hasClass("empty")) {
-    $(this).removeClass("empty");
-    $(this).addClass("filled");
-  }
 
-  else if ($(this).hasClass("filled")) {
-    $(this).removeClass("filled");
-    $(this).addClass("faulty");
-  }
+$(document).ready(function() {
+  $(".fill-button").on("click", function() {
 
-  else if ($(this).hasClass("faulty")) {
-    $(this).removeClass("faulty");
-    $(this).addClass("empty");
-  }
+    console.log("fill-button was clicked");
+    if ($(this).hasClass("empty")) {
+      $(this).removeClass("empty");
+      $(this).addClass("filled");
+    }
+  
+    else if ($(this).hasClass("filled")) {
+      $(this).removeClass("filled");
+      $(this).addClass("faulty");
+    }
+  
+    else if ($(this).hasClass("faulty")) {
+      $(this).removeClass("faulty");
+      $(this).addClass("empty");
+    }
+  });
 });
 
 /*
