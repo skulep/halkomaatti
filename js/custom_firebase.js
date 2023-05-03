@@ -13,7 +13,27 @@ async function getTestData(db) {
 //admin homepage -- card view element
 //admin homepage -- card view element
 
+const collectionRef = firebase.firestore().collection('test-data');
+
+// Query the collection and get the documents
+async function getDocuments() {
+  const querySnapshot = await collectionRef.get();
+
+  // Loop through each document in the collection
+  querySnapshot.forEach((doc) => {
+    // Create a new element for the document
+    const newElement = document.createElement('div');
+    newElement.textContent = doc.data();
+
+    console.log(doc.data());
+
+    // Add the new element to the DOM
+    document.body.appendChild(newElement);
+  });
+}
+getDocuments();
 /*
+
 (function ($) {
     'use strict';
     $(document).ready(function () {
@@ -28,9 +48,11 @@ async function getTestData(db) {
             if (collectionName && documentName) {
                 const docRef = db.collection(collectionName).doc(documentName);
         
+                
                 docRef.get().then(doc => {  
                     if (doc.exists) {
                         //do code here
+
                         var cMatic = doc.data().matic1;
 
                         var h2Element = $('<h2>', {
@@ -121,7 +143,7 @@ async function getTestData(db) {
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
 
-
+/*
 (function ($) {
     $( document ).ready(function(){
     'use strict';
@@ -164,3 +186,4 @@ async function getTestData(db) {
     });
 })(jQuery)
 
+*/

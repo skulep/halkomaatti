@@ -6,6 +6,7 @@ fireb shortcode <?php echo do_shortcode ( '[custom_firebase]' ); ?>
 */
 
 
+
 get_header('admin');
 ?>
 

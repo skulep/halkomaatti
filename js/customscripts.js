@@ -47,7 +47,6 @@ $(document).ready(function() {
   });
 
   for (var i = 0; i < 2; i++) {
-    console.log(i);
     var buttonText = i + 1;
     var newButton = $('<button>', {
       class: 'btn fill-button empty btn-outline-grey-border btn-rounded-square',
@@ -72,7 +71,6 @@ $(document).ready(function() {
 $(document).ready(function() {
   $(".fill-button").on("click", function() {
 
-    console.log("fill-button was clicked");
     if ($(this).hasClass("empty")) {
       $(this).removeClass("empty");
       $(this).addClass("filled");
