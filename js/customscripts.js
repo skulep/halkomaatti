@@ -39,33 +39,6 @@ also add a notification -- something like   "30 Boxes refilled. Box #3 and #9 ma
 //FIX - need to create a div every 3 buttons
 
 
-$(document).ready(function() {
-  
-  //Button's Outer Div Class
-  var btnDiv = $('<div>', {
-    class: 'row pt-5 pb-5'
-  });
-
-  for (var i = 0; i < 2; i++) {
-    var buttonText = i + 1;
-    var newButton = $('<button>', {
-      class: 'btn fill-button empty btn-outline-grey-border btn-rounded-square',
-      id: 'fill-button' + i,
-      text: buttonText
-    });
-
-    //Button's own class, appending both to btnDiv (which will then append to ttfield)
-    var btnInnerDiv = $('<div>', {
-      class: 'col d-flex justify-content-center'
-    });
-    
-    btnInnerDiv.append(newButton);
-    btnDiv.append(btnInnerDiv);
-
-  }
-  $('.ttfield').append(btnDiv);
-});
-
 
 
 $(document).ready(function() {
@@ -87,6 +60,7 @@ $(document).ready(function() {
     }
   });
 });
+
 
 /*
 

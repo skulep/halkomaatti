@@ -28,7 +28,8 @@ get_header('admin');
 
 <div class="container">
 
-  	<div class="row pt-5">
+	<!----------
+	<div class="row pt-5">
 		<div class="col d-flex justify-content-center">
 			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">1</button>
 		</div>
@@ -40,29 +41,9 @@ get_header('admin');
 		</div>
   	</div>
 
-	<div class="row pt-5">
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">4</button>
-		</div>
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button faulty btn-outline-grey-border btn-rounded-square">5</button>
-		</div>
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">6</button>
-		</div>
-  	</div>
-
-	<div class="row pt-5 pb-5">
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button empty btn-outline-grey-border btn-rounded-square">7</button>
-		</div>
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button filled btn-outline-grey-border btn-rounded-square">8</button>
-		</div>
-		<div class="col d-flex justify-content-center">
-			<button type="button" class="btn fill-button filled btn-outline-grey-border btn-rounded-square">9</button>
-		</div>
-  	</div>
+	//href for below
+	href="https://localhost/wordpress"
+	---------->
 
 	<div class="row pt-5 ttfield">
  
@@ -84,7 +65,7 @@ get_header('admin');
 	<option value="danger">Major issues</option>
 </select>
 
-<a class="w-100 btn confirm-fill btn-lg btn-primary pb-5" id="confirm-fill" role="button" type="button">Mark as filled</a> 
+<a class="w-100 btn confirm-fill btn-lg btn-primary pb-5" id="confirm-fill" role="button"  type="button">Mark as filled</a> 
 
 </main>    
 
