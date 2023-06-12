@@ -3,8 +3,8 @@
 //Function to fetch data and create 'location cards'
 //admin homepage -- card view element
 
-const consumer_key = 'ck_8654598a0ec8c770a1ff5206be1623298d485ab5';
-const consumer_secret = 'cs_acad1d360ff6caf78484c8bc8bb8d86493acb359';
+const consumer_key = 'ck_c8ebd89159a0fa013e6aa1bc06d38e0071f64305';
+const consumer_secret = 'cs_9d64b26fc675c139e93f038bcaca3727f7623e99';
 
 var product_id = 123;
 var api_url = 'https://localhost/wordpress/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
@@ -27,6 +27,9 @@ var itemCounts = [];
         console.log("Description: " + product_description);
       });
 })(jQuery)
+
+var itemsToUpdate = [
+];
 
 //Fetch all data from Firebase
 
@@ -132,7 +135,6 @@ async function getDocumentData(collectionName, documentName) {
         
         var buttonStatusClass = 'empty';
 
-
         switch (data2[key].status) {
             case 0:
                 buttonStatusClass = 'empty';
@@ -145,14 +147,30 @@ async function getDocumentData(collectionName, documentName) {
                 break;
         }
 
-
-
         var newButton = $('<button>', {
             class: 'btn fill-button btn-outline-grey-border btn-rounded-square',
             id: 'fill-button' + buttonText,
             text: buttonText
         });
         $(newButton).addClass(buttonStatusClass);
+        $(newButton).on("click", function() {
+        
+            if ($(this).hasClass("empty")) {
+              $(this).removeClass("empty");
+              $(this).addClass("filled");
+            }
+          
+            else if ($(this).hasClass("filled")) {
+              $(this).removeClass("filled");
+              $(this).addClass("faulty");
+            }
+          
+            else if ($(this).hasClass("faulty")) {
+              $(this).removeClass("faulty");
+              $(this).addClass("empty");
+            }
+          });
+
 
         //Button's own class, appending both to btnDiv (which will then append to ttfield)
         var btnInnerDiv = $('<div>', {
@@ -166,34 +184,56 @@ async function getDocumentData(collectionName, documentName) {
         selectElement.setAttribute("aria-label", "Default select example");
         
         // Create options
+        //Get category item IDs and add each item as an option
+        /*
+        var optionsToAdd = [
+            {value: 95, itemName: "Wood"},
+            {value: 96, itemName: "Matches"},
+            {value: 123, itemName: "Beanie"}
+        ];
+
+        for (let i = 0; i < optionsToAdd.length; i++) {
+            eval ('var ' + 'option' + i + ' = ' + 'document.createElement("option");' );
+
+            console.log(option0);
+
+            console.log(eval ('var ' + 'option' + i + ' = ' + 'document.createElement("option");' ));
+
+            //var option[i] = document.createElement("option");
+            if (i == 0) {
+                option[i].selected = true;       //The first element will require this.
+            }
+            option[i].value = optionsToAdd[i].value;
+            option[i].itemName = optionsToAdd[i].itemName;
+
+            selectElement.append(option[i]);
+        }*/
+        
         var option1 = document.createElement("option");
         option1.selected = true;
-        option1.value = "110";
-        option1.textContent = "110 - Placeholder";
+        option1.value = "95";
+        option1.textContent = "95 - Firewood, S";
         
         var option2 = document.createElement("option");
-        option2.value = "111";
-        option2.textContent = "111 - Firewood, S";
+        option2.value = "106";
+        option2.textContent = "106 - Beanie";
         
         var option3 = document.createElement("option");
-        option3.value = "112";
-        option3.textContent = "112 - Firewood, L";
+        option3.value = "107";
+        option3.textContent = "107 - Belt";
         
         var option4 = document.createElement("option");
-        option4.value = "123";
-        option4.textContent = "123 - Beanie";
+        option4.value = "96";
+        option4.textContent = "96 - Matches";
         
-        var option5 = document.createElement("option");
-        option5.value = "99";
-        option5.textContent = "99 - Unknown";
         
         // Append options to select element
         selectElement.append(option1);
         selectElement.append(option2);
         selectElement.append(option3);
         selectElement.append(option4);
-        selectElement.append(option5);
 
+        
         
         btnInnerDiv.append(newButton);
 
@@ -213,11 +253,7 @@ async function getDocumentData(collectionName, documentName) {
   }
 }
 
-
-
 getDocumentData('Alternate_layout', 'Halkomatics');
-
-
 
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
@@ -244,169 +280,76 @@ getDocumentData('Alternate_layout', 'Halkomatics');
             })
             .catch(function(error) {
                 console.error("Error writing document: ", error);
-            });*/
+            });
+*/
 
+            //!!!!!!!!!!!!!!!!! make dynamic
             itemIDs.push($("#id-select-1").val(), $("#id-select-2").val(), $("#id-select-3").val());
 
-            console.log(itemIDs);
-        });
+            //console.log(itemIDs);
 
 
+            //Adding items to array
+            //updates all product data.
+            console.log("classes:" + document.getElementById("fill-button1").classList);
 
+            var buttonsLen = document.getElementsByClassName("fill-button").length;
+            for (let i = 0; i < buttonsLen; i++) {
+                var buttonNumber = i+1;
+                var selectedId = $('#id-select-' + buttonNumber).val();
+                console.log(selectedId);
 
-    });
-})(jQuery)
-
-
-
-
-
-
-/*
-(function ($) {
-    $( document ).ready(function(){
-    'use strict';
-        $("#confirm-fill").click(function () {
-            var timestamp = new Date($.now());
-
-            db.collection('test-data')
-                .doc('wp-notifs')
-                .set({
-                //pull the data from the form using jquery and update the database
-                matic1: {
-                    notifications: {
-                        notif0: {
-                            class: $("#class-select").val(),
-                            message: $("#message-field").val(),
-                            timestamp: timestamp
-                        }
-                    }
-                }
-                }, {merge: true})
-
-                .then(function() {
-                    console.log("Document successfully written!");
-                })
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-        });
-    });
-})(jQuery)
-
-
-
-
-
-
-
-(function ($) {
-
-    const db = firebase.firestore();
-    const firestoreEl = jQuery('#custom-firebase');
-
-    // You can get the collectionName and documentName from the shortcode attribute
-    const collectionName = 'Alternate_layout';
-    const documentName = 'Halkomatics'
-
-    'use strict';
-    $(document).ready(function () {
-        const showFirestoreDatabase = () => {
-
-        
-            if (collectionName && documentName) {
-                const docRef = db.collection(collectionName).doc(documentName);
-        
-                
-                docRef.get().then(doc => {  
-                    if (doc.exists) {
-                        //do code here
-
-                        var cMatic = doc.data().matic1;
-
-                        var h2Element = $('<h2>', {
-                            class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
-                            text: cMatic.adress
-                          });
-                          
-                          var pElement = $('<p>', {
-                            class: 'card-font ml-auto mr-4 mb-0 card-font-m',
-                            text: cMatic.boxNum + '/' + cMatic.boxNum + ' boxes are functional'
-                          });
-                          
-                          var h1Element = $('<h1>', {
-                            class: 'card-font ml-auto mr-4 card-font-m',
-                            text: cMatic.battery + '% battery remaining'
-                          });
-                          
-                          var pElement2 = $('<p>', {
-                            class: 'card-font ml-4 mb-4 card-font-s',
-                            text: 'Last filled on ' + cMatic.lastUsed
-                          });
-                          
-                          // Append everything to card div
-                          cardDiv.append(h2Element, pElement, h1Element, pElement2);
-                          
-                          // Append the card div to the row div
-                          rowDiv.append(cardDiv);
-                          
-                          // Append the row div to element. Do this for each one user is "subscribed" to
-                          $('.box-status-holder').append(rowDiv);
-
-
-                          //Creating the admin main screen notifications
-                          let notifLen = Object.keys(cMatic.notifications).length;
-                          console.log("length: "+ notifLen);
-
-                          for (var k = 0; k < notifLen; k++) {
-                            // Creating Notifications
-                            //Notification types: primary, success, danger, warning
-
-                            //Fix the loop: needs to use k value and use a total length instead of fixed values
-                                let matics = [cMatic.notifications.notif0,cMatic.notifications.notif1,cMatic.notifications.notif2];
-                            
-
-                                var classToAdd = 'alert-' + matics[k].class;
-
-                                var notifDiv = $('<div>', {
-                                    class: 'alert row',
-                                    role: 'alert'
-                                });
-                                $(notifDiv).addClass(classToAdd);
-
-                                var notifLocationDiv = $('<div>', {
-                                    class: 'col-md-2',
-                                    text: cMatic.adress
-                                });
-                                
-                                var notifMessageDiv = $('<div>', {
-                                    class: 'col-md-8',
-                                    text: matics[k].message
-                                });
-                                
-                                var notifTimesDiv = $('<div>', {
-                                    class: 'col-md-2 align-right',
-                                    text: matics[k].timestamp
-                                });
-                                
-                                notifDiv.append(notifLocationDiv, notifMessageDiv, notifTimesDiv);
-                                
-                                $('.notif-holder').prepend(notifDiv);
-                          }
-                          
-
-
+                  if ($('#fill-button' + buttonNumber).hasClass("filled")) {
+                    var newItem = {id: selectedId, newStock: 1};  //Only need to add 1 item at once.
+                    var itemToUpdate = itemsToUpdate.find(item => item.id === newItem.id); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
+                    console.log(itemToUpdate);
+                    if (itemsToUpdate.some(item => item.id === newItem.id)) {
+                        console.log("ID already exists in the array. Stock value will be updated");
+                        itemToUpdate.newStock += 1;
                     } else {
-                        // doc.data() will be undefined in this case
-                        console.error('E1: Document does not exist');
+                        console.log("ID does not exist in the array. New entry added");
+                        itemsToUpdate.push(newItem);
                     }
-                }).catch(error => {
-                    console.error('E2:', error);
-                });
-            } else {
-                console.warn('E3: Please check your collection and document name in the [firestore] shortcode!');
+                  }
+                  //!!!!!!!! can make this a lot shorter than currently. just for testing purposes :)
+                  else {
+                    console.log("I: not filled status")
+                    var newItem = {id: selectedId, newStock: 0};  //Add 0 item so you can set stock status to 0.
+                    var itemToUpdate = itemsToUpdate.find(item => item.id === newItem.id); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
+                    console.log(itemToUpdate);
+                    if (itemsToUpdate.some(item => item.id === newItem.id)) {
+                        console.log("ID already exists in the array.");
+                    } else {
+                        console.log("ID does not exist in the array. New entry added");
+                        itemsToUpdate.push(newItem);
+                    }
+                  }
             }
-        }
-        
-        showFirestoreDatabase()
-    })/*/
+
+            console.log(itemsToUpdate);
+            //Updates product stock to Woocommerce
+            for (let i = 0; i < itemsToUpdate.length; i++) {
+                console.log(itemsToUpdate[i].id);
+            
+                let url = 'https://localhost/wordpress/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+            
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        },
+                    body: JSON.stringify({ stock_quantity: itemsToUpdate[i].newStock }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Product stock updated successfully:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error updating product stock:', error);
+                    });
+            }   //Works now!
+        });
+
+
+    });
+})(jQuery)

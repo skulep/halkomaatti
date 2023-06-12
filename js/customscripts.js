@@ -40,9 +40,11 @@ also add a notification -- something like   "30 Boxes refilled. Box #3 and #9 ma
 
 
 
-
+/*
 $(document).ready(function() {
   $(".fill-button").on("click", function() {
+
+    console.log("fillbutton was pressed");
 
     if ($(this).hasClass("empty")) {
       $(this).removeClass("empty");
@@ -60,7 +62,7 @@ $(document).ready(function() {
     }
   });
 });
-
+*/
 
 /*
 
