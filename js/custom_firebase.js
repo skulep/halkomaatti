@@ -42,7 +42,7 @@ async function getDocumentData(collectionName, documentName) {
 
   if (doc.exists) {
     //Create notifications
-    const data = doc.data().matic1.notifications;
+    const data = doc.data().notifications;
 
 
     //
@@ -50,22 +50,22 @@ async function getDocumentData(collectionName, documentName) {
     //create the card view element here for now. dirty approach, fix later
     var h2Element = $('<h2>', {
         class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
-        text: doc.data().matic1.adress
+        text: doc.data().address
     });
     
     var pElement = $('<p>', {
         class: 'card-font ml-auto mr-4 mb-0 card-font-m',
-        text: doc.data().matic1.boxNum + '/' + doc.data().matic1.boxNum + ' boxes are functional'
+        text: doc.data().doors + ' boxes are functional'
     });
     
     var h1Element = $('<h1>', {
         class: 'card-font ml-auto mr-4 card-font-m',
-        text: doc.data().matic1.battery + '% battery remaining'
+        text: doc.data().battery + '% battery remaining'
     });
     
     var pElement2 = $('<p>', {
         class: 'card-font ml-4 mb-4 card-font-s',
-        text: 'Last filled on ' + doc.data().matic1.lastUsed
+        text: 'Last filled on ' + doc.data().lastFilled.toDate().toDateString()
     });
     
     // Append everything to card div
@@ -83,11 +83,10 @@ async function getDocumentData(collectionName, documentName) {
         const value = data[key];
 
         var classToAdd = 'alert-' + data[key].class;
-        var notifTime = data[key].timestamp.seconds * 1000;  //value is in seconds
-        var notifDate = data[key].timestamp.nanoseconds;     //value is in nanoseconds
+        var notifDate = data[key].timestamp.toDate().toDateString();     //value is in nanoseconds
+        var notifTime = data[key].timestamp.toDate().toLocaleTimeString('en-US');
 
-        var time = new Date(notifTime + notifDate);
-        var notifTimestamp = time.toLocaleString('en-GB');
+        var notifTimestamp = notifTime + ', ' + notifDate;
         
         var notifDiv = $('<div>', {
             class: 'alert row',
@@ -97,7 +96,7 @@ async function getDocumentData(collectionName, documentName) {
 
         var notifLocationDiv = $('<div>', {
             class: 'col-md-2',
-            text: doc.data().matic1.adress
+            text: doc.data().address
         });
         
         var notifMessageDiv = $('<div>', {
@@ -123,7 +122,7 @@ async function getDocumentData(collectionName, documentName) {
     //Create box buttons
     //Only visible on the fillbox site
 
-    const data2 = doc.data().matic1.boxes;
+    const data2 = doc.data().boxes;
     var buttonText = 1;
     var btnDiv = $('<div>', {
         class: 'row pt-5 pb-5'
@@ -208,6 +207,9 @@ async function getDocumentData(collectionName, documentName) {
 
             selectElement.append(option[i]);
         }*/
+
+        //If dbID == option value, set a value as selected
+        var dbID = data2[key].itemId;
         
         var option1 = document.createElement("option");
         option1.selected = true;
@@ -225,6 +227,25 @@ async function getDocumentData(collectionName, documentName) {
         var option4 = document.createElement("option");
         option4.value = "96";
         option4.textContent = "96 - Matches";
+
+        var options = [option1, option2, option3, option4];
+
+        //I think it works??????????????????
+        if (dbID) {
+            for (let i = 0; i < options.length; i++) {
+
+                var optionVal = options[i].value;
+                console.log("current option value: " + optionVal);
+                console.log("id from db: " + dbID);
+
+                if (dbID == optionVal) {
+                    options[i].selected = true;
+                }
+                else {
+                    option1.selected;
+                }
+            }
+        }
         
         
         // Append options to select element
@@ -253,7 +274,7 @@ async function getDocumentData(collectionName, documentName) {
   }
 }
 
-getDocumentData('Alternate_layout', 'Halkomatics');
+getDocumentData('Halkomatics', 'Ankkalinna');
 
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
@@ -268,11 +289,39 @@ getDocumentData('Alternate_layout', 'Halkomatics');
                 message: $("#message-field").val(),
                 timestamp: timestamp
             };
-/*
-            db.collection("Alternate_layout").doc("Halkomatics").set({
-                matic1:{
-                    notifications: firebase.firestore.FieldValue.arrayUnion(pushData)
+
+            //Individual box data to Firebase
+            var boxes = {};
+            var buttonsLen = document.getElementsByClassName("fill-button").length;
+            
+            for (let x = 1; x <= buttonsLen; x++) {
+                let box_name = "box" + x;
+                let boxClass = 0;
+
+                if ($('#fill-button' + x).hasClass("empty")) {
+                    boxClass = 0;
                 }
+                else if ($('#fill-button' + x).hasClass("filled")) {
+                    boxClass = 1;
+                }
+                else if ($('#fill-button' + x).hasClass("faulty")) {
+                    boxClass = 2;
+                }
+
+
+                boxes[box_name] = {
+                    itemId: $('#id-select-' + x).val(),
+                    status: boxClass,
+                    timestamp: timestamp
+                };
+            }
+
+            console.log(boxes);
+
+
+            db.collection("Halkomatics").doc("Ankkalinna").set({
+                notifications: firebase.firestore.FieldValue.arrayUnion(pushData),
+                boxes: boxes
             }, {merge: true})
 
             .then(function() {
@@ -281,23 +330,22 @@ getDocumentData('Alternate_layout', 'Halkomatics');
             .catch(function(error) {
                 console.error("Error writing document: ", error);
             });
-*/
+
+            console.log(boxes);
 
             //!!!!!!!!!!!!!!!!! make dynamic
-            itemIDs.push($("#id-select-1").val(), $("#id-select-2").val(), $("#id-select-3").val());
+            //itemIDs.push($("#id-select-1").val(), $("#id-select-2").val(), $("#id-select-3").val());
 
             //console.log(itemIDs);
 
 
             //Adding items to array
             //updates all product data.
-            console.log("classes:" + document.getElementById("fill-button1").classList);
 
-            var buttonsLen = document.getElementsByClassName("fill-button").length;
+            //var buttonsLen = document.getElementsByClassName("fill-button").length;
             for (let i = 0; i < buttonsLen; i++) {
                 var buttonNumber = i+1;
                 var selectedId = $('#id-select-' + buttonNumber).val();
-                console.log(selectedId);
 
                   if ($('#fill-button' + buttonNumber).hasClass("filled")) {
                     var newItem = {id: selectedId, newStock: 1};  //Only need to add 1 item at once.
@@ -313,23 +361,20 @@ getDocumentData('Alternate_layout', 'Halkomatics');
                   }
                   //!!!!!!!! can make this a lot shorter than currently. just for testing purposes :)
                   else {
-                    console.log("I: not filled status")
                     var newItem = {id: selectedId, newStock: 0};  //Add 0 item so you can set stock status to 0.
                     var itemToUpdate = itemsToUpdate.find(item => item.id === newItem.id); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
                     console.log(itemToUpdate);
                     if (itemsToUpdate.some(item => item.id === newItem.id)) {
                         console.log("ID already exists in the array.");
                     } else {
-                        console.log("ID does not exist in the array. New entry added");
+                        console.log("ID does not exist in the array. New entry added at value 0.");
                         itemsToUpdate.push(newItem);
                     }
                   }
             }
 
-            console.log(itemsToUpdate);
             //Updates product stock to Woocommerce
             for (let i = 0; i < itemsToUpdate.length; i++) {
-                console.log(itemsToUpdate[i].id);
             
                 let url = 'https://localhost/wordpress/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
             
