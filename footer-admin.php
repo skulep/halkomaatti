@@ -17,16 +17,23 @@
 			<div class="row">
 				<div class="col-md-14 d-flex justify-content-center">
 					<ul class="bottom-nav-bar-list">
-						<li>
-							<i class="bi bi-house-door"></i> Home
+						<li>	
+							<a class="btn btn-primary" href="http://localhost/wordpress/cart/" role="button">
+								Home <i class="bi bi-house-door"></i>  
+							</a>
 						</li>
 
 						<li>
-							<i class="bi bi-box-seam"></i> Dispensers
+							<a class="btn btn-primary" href="http://localhost/wordpress/cart/" role="button">
+								Dispensers <i class="bi bi-box-seam"></i> 
+							</a>
+								
 						</li>
 
 						<li>
-							<i class="bi bi-bell"></i> Notifications
+							<a class="btn btn-primary" href="http://localhost/wordpress/cart/" role="button">
+								Notifications <i class="bi bi-bell"></i>
+							</a>
 						</li>
 
 					</ul>
