@@ -28,7 +28,7 @@
 
 
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #42F1BD">
-		<a class="navbar-brand" href="http://firewood2go.eu/wordpress/customer">Halkomaatti</a>
+		<a class="navbar-brand" href="http://firewood2go.eu">Vedogvarer</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -39,8 +39,8 @@
 			</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Tuira</a>
-					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Sijainti2</a>
-					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Sijainti3</a>
+					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Placeholder</a>
+					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">2nd Placeholder</a>
 				</div>
 				<a class="btn nav-item me-auto p-2" type="button" href="https://firewood2go.eu/index.php/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
 				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/customer-info/"><i class="bi bi-info-circle"></i> About</a>
