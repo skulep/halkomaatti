@@ -26,7 +26,7 @@ get_header('admin');
 				<input type="checkbox" value="remember-me"> Remember me
 		</label>
     </div>
-	<a class="w-100 btn btn-lg btn-primary" href="http://localhost/wordpress" role="button">Log In</a> 
+	<a class="w-100 btn btn-lg btn-primary" href="https://firewood2go.eu/index.php/admin-main/" role="button">Log In</a> 
   </form>
 </main>    
 

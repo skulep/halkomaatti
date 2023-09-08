@@ -7,7 +7,7 @@ const consumer_key = 'ck_c8ebd89159a0fa013e6aa1bc06d38e0071f64305';
 const consumer_secret = 'cs_9d64b26fc675c139e93f038bcaca3727f7623e99';
 
 var product_id = 123;
-var api_url = 'https://localhost/wordpress/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+var api_url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
 
 var product_name = 'null';
 
@@ -376,7 +376,7 @@ getDocumentData('Halkomatics', 'Ankkalinna');
             //Updates product stock to Woocommerce
             for (let i = 0; i < itemsToUpdate.length; i++) {
             
-                let url = 'https://localhost/wordpress/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+                let url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
             
                 fetch(url, {
                     method: 'POST',

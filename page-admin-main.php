@@ -21,7 +21,7 @@ get_header('admin');
 		<h1 class="text-center">Notifications</h1>
 		<div class="notif-holder">
 			<div class="text-center">
-				<a href="http://localhost/wordpress/all-notifications/" class="btn btn-primary btn-lg text-center justify-content-center" role="button" aria-disabled="true">All notifications</a>
+				<a href="https://firewood2go.eu/index.php/admin-notifications/" class="btn btn-primary btn-lg text-center justify-content-center" role="button" aria-disabled="true">All notifications</a>
 			</div>
 
 		</div>

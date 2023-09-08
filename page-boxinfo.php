@@ -25,7 +25,7 @@ get_header('admin');
 					<h6>Example Street Name</h6>
 					<h6>Oulu, Finland</h6>
 					<h6>14.595328, 15.2335643</h6>
-					<a class="btn btn-primary" style="w-100" href="http://localhost/wordpress/fill-a-dispenser/" role="button">Register to Fill</a> 
+					<a class="btn btn-primary" style="w-100" href="https://firewood2go.eu/index.php/admin-fill-box/" role="button">Register to Fill</a> 
 
 					<a class="btn btn-outline-warning" href="#" role="button">Remove from database</a>
 				</div>
@@ -39,7 +39,7 @@ get_header('admin');
 					<h6>Example Street Name</h6>
 					<h6>Oulu, Finland</h6>
 					<h6>14.595328, 15.2335643</h6>
-					<a class="btn btn-primary" href="http://localhost/wordpress/fill-a-dispenser/" role="button">Register to Fill</a> 
+					<a class="btn btn-primary" href="https://firewood2go.eu/index.php/admin-fill-box/" role="button">Register to Fill</a> 
 
 					<a class="btn btn-outline-warning" href="#" role="button">Remove from database</a>
 				</div>

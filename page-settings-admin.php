@@ -27,7 +27,7 @@ get_header('admin');
 			</div>
 		</div>
 
-		<a class="btn btn-primary" href="http://localhost" role="button">Register to Fill</a> 
+		<a class="btn btn-primary" href="https://firewood2go.eu/index.php/admin-fill-box/" role="button">Register to Fill</a> 
 		<br>
 		<a class="btn btn-outline-warning-border" href="#" role="button">Remove from database</a>
 
