@@ -16,7 +16,11 @@ get_header('customer');
 			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 
 			<div class="container">
-				<h5 class="text-center">Items and services</h5>
+				<h5 class="text-center">
+					
+				Items and services
+				this is a test string
+				</h5>
 
 				<?php echo do_shortcode ( '[products columns=5 limit=16]' ); ?>
 			</div>
