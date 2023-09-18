@@ -7,16 +7,16 @@ get_header('admin');
 ?>
 
 	<main id="primary" class="site-main">
-		<h1>List of Organizations</h1>
+		<h1 class="text-center py-3">List of Organizations</h1>
 
 		
 
-		<div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+		<div class="container-fluid px-1 px-md-4 py-3 mx-auto">
     		<div class="row d-flex justify-content-center px-3">
         		<div class="card">
-					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Halkomaatti Official Dispenser</h2>
-					<p class="card-font ml-auto mr-4 mb-0 card-font-m">Owners: This Guy, That Guy</p>
-					<p class="card-font ml-auto mr-4 mb-0 card-font-m">List of registered dispensers:</p>
+					<h2 class="card-font ml-auto mr-4 mt-3 mb-0 card-font-l">Vedogvarer</h2>
+					<p class="card-font ml-auto mr-4 mb-0 card-font-m">Owners: Matti</p>
+					<p class="card-font ml-auto mr-4 mb-2 card-font-m">List of registered dispensers:</p>
 
 					<div class="alert row alert-success" role="alert">
 						<div class="col-md-4">
@@ -32,7 +32,7 @@ get_header('admin');
 
 					<div class="alert row alert-success" role="alert">
 						<div class="col-md-4">
-							<strong>Tuira Alternative</strong>
+							<strong>Tuira Secondary</strong>
 						</div>
 						<div class="col-md-4">
 							Fillers appointed: 25

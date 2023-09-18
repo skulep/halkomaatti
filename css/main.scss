@@ -1,17 +1,21 @@
 //Add Bootstrap specific code before the import
 
-$primary: #42F1BD;
-$secondary: #C4FFED;
+$primary: #4CAF50;
+$secondary: #008000;
+$accent: #FF5722;
 
 $warning: #edffbc;
 $danger: #ff7c6b;
 $success: #6dffb6;
 $defaultbtn: #E5E5E5;
 
-$defaultfont: #000000;
+$defaultfont: #333333;
+
 
 $grey-bg: #fafafa;
 $grey-border: #cacaca;
+
+$background-color: #F5F5F5;
 
 $theme-colors: (
     "primary": $primary,
@@ -19,7 +23,9 @@ $theme-colors: (
     "danger": $danger,
     "success": $success,
     "defaultfont": $defaultfont,
-    "grey-border": $grey-border
+    "grey-border": $grey-border,
+    "background-color": $background-color,
+    "accent": $accent
 );
 
 $custom-color: (
@@ -35,6 +41,10 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 
 //Global
 
+body {
+    background-color: $background-color;
+}
+
 .btn-rounded {
     width: 30px;
     height: 30px;
@@ -49,7 +59,7 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     height: 100%;
     border-radius: 15px;
     text-align: center;
-    color: #000000;
+    color: $defaultfont;
     font-size: 24px;
 }
 
@@ -78,8 +88,8 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 /// 
 .navbar {
     font-size: 18px;
-    background-color: #42F1BD;
-    border-bottom: 2px solid #000000;
+    background-color: $primary;
+    border-bottom: 2px solid $defaultfont;
 
         //Only effective with navigation-bar-list
         &-list {
@@ -131,8 +141,8 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 
 .bottom-nav-bar {
     font-size: 18px;
-    background-color: #42F1BD;
-    border-top: 1px solid #31ac87;
+    background-color: $primary;
+    border-top: 1px solid $secondary;
 
     //Only effective with navigation-bar-list
     &-list {
@@ -176,7 +186,7 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 
 .card-font {
 
-    color:#FFFFFF;
+    color: $background-color;
 
     &-l {
         font-size: 40px;
@@ -205,7 +215,7 @@ $theme-colors: map-merge($theme-colors, $custom-color);
 /// Box Info Page
 
 .box-info-box {
-    border: 1px solid #000000;
+    border: 1px solid $defaultfont;
     padding: 0px;
     margin: auto;
 }
@@ -272,13 +282,12 @@ $theme-colors: map-merge($theme-colors, $custom-color);
     margin-bottom: 20px;
 }
 
-
-
-.woocommerce .proceed-to-checkout {
-    background-color: $primary;
+.home-slider-title {
+    background-color: $background-color;
+    opacity: 0.3;
+    border: 1px solid $defaultfont;
 }
 
-//
 
 //
 

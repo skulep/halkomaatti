@@ -27,7 +27,7 @@
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'halko' ); ?></a>
 
 
-	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #42F1BD">
+	<nav class="navbar navbar-expand-lg navbar-light px-2">
 		<a class="navbar-brand" href="http://firewood2go.eu">Vedogvarer</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>

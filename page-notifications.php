@@ -7,9 +7,9 @@ Template Name: Admin Notifications
 get_header('admin');
 ?>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-		<h1>All Notifications</h1>
 		<div class="notif-holder">
+			<h2 class="text-center py-3">All Notifications</h2>
+
 			<div class="alert row alert-primary" role="alert">
 				<div class="col-md-2">
 					<strong>Tuira</strong>

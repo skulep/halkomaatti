@@ -967,3 +967,16 @@ textarea {
 	margin-right: auto;
 	margin-bottom: 1.5em;
 }
+
+
+/*
+Custom stuff. Changes button colors on shop and order pages.
+*/
+
+.woocommerce .cart a.button.alt, .woocommerce-page a.button.alt {
+    background-color: #42F1BD !important;
+  }
+
+#payment .place-order .button {
+    background-color: #42F1BD;
+} 

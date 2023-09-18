@@ -17,9 +17,7 @@ get_header('customer');
 
 			<div class="container">
 				<h5 class="text-center">
-					
 				Items and services
-				this is a test string
 				</h5>
 
 				<?php echo do_shortcode ( '[products columns=5 limit=16]' ); ?>
