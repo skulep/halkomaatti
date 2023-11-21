@@ -1,3 +1,6 @@
+<?php echo do_shortcode ( '[need_login]' ); ?>
+
+
 <?php
 /*
 Template Name: Admin Login
@@ -6,7 +9,7 @@ type="submit" -- button type
 
 get_header('admin');
 ?>
-
+  
 
 	<main class="form-signin w-100 m-auto">
   <form>

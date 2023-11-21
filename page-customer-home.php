@@ -16,16 +16,14 @@ get_header('customer');
 		<img src="https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg" class="img-fluid" style="height: 350px; width: 100%; display: block;">
 	</div>
 	
-	<div class="container">
-		<div class="mask d-flex flex-column justify-content-center text-center" style="background-color: rgba(200,200,200,0.5); width: 250px">
-			<div class="home_slider_title text-center text-light">
-				<h4>In need of wood?<br>We have you covered!</h4>
-			</div>
+	<div class="container d-flex justify-content-center">
+		<div class="mask d-flex flex-column justify-content-center text-center" style="background-color: rgba(255,255,255,0.5); width: 250px">
+			<h4 class="text-center">In need of wood?<br>We have you covered!</h4>
 		</div>
 	</div>
 </div>
 
-<h4 class="d-sm-none text-center pt-2">In need of wood?<br>We have you covered!</h4>
+<h4 class="d-sm-none text-center pt-2 ">In need of wood?<br>We have you covered!</h4>
 
 <div class="vstack gap-3 col-md-8 mx-auto mt-5">
 	<h5 class="text-center">List of Locations</h5>	

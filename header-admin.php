@@ -34,7 +34,7 @@
   	</button>
   	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     	<div class="navbar-nav display-flex">
-			<a class="nav-item nav-link" href="#">Dispensers</a>
+			<a class="nav-item nav-link" href="https://firewood2go.eu/index.php/admin-box-info/">Dispensers</a>
 			<a class="nav-item nav-link" href="https://firewood2go.eu/index.php/admin-organizations/">Organizations</a>
 			<a class="nav-item nav-link" href="#">Settings</a>
 			<a class="nav-item nav-link text-right" href="https://firewood2go.eu/index.php/admin-login/">Log Out</a>

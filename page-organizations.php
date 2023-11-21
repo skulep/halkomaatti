@@ -1,3 +1,5 @@
+<?php echo do_shortcode ( '[need_login]' ); ?>
+
 <?php
 /*
 Template Name: Admin Organizations

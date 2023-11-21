@@ -62,7 +62,7 @@
 				</div>
       			<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<a class="btn btn-primary" href="geo:14.595328, 15.2335643" target="_blank" role="button">Open in app</a>
+					<a class="btn btn-primary" href="geo:14.595328,15.2335643" target="_blank" role="button">Open in app</a>
 				</div>
     		</div>
   		</div>

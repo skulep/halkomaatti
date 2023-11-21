@@ -1,3 +1,31 @@
+<?php echo do_shortcode ( '[need_login]' ); ?>
+
+<?php global $current_user;
+wp_get_current_user();
+$user_name = $current_user->user_login;
+$user_email = $current_user->user_email;
+?>
+
+<script type="text/javascript">
+	var username = <?php echo json_encode($user_name) ?> ;
+	var useremail = <?php echo json_encode($user_email) ?> ;
+
+	console.log(username);
+	console.log(useremail);
+
+	//See if a firebase connection is possible -- if so
+
+	if (username == 'filler') {
+		console.log('Authorized to fill');
+	}
+	else {
+		alert("This user is unauthorized to fill in this location.");
+		window.open("https://firewood2go.eu/index.php/admin-main/","_self");
+	}
+
+</script>
+
+
 <?php
 /*
 Template Name: Admin Fill Box

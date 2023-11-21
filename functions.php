@@ -314,3 +314,26 @@ function firebase_fetch_func($atts)
     return "<div id='firebase-fetch'>DATA FROM FIREBASE</div>";
 }
 add_shortcode('custom_firebase', 'firebase_fetch_func');
+
+add_shortcode('need_login', 'shortcode_needLogin');
+
+function shortcode_needLogin() {
+    if (!is_user_logged_in()) {
+        auth_redirect();
+    }
+}
+/*
+function mm_get_current_username(){
+    $current_user = wp_get_current_user();
+	$username = $current_user->user_login;
+    return $username;  
+} 
+add_shortcode( 'get_username', 'mm_get_current_username');
+
+function mm_get_current_user_email(){
+    $current_user =  wp_get_current_user();
+    $email = $current_user->user_email; 
+    return $email;  
+} 
+add_shortcode( 'get_email', 'mm_get_current_user_email');
+*/
