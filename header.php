@@ -34,14 +34,63 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav display-flex">
-			<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+				<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="bi bi-pin-map"></i> Locations
-			</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Tuira</a>
-					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">Placeholder</a>
-					<a class="dropdown-item" href="https://firewood2go.eu/index.php/customer-store-view/">2nd Placeholder</a>
+
+				<?php
+
+					$taxonomy     = 'product_cat';
+					$orderby      = 'name';  
+					$show_count   = 0;      // 1 for yes, 0 for no
+					$pad_counts   = 0;      // 1 for yes, 0 for no
+					$hierarchical = 1;      // 1 for yes, 0 for no  
+					$title        = '';  
+					$empty        = 0;
+
+					$args = array(
+							'taxonomy'     => $taxonomy,
+							'orderby'      => $orderby,
+							'show_count'   => $show_count,
+							'pad_counts'   => $pad_counts,
+							'hierarchical' => $hierarchical,
+							'title_li'     => $title,
+							'hide_empty'   => $empty
+					);
+					$all_categories = get_categories( $args );
+					foreach ($all_categories as $cat) {
+						if($cat->category_parent == 0) {
+							$category_id = $cat->term_id;       
+							#echo '<br /><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
+							#We do not want to show the main categories here.
+
+							$args2 = array(
+									'taxonomy'     => $taxonomy,
+									'child_of'     => 0,
+									'parent'       => $category_id,
+									'orderby'      => $orderby,
+									'show_count'   => $show_count,
+									'pad_counts'   => $pad_counts,
+									'hierarchical' => $hierarchical,
+									'title_li'     => $title,
+									'hide_empty'   => $empty
+							);
+							$sub_cats = get_categories( $args2 );
+								if($sub_cats) {
+
+									foreach($sub_cats as $sub_category) {
+										echo  '<br/><a class="btn dropdown-item" type="button" aria-pressed="true" href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
+									}
+								}
+						}       
+					}
+				?>
+
 				</div>
+				</button>
+
+
 				<a class="btn nav-item me-auto p-2" type="button" href="https://firewood2go.eu/index.php/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
 				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/customer-info/"><i class="bi bi-info-circle"></i> About</a>
 			</div>

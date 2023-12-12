@@ -27,24 +27,63 @@ get_header('customer');
 
 <div class="vstack gap-3 col-md-8 mx-auto mt-5">
 	<h5 class="text-center">List of Locations</h5>	
-	<a href="https://firewood2go.eu/index.php/customer-store-view/" class="btn btn-primary btn-lg active px-2" role="button" aria-pressed="true">Tuira (94 km)</a>
-	<a href="https://firewood2go.eu/index.php/customer-store-view/" class="btn btn-secondary btn-lg active px-2" role="button" aria-pressed="true">Niittylä (150 km)</a>
-	<a href="https://firewood2go.eu/index.php/customer-store-view/" class="btn btn-primary btn-lg active px-2" role="button" aria-pressed="true">Location 3 (222 km)</a>
-	
+	<?php
 
-	<div class="btn-group">
-		<button type="button" class="btn btn-secondary btn-lg dropdown-toggle border border-2 px-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			All Locations
-		</button>
+	$taxonomy     = 'product_cat';
+	$orderby      = 'name';  
+	$show_count   = 0;      // 1 for yes, 0 for no
+	$pad_counts   = 0;      // 1 for yes, 0 for no
+	$hierarchical = 1;      // 1 for yes, 0 for no  
+	$title        = '';  
+	$empty        = 0;
 
-  		<div class="dropdown-menu">
-    		<a class="dropdown-item" href="#">Tuira</a>
-			<div class="dropdown-divider"></div>
-    		<a class="dropdown-item" href="#">Niittylä</a>
-			<div class="dropdown-divider"></div>
-    		<a class="dropdown-item" href="#">Location3</a>
-  		</div>
-	</div>
+	$args = array(
+			'taxonomy'     => $taxonomy,
+			'orderby'      => $orderby,
+			'show_count'   => $show_count,
+			'pad_counts'   => $pad_counts,
+			'hierarchical' => $hierarchical,
+			'title_li'     => $title,
+			'hide_empty'   => $empty
+	);
+	$all_categories = get_categories( $args );
+	foreach ($all_categories as $cat) {
+		if($cat->category_parent == 0) {
+			$category_id = $cat->term_id;       
+			#echo '<br /><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
+			#We do not want to show the main categories here.
+
+			$args2 = array(
+					'taxonomy'     => $taxonomy,
+					'child_of'     => 0,
+					'parent'       => $category_id,
+					'orderby'      => $orderby,
+					'show_count'   => $show_count,
+					'pad_counts'   => $pad_counts,
+					'hierarchical' => $hierarchical,
+					'title_li'     => $title,
+					'hide_empty'   => $empty
+			);
+			$sub_cats = get_categories( $args2 );
+				if($sub_cats) {
+					$val = 0;
+					foreach($sub_cats as $sub_category) {
+						if($val == 0) {
+							echo  '<br/><a class="btn btn-primary btn-lg active px-2" role="button" aria-pressed="true" href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
+							$val = 1;
+						}
+						else
+						{
+							echo  '<br/><a class="btn btn-secondary btn-lg active px-2" role="button" aria-pressed="true" href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
+							$val = 0;
+						}
+						
+					}
+				}
+		}       
+	}
+	?>
+
 
 </div>
 

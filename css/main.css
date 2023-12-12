@@ -11759,6 +11759,14 @@ body {
   background-color: #F5F5F5;
 }
 
+.a:link {
+  color: #fafafa;
+}
+
+.a:visited {
+  color: #fafafa;
+}
+
 .btn-rounded {
   width: 30px;
   height: 30px;
@@ -11834,7 +11842,8 @@ body {
 }
 
 .dropdown-menu {
-  background-color: #008000;
+  background-color: #4CAF50;
+  color: #333333;
 }
 
 .dropdown.item {
@@ -11967,41 +11976,4 @@ body {
   background-color: #F5F5F5;
   opacity: 0.3;
   border: 1px solid #333333;
-}
-
-/*
-.woocommerce-cart-item {
-    background-color:#e0ffdf;
-    border: 1px solid #6dffb6;
-    width: 90%;
-    justify-content: center;
-    margin: auto;
-    margin-bottom: 5px;
-}
-
-.woocommerce-checkout-cart {
-    background-color:#e0ffdf;
-    border: 1px solid #6dffb6;
-    width: 90%;
-    justify-content: center;
-    margin: auto;
-    margin-bottom: 5px;
-}
-
-//Woocommerce Shop Items
-
-.woocommerce div.product {
-    background-color: $grey-bg;
-    border: 1px solid $grey-border;
-    border-radius: 25px;
-}
-
-.woocommerce ul.products li.product {
-	background-color: $grey-bg;
-    border: 1px solid $grey-border;
-    border-radius: 25px;
-    min-width: 150px;
-    max-width: 200px;
-    min-height: 350px;
-    max-height: 350px;
-}*//*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
