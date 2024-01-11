@@ -228,6 +228,109 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 }*/
 
+
+//Edits the 'order created' webhook. This will be sent to Firebase
+add_filter('woocommerce_webhook_payload', 'custom_webhook_payload', 10, 4);
+function custom_webhook_payload($payload, $resource, $resource_id, $event) {
+    if ($resource !== 'order') {
+        return $payload;
+	}
+	//We do not need all these fields. Unset can remove them
+	unset($payload['_links']);
+	unset($payload['billing']);
+	unset($payload['shipping']);
+	unset($payload['shipping_lines']);
+	unset($payload['tax_lines']);
+	unset($payload['refunds']);
+	unset($payload['fee_lines']);
+	//unset($payload['line_items']); //this one is actually needed
+	unset($payload['meta_data']);
+	unset($payload['cart_hash']);
+	unset($payload['cart_tax']);
+	unset($payload['coupon_lines']);
+	unset($payload['created_via']);
+	unset($payload['currency']);
+	unset($payload['currency_symbol']);
+	unset($payload['customer_id']);
+	unset($payload['customer_ip_address']);
+	unset($payload['customer_note']);
+	unset($payload['customer_user_agent']);
+
+	unset($payload['date_completed']);
+	unset($payload['date_completed_gmt']);
+	unset($payload['date_created']);  //not sure if needed
+	unset($payload['date_created_gmt']);
+	unset($payload['date_modified']);
+	unset($payload['date_modified_gmt']);
+	unset($payload['date_paid']);
+	unset($payload['date_paid_gmt']);
+
+	unset($payload['discount_tax']);
+	unset($payload['discount_total']);
+
+	unset($payload['id']);
+	unset($payload['is_editable']);
+	unset($payload['needs_payment']);
+	unset($payload['needs_processing']);
+	unset($payload['number']);
+	unset($payload['order_key']);
+	unset($payload['parent_id']);
+	unset($payload['payment_method']);
+	unset($payload['payment_method_title']);
+	unset($payload['payment_url']);
+	unset($payload['prices_include_tax']);
+	unset($payload['shipping_tax']);
+	unset($payload['shipping_total']);
+	unset($payload['status']);
+	unset($payload['total']);
+	unset($payload['total_tax']);
+	unset($payload['transaction_id']);
+	unset($payload['version']);
+
+
+	//Get order data and create it
+
+	$items = $payload['line_items'];
+	$orders_array = [];
+	
+	foreach ($items as $key=>$item) {
+
+		//Get categories using item ID
+		$product = wc_get_product($item['product_id']);
+		$categories = [];
+		$category_ids = $product->get_category_ids();
+	
+		foreach ($category_ids as $category_id) {
+			$category = get_term($category_id, 'product_cat');
+			$categories[] = $category->name;
+		}
+
+
+
+		
+		$item_data = [
+			'name' => $item['name'],
+			'id' => $item['product_id'],
+			'quantity' => $item['quantity'],
+			'categories' => $categories
+		];
+
+		$orders_array[] = $item_data;
+	}
+
+	$payload['orders'] = $orders_array;
+
+
+
+	unset($payload['line_items']); //Removing this at the very end since it is not needed anymore
+    return $payload;
+}
+
+
+
+
+
+
 function halkomaatti_add_woocommerce_support() {
     add_theme_support( 'woocommerce', array(
         'thumbnail_image_width' => 150,
@@ -251,7 +354,6 @@ remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wra
 
 add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
-
 
 
 function my_theme_wrapper_start() {
