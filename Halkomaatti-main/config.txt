@@ -1,0 +1,6 @@
+'org nimi'
+'nimi'
+'maxOvienMäärä'
+'akkujenMäärä'
+'osoite'
+'koordinaatit'

@@ -1,0 +1,16 @@
+1. Functional & Filled & Open & Purchase Pending	-shouldn't happen since at this point we would be at no.5
+2. Functional & Filled & Open & Waiting				-
+3. Functional & Filled & Closed & Purchase Pending	-open door
+4. Functional & Filled & Closed & Waiting			-"in stock" waiting to be bought
+5. Functional & Empty & Open & Purchase Pending		-no idea what brought us here
+6. Functional & Empty & Open & Waiting 				-customer forgot to close the door
+7. Functional & Empty & Closed & Purchase Pending	-shouldn't happen
+8. Functional & Empty & Closed & Waiting			-bought and now empty as it should just waiting for restock
+9. Broken & Filled & Open & Purchase Pending		-send repairs, refund
+10. Broken & Filled & Open & Waiting				-send repairs
+11. Broken & Filled & Closed & Purchase Pending		-send repairs, refund
+12. Broken & Filled & Closed & Waiting				-send repairs
+13. Broken & Empty & Open & Purchase Pending		-send repairs, refund
+14. Broken & Empty & Open & Waiting					-send repairs
+15. Broken & Empty & Closed & Purchase Pending		-send repairs, refund
+16. Broken & Empty & Closed & Waiting				-send repairs
