@@ -141,7 +141,7 @@ function halko_scripts() {
 	wp_enqueue_style( 'halko-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_enqueue_style( 'halko-main', get_template_directory_uri() . '/css/main.css' );
 	wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css' );
-	wp_enqueue_script( 'jquery-slim', 'https://code.jquery.com/jquery-3.3.1.slim.min.js', array(), '3.3.1', true);
+	wp_enqueue_script( 'jquery-slim', 'https://code.jquery.com/jquery-3.7.1.slim.min.js', array(), '3.3.1', true);
 	wp_enqueue_script( 'popper-js', 'https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js', array(), '1.14.7', true);
 	wp_enqueue_script( 'bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js', array(), '4.3.1', true);
 
@@ -229,8 +229,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 }*/
 
 
-//Edits the 'order created' webhook. This will be sent to Firebase
-add_filter('woocommerce_webhook_payload', 'custom_webhook_payload', 10, 4);
+
 function custom_webhook_payload($payload, $resource, $resource_id, $event) {
     if ($resource !== 'order') {
         return $payload;
@@ -258,7 +257,7 @@ function custom_webhook_payload($payload, $resource, $resource_id, $event) {
 
 	unset($payload['date_completed']);
 	unset($payload['date_completed_gmt']);
-	unset($payload['date_created']);  //not sure if needed
+	unset($payload['date_created']);  //not sure if needed. will add it for clarity reasons
 	unset($payload['date_created_gmt']);
 	unset($payload['date_modified']);
 	unset($payload['date_modified_gmt']);
@@ -300,14 +299,26 @@ function custom_webhook_payload($payload, $resource, $resource_id, $event) {
 		$categories = [];
 		$category_ids = $product->get_category_ids();
 	
+		// Get categories in proper order -> Main-, then subcategory
 		foreach ($category_ids as $category_id) {
-			$category = get_term($category_id, 'product_cat');
-			$categories[] = $category->name;
+			$category_hierarchy = [];
+			$current_category_id = $category_id;
+			while ($current_category_id !== 0) {
+				$category = get_term($current_category_id, 'product_cat');
+				$category_hierarchy[] = $category->name;
+				$current_category_id = $category->parent;
+			}
+
+			// Reverse the array to get the main category first
+			$category_hierarchy = array_reverse($category_hierarchy);
+			foreach ($category_hierarchy as $cat) {
+				//check if category exists. hopefully it will be in order :D :gun:
+				if (!in_array($cat, $categories)) {
+					$categories[] = $cat;
+				}
+			}
 		}
 
-
-
-		
 		$item_data = [
 			'name' => $item['name'],
 			'id' => $item['product_id'],
@@ -320,14 +331,11 @@ function custom_webhook_payload($payload, $resource, $resource_id, $event) {
 
 	$payload['orders'] = $orders_array;
 
-
-
 	unset($payload['line_items']); //Removing this at the very end since it is not needed anymore
     return $payload;
 }
-
-
-
+//Edits the 'order created' webhook. This will be sent to Firebase
+add_filter('woocommerce_webhook_payload', 'custom_webhook_payload', 10, 4);
 
 
 
