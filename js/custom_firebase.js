@@ -8,7 +8,6 @@ const consumer_secret = 'cs_9d64b26fc675c139e93f038bcaca3727f7623e99';
 
 var product_id = 123;
 var api_url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
-
 var product_name = 'null';
 
 //these 2 work in tandem
@@ -31,7 +30,7 @@ var itemCounts = [];
 var itemsToUpdate = [
 ];
 
-//Fetch all data from Firebase
+//Fetch all data from Firebase. Check line 280-320(ish) for function call
 
 const db = firebase.firestore();
 async function getDocumentData(collectionName, documentName) {
@@ -122,29 +121,29 @@ async function getDocumentData(collectionName, documentName) {
     //Create box buttons
     //Only visible on the fillbox site
 
-    const data2 = doc.data().boxes;
+    const data2 = doc.data().box;    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var buttonText = 1;
     var btnDiv = $('<div>', {
         class: 'row pt-5 pb-5'
       });
 
     // Loop through each key in the data object and add it to the DOM. This one is used to create the notifications.
-    for (const key in data2) {
-      if (data2.hasOwnProperty(key)) {
-        
+    data2.forEach(boxData => {
         var buttonStatusClass = 'empty';
-
-        switch (data2[key].status) {
+    
+        switch (boxData.state) {
             case 0:
-                buttonStatusClass = 'empty';
+                buttonStatusClass = 'filled';
                 break;
             case 1:
-                buttonStatusClass = 'filled';
+                buttonStatusClass = 'empty';
                 break;
             case 2:
                 buttonStatusClass = 'faulty';
                 break;
         }
+
+        
 
         var newButton = $('<button>', {
             class: 'btn fill-button btn-outline-grey-border btn-rounded-square',
@@ -153,22 +152,19 @@ async function getDocumentData(collectionName, documentName) {
         });
         $(newButton).addClass(buttonStatusClass);
         $(newButton).on("click", function() {
-        
             if ($(this).hasClass("empty")) {
               $(this).removeClass("empty");
               $(this).addClass("filled");
             }
-          
             else if ($(this).hasClass("filled")) {
               $(this).removeClass("filled");
               $(this).addClass("faulty");
             }
-          
             else if ($(this).hasClass("faulty")) {
               $(this).removeClass("faulty");
               $(this).addClass("empty");
             }
-          });
+        });
 
 
         //Button's own class, appending both to btnDiv (which will then append to ttfield)
@@ -209,7 +205,7 @@ async function getDocumentData(collectionName, documentName) {
         }*/
 
         //If dbID == option value, set a value as selected
-        var dbID = data2[key].itemId;
+        var dbID = boxData.id;
         
         var option1 = document.createElement("option");
         option1.selected = true;
@@ -230,6 +226,8 @@ async function getDocumentData(collectionName, documentName) {
 
         var options = [option1, option2, option3, option4];
 
+    
+
         //I think it works??????????????????
         if (dbID) {
             for (let i = 0; i < options.length; i++) {
@@ -247,7 +245,7 @@ async function getDocumentData(collectionName, documentName) {
             }
         }
         
-        
+    
         // Append options to select element
         selectElement.append(option1);
         selectElement.append(option2);
@@ -264,17 +262,31 @@ async function getDocumentData(collectionName, documentName) {
 
         buttonText++;
 
-
-      }
+    });
     }
+  
 
 
-  } else {
-    console.log("No such document!");
-  }
+    else {
+        console.log("No such document!");
+    }
 }
 
-getDocumentData('Halkomatics', 'Ankkalinna');
+
+//Get Document Info using CURRENT PAGE URL --> PARSE
+
+var currentUrl = window.location.href
+console.log(currentUrl);
+var urlSplit = currentUrl.split("/");
+var firestorePath = urlSplit[4].split("-");
+
+var orgpath = firestorePath[3].charAt(0).toUpperCase() + firestorePath[3].slice(1);
+var maticpath = firestorePath[4].charAt(0).toUpperCase() + firestorePath[4].slice(1);
+
+
+console.log(orgpath + "   " + maticpath);
+
+getDocumentData(orgpath, maticpath);
 
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
@@ -291,17 +303,17 @@ getDocumentData('Halkomatics', 'Ankkalinna');
             };
 
             //Individual box data to Firebase
-            var boxes = {};
+            var boxes = [];
             var buttonsLen = document.getElementsByClassName("fill-button").length;
             
             for (let x = 1; x <= buttonsLen; x++) {
-                let box_name = "box" + x;
+                //let box_name = "box" + x;
                 let boxClass = 0;
 
-                if ($('#fill-button' + x).hasClass("empty")) {
+                if ($('#fill-button' + x).hasClass("filled")) {
                     boxClass = 0;
                 }
-                else if ($('#fill-button' + x).hasClass("filled")) {
+                else if ($('#fill-button' + x).hasClass("empty")) {
                     boxClass = 1;
                 }
                 else if ($('#fill-button' + x).hasClass("faulty")) {
@@ -309,19 +321,20 @@ getDocumentData('Halkomatics', 'Ankkalinna');
                 }
 
 
-                boxes[box_name] = {
-                    itemId: $('#id-select-' + x).val(),
-                    status: boxClass,
-                    timestamp: timestamp
+                var boxData = {
+                    id: parseInt($('#id-select-' + x).val()),
+                    state: boxClass
                 };
+
+                boxes.push(boxData);
             }
 
             console.log(boxes);
 
 
-            db.collection("Halkomatics").doc("Ankkalinna").set({
+            db.collection(orgpath).doc(maticpath).set({
                 notifications: firebase.firestore.FieldValue.arrayUnion(pushData),
-                boxes: boxes
+                box: boxes
             }, {merge: true})
 
             .then(function() {
