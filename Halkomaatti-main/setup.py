@@ -66,12 +66,20 @@ doors_lbl.grid(row=4, column=0)
 doors_text = tk.Entry(window)
 doors_text.grid(row=4, column=1)
 
+# create label for street name
+street_lbl = tk.Label(window, text="Street:")
+street_lbl.grid(row=5, column=0)
+
+# create text field for street
+street_text = tk.Entry(window)
+street_text.grid(row=5, column=1)
+
 # create a button to save the user inputed state
 save_btn = tk.Button(window, text="Create Config File", command=lambda:save_text())
-save_btn.grid(row=5, column=1)
+save_btn.grid(row=6, column=1)
 
 upl_btn = tk.Button(window, text="Upload to Firebase", command=lambda:upload_to_firebase())
-upl_btn.grid(row=6, column=1)
+upl_btn.grid(row=7, column=1)
 
 
 # function to save the user input to config.txt on desktop
@@ -81,18 +89,27 @@ def save_text():
     org = org_text.get().capitalize()
     address = address_text.get()
     doors = doors_text.get()
+    street = street_text.get()
     
     data = {
         "name": name,
         "org": org,
         "coordinates": coordinates,
         "address": address,
+        "street": street,
         "doors": doors,
         "battery": 0,
         #"lastFilled": dt,
         #"lastRPiPing": dt,        
         #"lastUsed": dt,
         "box": []
+    }
+
+    data2 = {
+        "deviceName": name,
+        "organizationName": org,
+        "location": coordinates,
+        "street": street
     }
 
     for x in range(1, int(doors) + 1):
@@ -102,11 +119,12 @@ def save_text():
         })
 
     jsonData = json.dumps(data)
+    jsonData2 = json.dumps(data2)
 
     cwd = os.getcwd()
     filePath = os.path.join(cwd, "config.txt")
     f = open(filePath, 'w')
-    f.write(f"{org}\n{name}\n{jsonData}")
+    f.write(f"{org}\n{name}\n{jsonData}\n{jsonData2}")
     #print(f"{name}\n{coordinates}\n{org}\n{address}\n{doors}")
     f.close()
 
@@ -123,7 +141,12 @@ def upload_to_firebase():
                 org = lines[0].strip()
                 name = lines[1].strip()
                 try:
-                    data = json.loads(lines[2])
+                    data = json.loads(lines[2]) #data
+                except json.JSONDecodeError as e:
+                    print("Error decoding JSON:", e)
+                    return
+                try:
+                    data2 = json.loads(lines[3]) #data2 for listOfDevices // quick use
                 except json.JSONDecodeError as e:
                     print("Error decoding JSON:", e)
                     return
@@ -133,10 +156,20 @@ def upload_to_firebase():
 
         try:
             db.collection(org).document(name).set(data)
-            tk.messagebox.showinfo(title="Success", message="Uploaded data to Firestore. You should see it there shortly")
+            #tk.messagebox.showinfo(title="Success", message="Uploaded data to Firestore. You should see it there shortly")
         except Exception as e:
             print("Error uploading data to Firestore:", e)
 
+        #try another call to add data2
+        try:
+            doc_ref = db.collection("listOfOrganization").document("listOfDevices")
+            doc_ref.update({
+                "list": firestore.ArrayUnion([data2])
+            })
+            tk.messagebox.showinfo(title="Success", message="Uploaded data to Firestore. You should see it there shortly")
+        except Exception as e:
+            print("Error uploading data to Firestore:", e)
+            
     except:
         tk.messagebox.showerror(title="File not present", message="There is no config file. Please create one.")  
 

@@ -1,3 +1,4 @@
-Okiwill
-Locationasd
-{"name": "Locationasd", "org": "Okiwill", "coordinates": "100.100", "address": "1000 millenium road", "doors": "25", "battery": 0, "box": [{"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}]}
+Ogtest1
+Ogtest3
+{"name": "Ogtest3", "org": "Ogtest1", "coordinates": "1000", "address": "Idk1", "street": "Test Street 65", "doors": "5", "battery": 0, "box": [{"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}]}
+{"deviceName": "Ogtest3", "organizationName": "Ogtest1", "location": "1000", "street": "Test Street 65"}
