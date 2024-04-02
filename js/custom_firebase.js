@@ -1,7 +1,5 @@
-//Custom firestore/firebase functions
-
-//Function to fetch data and create 'location cards'
-//admin homepage -- card view element
+// Firebase Functions.
+// Functions to add elements to sites, grab data from Firebase and other.
 
 const consumer_key = 'ck_864038e09ac6e7dd685f453c0de8724ae8b02966';
 const consumer_secret = 'cs_2ace62c4d0953923dedc7c9555095ec39440e23a';
@@ -10,7 +8,7 @@ var product_id = 123;
 var api_url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
 var product_name = 'null';
 
-//these 2 work in tandem
+//these 2 work in tandem, useless but im not removing them yet
 var itemIDs = [];
 var itemCounts = [];
 
@@ -42,9 +40,6 @@ async function getDocumentData(collectionName, documentName) {
   if (doc.exists) {
     if(window.location.href.includes("/admin-fill-box"))
     {
-        //
-        //
-        //
         //Create box buttons
         //Only visible on the fillbox site
 
