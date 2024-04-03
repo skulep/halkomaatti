@@ -141,7 +141,7 @@ function halko_scripts() {
 	wp_enqueue_style( 'halko-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_enqueue_style( 'halko-main', get_template_directory_uri() . '/css/main.css' );
 	wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css' );
-	wp_enqueue_script( 'jquery-slim', 'https://code.jquery.com/jquery-3.7.1.slim.min.js', array(), '3.3.1', true);
+	wp_enqueue_script( 'jquery-min', 'https://code.jquery.com/jquery-3.7.1.min.js', array(), '3.7.1', true);
 	wp_enqueue_script( 'popper-js', 'https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js', array(), '1.14.7', true);
 	wp_enqueue_script( 'bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js', array(), '4.3.1', true);
 
