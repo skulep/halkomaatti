@@ -43,12 +43,15 @@ name_text = tk.Entry(window)
 name_text.grid(row=1, column=1)
 
 # create label for coordinates field
-coordinates_lbl = tk.Label(window, text="Coordinates:")
+coordinates_lbl = tk.Label(window, text="Lat/Long:")
 coordinates_lbl.grid(row=2, column=0)
 
 # create text field for coordinates
-coordinates_text = tk.Entry(window)
-coordinates_text.grid(row=2, column=1)
+coordinates_lat_text = tk.Entry(window)
+coordinates_lat_text.grid(row=2, column=1)
+
+coordinates_long_text = tk.Entry(window)
+coordinates_long_text.grid(row=2, column=2)
 
 # create label for address
 address_lbl = tk.Label(window, text="Address:")
@@ -67,7 +70,7 @@ doors_text = tk.Entry(window)
 doors_text.grid(row=4, column=1)
 
 # create label for street name
-street_lbl = tk.Label(window, text="Street:")
+street_lbl = tk.Label(window, text="Street ID:")
 street_lbl.grid(row=5, column=0)
 
 # create text field for street
@@ -85,16 +88,19 @@ upl_btn.grid(row=7, column=1)
 # function to save the user input to config.txt on desktop
 def save_text():
     name = name_text.get().capitalize()
-    coordinates = coordinates_text.get()
+    coordinates_lat = coordinates_lat_text.get()
+    coordinates_long = coordinates_long_text.get()
     org = org_text.get().capitalize()
     address = address_text.get()
     doors = doors_text.get()
     street = street_text.get()
+
+    coordinates_dict = {'latitude': coordinates_lat, 'longitude': coordinates_long} #Unused
     
     data = {
         "name": name,
         "org": org,
-        "coordinates": coordinates,
+        "coordinates": coordinates_dict,
         "address": address,
         "street": street,
         "doors": doors,
@@ -108,7 +114,7 @@ def save_text():
     data2 = {
         "deviceName": name,
         "organizationName": org,
-        "location": coordinates,
+        "location": coordinates_dict,
         "street": street
     }
 
@@ -124,7 +130,7 @@ def save_text():
     cwd = os.getcwd()
     filePath = os.path.join(cwd, "config.txt")
     f = open(filePath, 'w')
-    f.write(f"{org}\n{name}\n{jsonData}\n{jsonData2}")
+    f.write(f"{org}\n{name}\n{jsonData}\n{jsonData2}\n{coordinates_lat}\n{coordinates_long}")
     #print(f"{name}\n{coordinates}\n{org}\n{address}\n{doors}")
     f.close()
 
@@ -140,13 +146,21 @@ def upload_to_firebase():
             if len(lines) >= 3:
                 org = lines[0].strip()
                 name = lines[1].strip()
+
+                lat = lines[4].strip()
+                long = lines[5].strip()
+
+                print(lat, long)
+
                 try:
                     data = json.loads(lines[2]) #data
+                    data['coordinates'] = firestore.GeoPoint(float(lat), float(long))
                 except json.JSONDecodeError as e:
                     print("Error decoding JSON:", e)
                     return
                 try:
                     data2 = json.loads(lines[3]) #data2 for listOfDevices // quick use
+                    data2['location'] = firestore.GeoPoint(float(lat), float(long))
                 except json.JSONDecodeError as e:
                     print("Error decoding JSON:", e)
                     return
