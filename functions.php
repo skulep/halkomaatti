@@ -46,6 +46,10 @@ function halko_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
+	// Adds Gutenberg block support
+	add_theme_support( 'responsive-embeds' );
+	add_theme_support('wp-block-styles');
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
@@ -175,16 +179,6 @@ function get_custom_script() {
 }
 add_action( 'wp_enqueue_scripts', 'get_custom_script' );
 
-//Integrating Firebase -- re.done below
-/*
-function enqueue_firebase_script() {
-	wp_register_script('firebase', get_stylesheet_directory_uri().'/js/firebase.js', array(), '1.0.0', true);
-	wp_enqueue_script( 'firebase' );
-}
-add_action( 'wp_enqueue_scripts', 'enqueue_firebase_script' );
-*/
-
-
 /**
  * Implement the Custom Header feature.
  */
@@ -212,21 +206,26 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-/**
- * Load WooCommerce compatibility file.
- */
-/*
-if ( class_exists( 'WooCommerce' ) ) {
-	require get_template_directory() . '/inc/woocommerce.php';
+//Adds gutenberg block support
+function enqueue_block_editor_assets() {
+    // Enqueue block editor script
+    wp_enqueue_script(
+        'my-theme-editor', // Handle
+        get_template_directory_uri() . '/assets/js/editor.js', // Script URL
+        array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'), // Dependencies
+        filemtime(get_template_directory() . '/assets/js/editor.js'), // Version
+        true // In footer
+    );
 
-	/*
-	function halkomaatti_add_woocommerce_support() {
-		add_theme_support( 'woocommerce' );
-	}
-	add_action ('after_setup_theme', 'halkomaatti_add_woocommerce_support');
-
-
-}*/
+    // Enqueue block editor styles
+    wp_enqueue_style(
+        'my-theme-editor', // Handle
+        get_template_directory_uri() . '/assets/css/editor.css', // Stylesheet URL
+        array('wp-edit-blocks'), // Dependencies
+        filemtime(get_template_directory() . '/assets/css/editor.css') // Version
+    );
+}
+add_action('enqueue_block_editor_assets', 'enqueue_block_editor_assets');
 
 
 
@@ -432,18 +431,3 @@ function shortcode_needLogin() {
         auth_redirect();
     }
 }
-/*
-function mm_get_current_username(){
-    $current_user = wp_get_current_user();
-	$username = $current_user->user_login;
-    return $username;  
-} 
-add_shortcode( 'get_username', 'mm_get_current_username');
-
-function mm_get_current_user_email(){
-    $current_user =  wp_get_current_user();
-    $email = $current_user->user_email; 
-    return $email;  
-} 
-add_shortcode( 'get_email', 'mm_get_current_user_email');
-*/

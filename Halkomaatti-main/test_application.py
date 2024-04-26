@@ -4,8 +4,8 @@ import struct
 import serial
 import tkinter.messagebox
 import os
-#import firebase_admin
-#from firebase_admin import credentials, firestore
+import firebase_admin
+from firebase_admin import credentials, firestore
 from datetime import datetime
 
 # Getting the current date and time
@@ -17,60 +17,75 @@ ts = datetime.timestamp(dt)
 
 ####
 # firebase setup
-#creds = credentials.Certificate("ServiceAccountKey.json")
-#firebase_admin.initialize_app(creds)
+creds = credentials.Certificate("ServiceAccountKey.json")
+firebase_admin.initialize_app(creds)
 
-#db = firestore.client()
+db = firestore.client()
 
 # create window
 window = tk.Tk()
-window.title("Vedogvarer Config")
+window.title("KerongLockTester")
 
 
-# create label for organization's name
-num_lbl = tk.Label(window, text="lock num: ")
+#lock number text field + label
+num_lbl = tk.Label(window, text="Lock num: ")
 num_lbl.grid(row=0, column=0)
-
-# create text field for organization's name
 num_text = tk.Entry(window)
 num_text.grid(row=0, column=1)
 
-# create label for name field
-cu_lbl = tk.Label(window, text="cu num:")
+#cu text field + label
+cu_lbl = tk.Label(window, text="Control Unit num:")
 cu_lbl.grid(row=1, column=0)
-
-# create text field for name
 cu_text = tk.Entry(window)
 cu_text.grid(row=1, column=1)
-t_lbl = tk.Label(window, text="choose action:")
+
+t_lbl = tk.Label(window, text="Choose action:")
 
 def selection():
-   selected = "You selected the option " + str(var.get())
+   selected = "Current option: " + str(var.get())
    label.config(text=selected)
 
 var = IntVar()
 
-rb1 = Radiobutton(window, text="Open box", variable=var, value=81, command=selection)
+rb1 = Radiobutton(window, text="Open lock", variable=var, value=81)
 rb1.grid(row=2, column=0, sticky="W")
-rb2 = Radiobutton(window, text="Read box", variable=var, value=80, command=selection)
+rb2 = Radiobutton(window, text="Read lock", variable=var, value=80)
 rb2.grid(row=2, column=1, sticky="W")
-# Loop is used to create multiple Radiobuttons
-# rather than creating each button separately
+
+#com text field + label. + default text.
+com_lbl = tk.Label(window, text="COM port (commonly 4 or 3):")
+com_lbl.grid(row=3, column=0)
+com_text_def = tk.StringVar()
+com_text_def.set("4")
+com_text = tk.Entry(window, textvariable=com_text_def)
+com_text.grid(row=3, column=1)
 
 # create a button to save the user inputed state
-save_btn = tk.Button(window, text="Open Selected Box", command=lambda:save_text())
-save_btn.grid(row=6, column=1)
+save_btn = tk.Button(window, text="Open Selected Box", command=lambda:test_lock())
+save_btn.grid(row=7, column=0)
 
-upl_btn = tk.Button(window, text="Upload to Firebase", command=lambda:test_firebase())
+upl_btn = tk.Button(window, text="Test Firebase", command=lambda:test_firebase())
 upl_btn.grid(row=7, column=1)
+
+upl_btn = tk.Button(window, text="Help", command=lambda:help())
+upl_btn.grid(row=7, column=2)
+
+def help():
+    tk.messagebox.showinfo(title="Help", message='Fill in the text fields. \nLock number will start count from 0, so typing in 0 will open lock number 1. \nOpening lock num 48 will open all locks connected to the selected control unit.\nThe "Test Firebase"-button will only fetch one result to see if everything is functional. \nThe COM port is often 3 or 4, but you may need to find out which one you are using.')
+
 
 
 # function to save the user input to config.txt on desktop
-def save_text():
+def test_lock():
     CUAddress = cu_text.get()
     LockNum = num_text.get()
-
+    comPort = com_text.get()
     Command = var.get()
+
+    if not all([CUAddress, LockNum, comPort, Command]):
+        tk.messagebox.showerror(title="Error", message='One of the required values is null')
+        return
+
     byte1 = 2
     byte2 = int(CUAddress)
     byte3 = int(LockNum)
@@ -80,9 +95,12 @@ def save_text():
     sendit = bytes([byte1, byte2, byte3, byte4, byte5, byteSum])
     print(byte1, " ", byte2, " ", byte3, " ", byte4, " ", byte5, " ", byteSum)
 
+    serPort = 'COM' + str(comPort)
+    print(serPort)
+
     # Define the serial port parameters
     ser = serial.Serial(
-        port='COM4',
+        port = serPort,
         baudrate=19200,
         bytesize=serial.EIGHTBITS,
         parity=serial.PARITY_NONE,
@@ -94,11 +112,12 @@ def save_text():
     ser.open()
 
     if byte4==81:
-        ser.write(sendit) 
+        ser.write(sendit)
+        tk.messagebox.showinfo(title="Success", message='Successfully sent hexcode ' + sendit) 
     elif byte4==80:
         ser.write(sendit)
         response = ser.read(12)
-        print(response)
+        tk.messagebox.showinfo(title="Success, received response", message=response)
         hex_values = [f'\\x{byte:02x}' for byte in response]
 
         i = 1
@@ -114,6 +133,22 @@ def save_text():
 
 def test_firebase():
     print("testing firebase connection")
+    doc_ref = db.collection('listOfOrganization').document('listOfDevices')
+
+    doc_snapshot = doc_ref.get()
+
+    # Check if the document exists
+    if doc_snapshot.exists:
+        # Get the 'list' field from the document
+        list_data = doc_snapshot.to_dict().get('list', [])
+        
+        print(list_data)
+        tk.messagebox.showinfo(title="Success, listing first result", message=list_data[0])
+
+    else:
+        print('Document does not exist')
+
+
     
 
 label = Label(window)

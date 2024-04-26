@@ -1,4 +1,6 @@
-Ogtest1
-Ogtest3
-{"name": "Ogtest3", "org": "Ogtest1", "coordinates": "1000", "address": "Idk1", "street": "Test Street 65", "doors": "5", "battery": 0, "box": [{"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}]}
-{"deviceName": "Ogtest3", "organizationName": "Ogtest1", "location": "1000", "street": "Test Street 65"}
+Beiarnkommune
+Tverrvik
+{"name": "Tverrvik", "org": "Beiarnkommune", "coordinates": {"latitude": "10", "longitude": "10"}, "address": "10", "street": "10", "doors": "10", "battery": 0, "box": [{"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}, {"itemId": 1, "state": 1}]}
+{"deviceName": "Tverrvik", "organizationName": "Beiarnkommune", "location": {"latitude": "10", "longitude": "10"}, "street": "10"}
+10
+10

@@ -1,18 +1,39 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-#from firebase_admin import firestore
 import time
 import math
 import serial
+import os
+import time
 
 creds = credentials.Certificate("ServiceAccountKey.json")
 firebase_admin.initialize_app(creds)
 
-org = 'Beiarnkommune'
-halkomatic = 'Tverrvik'
+## Get Firestore data using config.txt
+cwd = os.getcwd()
+try:
+	filePath = os.path.join(cwd, "config.txt")
+	with open(filePath, 'r') as f:
+		lines = f.readlines()
+		# Check if the file has at least two lines
+		if len(lines) >= 2:
+			orgName = lines[0].strip()
+			deviceName = lines[1].strip()
+		else:
+			print("File does not have enough lines. Please make sure config.txt is unmodified.")
+			f.close() #closing the file just in case. not sure if this matters at all.
+			time.sleep(5)
+			exit() #exiting application
+
+	f.close()
+
+except FileNotFoundError:
+    print("There is no config file. Please create one using setup.py, or duplicate it from elsewhere.")
+    time.sleep(5)
+    exit()
 
 db = firestore.client()
-doc_ref = db.collection(org).document(halkomatic)
+doc_ref = db.collection(orgName).document(deviceName)
 
 #Searches for itemID in boxes
 #Usage: itemID, Organization/Boxname(in this format)
@@ -42,7 +63,7 @@ def open_doors(order_details):
 	ser.close()
 
 def listen_for_changes():
-	print("Listener open. Waiting on changes")
+	print('Listener open at ' + orgName +'/'+ deviceName + '. Waiting on changes')
 	def on_snapshot(query_snapshot, changes, read_time):
 		doc_ref.update({"orders": firestore.DELETE_FIELD})
 		for doc_change in changes:

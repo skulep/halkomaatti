@@ -4,18 +4,47 @@
 wp_get_current_user();
 $user_name = $current_user->user_login;
 $user_email = $current_user->user_email;
+$user_roles = $current_user->roles;
+$page_id = get_the_ID();
+
+
+$is_admin = in_array('administrator', $user_roles);
 ?>
 
 <script type="text/javascript">
 	var username = <?php echo json_encode($user_name) ?> ;
 	var useremail = <?php echo json_encode($user_email) ?> ;
+	var pageId = <?php echo json_encode($page_id) ?> ;
 
 	console.log(username);
 	console.log(useremail);
+	console.log(pageId);
 
-	//See if a firebase connection is possible -- if so
+	const blockContainer = document.querySelector('.wordpress-list'); // Replace '.your-block-class' with the actual class of your block
 
-	if (username == 'filler') {
+	// If the block container exists
+	if (blockContainer) {
+		// Get all list items within the block container
+		const listItems = blockContainer.querySelectorAll('li');
+
+		// Array to store the text contents of list items
+		const listContents = [];
+
+		// Iterate through each list item
+		listItems.forEach(item => {
+			// Get the text content of the list item and push it to the array
+			listContents.push(item.textContent);
+		});
+
+		// Output the array of list contents
+		console.log(listContents);
+	} else {
+		console.error('Block container not found.');
+	}
+
+	var isAdmin = <?php echo $is_admin ? 'true' : 'false'; ?>;
+
+	if (username == 'filler' || isAdmin) {
 		console.log('Authorized to fill');
 	}
 	else {
@@ -24,7 +53,6 @@ $user_email = $current_user->user_email;
 	}
 
 </script>
-
 
 <?php
 /*

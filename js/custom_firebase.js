@@ -1,6 +1,18 @@
 // Firebase Functions.
 // Functions to add elements to sites, grab data from Firebase and other.
+/*
+const firebaseConfig = {
+    apiKey: "AIzaSyD4GAJHgdjuKKweFO5Pkvpq_1prYuXED-U",
+    authDomain: "halkomaatti.firebaseapp.com",
+    databaseURL: "https://halkomaatti-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "halkomaatti",
+    storageBucket: "halkomaatti.appspot.com",
+    messagingSenderId: "547073662275",
+    appId: "1:547073662275:web:9355f484e647c4f6d9a3f6",
+    measurementId: "G-TZX7MCQBJ9"
+  };
 
+*/
 const consumer_key = 'ck_864038e09ac6e7dd685f453c0de8724ae8b02966';
 const consumer_secret = 'cs_2ace62c4d0953923dedc7c9555095ec39440e23a';
 
