@@ -1,42 +1,9 @@
 // Firebase Functions.
 // Functions to add elements to sites, grab data from Firebase and other.
-/*
-const firebaseConfig = {
-    apiKey: "AIzaSyD4GAJHgdjuKKweFO5Pkvpq_1prYuXED-U",
-    authDomain: "halkomaatti.firebaseapp.com",
-    databaseURL: "https://halkomaatti-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "halkomaatti",
-    storageBucket: "halkomaatti.appspot.com",
-    messagingSenderId: "547073662275",
-    appId: "1:547073662275:web:9355f484e647c4f6d9a3f6",
-    measurementId: "G-TZX7MCQBJ9"
-  };
 
-*/
 const consumer_key = 'ck_864038e09ac6e7dd685f453c0de8724ae8b02966';
 const consumer_secret = 'cs_2ace62c4d0953923dedc7c9555095ec39440e23a';
 
-/*
-var product_id = 123;
-var api_url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ product_id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
-var product_name = 'null';
-
-//these 2 work in tandem, useless but im not removing them yet
-var itemIDs = [];
-var itemCounts = [];
-
-(function ($) {
-    $.getJSON(api_url, function(data) {
-        var product_name = data.name;
-        var product_price = data.price;
-        var product_description = data.description;
-        
-        // Log product data received using the api url
-        console.log("Product Name: " + product_name);
-        console.log("Price: " + product_price);
-        console.log("Description: " + product_description);
-      });
-})(jQuery)*/
 
 var itemsToUpdate = [
 ];
