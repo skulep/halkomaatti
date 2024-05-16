@@ -1,9 +1,11 @@
 // Firebase Functions.
 // Functions to add elements to sites, grab data from Firebase and other.
 
-const consumer_key = 'ck_864038e09ac6e7dd685f453c0de8724ae8b02966';
-const consumer_secret = 'cs_2ace62c4d0953923dedc7c9555095ec39440e23a';
+const { secrets } = require('./secret.js');
 
+const consumer_key = secrets.consumer_key;
+const consumer_secret = secrets.consumer_secret;
+const maps_api = secrets.maps_api;
 
 var itemsToUpdate = [
 ];
@@ -497,7 +499,7 @@ function createBox(data) {
     col8.classList.add("col-lg-8");
   
     const iframe = document.createElement("iframe");
-    iframe.src = `https://www.google.com/maps/embed/v1/view?key=AIzaSyD4g6gWDJO0I2MmnpAonq9Sp0XIt2DVHSo&center=${data.location.latitude},${data.location.longitude}&zoom=13`;
+    iframe.src = `https://www.google.com/maps/embed/v1/view?key=${maps_api}&center=${data.location.latitude},${data.location.longitude}&zoom=13`;
     iframe.classList.add("h-100", "w-100");
     iframe.style.border = "0";
     iframe.setAttribute("allowfullscreen", "");
