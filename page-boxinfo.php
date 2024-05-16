@@ -11,6 +11,7 @@ get_header('admin');
 	<main id="primary" class="site-main">
 
 
+	<section class="text-center">
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="container" id="container">
@@ -18,7 +19,7 @@ get_header('admin');
 				</div>
 			</div>
 		</div>
-
+	</section>
 
 
 	</main><!-- #main -->

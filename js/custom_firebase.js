@@ -20,8 +20,27 @@ async function getDocumentData(collectionName, documentName) {
   if (doc.exists) {
     if(window.location.href.includes("/admin-fill-box"))
     {
+        //Only visible/ran on the fillbox site
+        //Fetch data
+        var locationElement = document.getElementById("rowLocation");
+        if (locationElement) {
+            locationElement.textContent = doc.data().name + ", " + doc.data().org;
+        }
+
+        var locationCountry = document.getElementById("rowCountry");
+        if (locationCountry) {
+            locationCountry.textContent = doc.data().address;
+        }
+
+        var locationCoords = document.getElementById("rowCoords");
+        if (locationCoords) {
+            locationCoords.textContent = doc.data().coordinates.latitude + ", " + doc.data().coordinates.longitude;
+        }
+
+
+
         //Create box buttons
-        //Only visible on the fillbox site
+        
 
         const data2 = doc.data().box;    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var buttonText = 1;
@@ -48,35 +67,35 @@ async function getDocumentData(collectionName, documentName) {
             
 
             var newButton = $('<button>', {
-                class: 'btn fill-button btn-outline-grey-border btn-rounded-square',
+                class: 'btn fill-button btn-outline-grey-border custom-btn',
                 id: 'fill-button' + buttonText,
                 text: buttonText
             });
             $(newButton).addClass(buttonStatusClass);
             $(newButton).on("click", function() {
-                if ($(this).hasClass("empty")) {
-                $(this).removeClass("empty");
-                $(this).addClass("filled");
-                }
-                else if ($(this).hasClass("filled")) {
+                if ($(this).hasClass("filled")) {
                 $(this).removeClass("filled");
+                $(this).addClass("empty");
+                }
+                else if ($(this).hasClass("empty")) {
+                $(this).removeClass("empty");
                 $(this).addClass("faulty");
                 }
                 else if ($(this).hasClass("faulty")) {
                 $(this).removeClass("faulty");
-                $(this).addClass("empty");
+                $(this).addClass("filled");
                 }
             });
 
 
             //Button's own class, appending both to btnDiv (which will then append to ttfield)
             var btnInnerDiv = $('<div>', {
-                class: 'col d-flex justify-content-center'
+                class: 'col mt-2 mb-2'  //old: class: 'col d-flex justify-content-center'
             });
 
             //Because this seems necessary: the select to choose product and product id
             var selectElement = document.createElement("select");
-            selectElement.className = "form-select";
+            selectElement.className = "custom-select mt-2"; //had form-select b4
             selectElement.id = "id-select-" + buttonText;
             selectElement.setAttribute("aria-label", "Default select example");
             
@@ -90,7 +109,7 @@ async function getDocumentData(collectionName, documentName) {
                 .then(products => {
                     if (products) {
                         const filteredProducts = filterProductsByCategory(products, documentName);
-                        // Process the products as needed, e.g., extract names
+                        // Processing the found products 
                         filteredProducts.forEach(product => {
                             productData.set(product.id, product.name); // Set product name and id in a map
                         });
@@ -129,7 +148,7 @@ async function getDocumentData(collectionName, documentName) {
                 .catch(error => {
                     console.error('Error:', error);
                 });
-            
+
             //append buttons + select boxes and name them
             btnInnerDiv.append(newButton);
             btnInnerDiv.append(selectElement);
@@ -151,69 +170,13 @@ async function getDeviceData() {
         const documentRef = collectionRef.doc("listOfDevices");
         const doc = await documentRef.get();
         if (doc.exists) {
-            const listOfDevices = doc.data().list;  //Grabs the list of devices. array with map objects inside, that have the required info for this.
+            const listOfDevices = doc.data().list;  //Grabs the list of devices. array with map objects inside that have the required info for this.
             console.log(listOfDevices);
             listOfDevices.forEach(devData => {
                 console.log("device data found: " + devData.deviceName, devData.organizationName, devData.location);
-
-                 //create button(s)
-                var button = document.createElement("button");
-                button.innerHTML = devData.deviceName;
-                button.onclick = function() {
-                    window.location.href = "https://firewood2go.eu/index.php/admin-fill-box-" + devData.organizationName + "-" + devData.deviceName + "/";
-                };
-
-
-                var container = document.getElementById("container");
-                //new shits xdd
-                var row = document.createElement("div");
-                row.className = "row";
-  
-                container.appendChild(row);
-
-                // Create iframe element
-                var iframe = document.createElement("iframe");
-                iframe.src = "https://maps.google.com/maps?q=" + devData.location.latitude + "," + devData.location.longitude + "&hl=en;z=14&amp;output=embed";
-                iframe.className = "w-100";
-                iframe.height = "500";
-                iframe.allowFullscreen = true;
-                iframe.loading = "lazy";
-
-                // Create div container for device list
-                var deviceListContainer = document.createElement("div");
-                deviceListContainer.className = "col-lg-8";
-
-                // Add iframe to device list container
-                deviceListContainer.appendChild(iframe);
-
-                // Append device list container to row
-                row.appendChild(deviceListContainer);
-
-                // Create box status elements
-                var boxStatusElements = document.createElement("div");
-                boxStatusElements.className = "col-lg-2 my-4 d-flex align-items-center d-none d-lg-block";
-                var headings = ["Box Status", "Device name: " + devData.deviceName, "Organization: " + devData.organizationName , "Street: " + devData.street, "Lat: " + devData.location.latitude + "  Long: " + devData.location.longitude];
-
-                headings.forEach(function(headingText, index) {
-                    var element = document.createElement(index === 0 ? "h2" : "h6");
-                    element.textContent = headingText;
-                    boxStatusElements.appendChild(element);
-                });
-
-                var button = document.createElement("button");
-                button.innerHTML = "Proceed to Fill";
-                button.onclick = function() {
-                    window.location.href = "https://firewood2go.eu/index.php/admin-fill-box-" + devData.organizationName + "-" + devData.deviceName + "/";
-                };
-                button.className = "btn btn-primary"
-                button.setAttribute("role", "button");
-                boxStatusElements.appendChild(button);
-
-                // Append box status elements to row
-                row.appendChild(boxStatusElements);
+                const container = document.getElementById("container"); //Get 'container'
+                appendBoxes(container, devData);
             });
-            
-           
         }
     }
 }
@@ -224,21 +187,23 @@ async function getHomepageData() {
     const documentRef = collectionRef.doc('listOfDevices');
     const doc = await documentRef.get();
 
-    var dropdown = document.getElementById("locationDropdown");
+    var dropdownContent = document.getElementById("myDropdown");
 
     if (doc.exists) {
-        const listOfDevices = doc.data().list;  //Grabs the list of devices. array with map objects inside, that have the required info for this.
+        const listOfDevices = doc.data().list;  // Grabs the list of devices. array with map objects inside, that have the required info for this.
         listOfDevices.forEach(devData => {
+            var link = document.createElement("a");
+            //link.href = "#";
+            link.textContent = devData.street;
+            link.onclick = function() {
+                changeText(devData.deviceName,devData.organizationName,devData.street); //BatteryLevel still hardcoded
+            };
+            dropdownContent.appendChild(link);
 
-            var option = document.createElement("option");
-            option.value = devData.organizationName + "/" + devData.deviceName;
-            option.text = devData.street;
-            dropdown.appendChild(option);
+            console.log("ELEMENT ADDED to myDropdown:" + devData.deviceName);
         });
-                    
-    }
-    else {
-        console.log("does not exist");
+    } else {
+        console.log("Document does not exist");
     }
 }
 //Get Document Info using CURRENT PAGE URL --> PARSE. currently working OK!!!
@@ -308,6 +273,7 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
 
             console.log(boxes);
 
+            var dbUpdateStatus = false;
 
             db.collection(orgpath).doc(maticpath).set({
                 notifications: firebase.firestore.FieldValue.arrayUnion(pushData),
@@ -316,9 +282,11 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
 
             .then(function() {
                 console.log("Document successfully written!");
+                dbUpdateStatus = true;
             })
             .catch(function(error) {
                 console.error("Error writing document: ", error);
+                dbUpdateStatus = false;
             });
 
             console.log(boxes);
@@ -372,9 +340,15 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
                     .then(response => response.json())
                     .then(data => {
                         console.log('Product stock updated successfully:', data);
+
+                        if (dbUpdateStatus) {
+                            alert("Successfully updated Firestore state and WooCommerce stock. You can now close/exit this site.");
+                        }
+                        
                     })
                     .catch(error => {
                         console.error('Error updating product stock:', error);
+                        alert("Error: Stock could not be updated successfully. Reload the page and retry.");
                     });
             }   //Works now!
         });
@@ -409,101 +383,176 @@ function filterProductsByCategory(products, categorySlug) {
 }
 
 
-//variable for the function below. removes data if true
-var wasClicked = false;
-async function readUsingOption() {
-    var dropdown = document.getElementById('locationDropdown');
-    var dropdownValue = dropdown.value;
+//Newer cleaner version of this. simple as.
+function toggleDropdown() {
+    console.log("yep");
+    var dropdown = document.getElementById("myDropdown");
+    if (dropdown.style.display === "none") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
 
-    var splitDropdown = dropdownValue.split("/");
+async function changeText(deviceName, organizationName, streetName) {
+    document.getElementById("deviceName").innerText = deviceName;
+    document.getElementById("organizationName").innerText = organizationName;
+    document.getElementById("streetName").innerText = streetName;
 
-
-    const collectionRef = db.collection(splitDropdown[0]);
-    const documentRef = collectionRef.doc(splitDropdown[1]);
+    const collectionRef = db.collection(organizationName);
+    const documentRef = collectionRef.doc(deviceName);
     const doc = await documentRef.get();
 
-        if (doc.exists)
-        {
-            if (wasClicked) {
-                //button was clicked earlier
-                //remove data from notifs and row
-                $('.notif-holder').empty();
-                $(".box-status-holder").empty();
+    if (doc.exists)
+    {
+        //we can now grab the battery level, since it's stored in this location :).
+        document.getElementById("batteryValue").innerText = doc.data().battery + "%";
+
+        //CSS BG image element
+        var topElement = document.querySelector('.weather-card .top');
+
+        //Fetching a custom background image if one has been entered
+        if (doc.data().imageLink !== null && doc.data().imageLink !== undefined && doc.data().imageLink !== '') {
+            console.log("Attempting to change the BG image");
+            var imageLink = doc.data().imageLink;
+            // Attempting to change the background image URL
+            topElement.style.backgroundImage = `url(${imageLink})`;
+        }
+        else {
+            console.log("No custom image link provided, using default");
+            topElement.style.backgroundImage = 'url("https://s-media-cache-ak0.pinimg.com/564x/cf/1e/c4/cf1ec4b0c96e59657a46867a91bb0d1e.jpg")'
+        }
+
+        //Grabbing total boxes number and the number of boxes with items in them
+        const boxes = doc.data().box;
+        var activeBoxes = 0;
+        const boxesLength = boxes.length;
+
+        boxes.forEach((box) => {
+            // Filtering boxes where state is 0, then adding +1 to activeBoxes
+            if (box.state === 0) {
+            activeBoxes++;
             }
+        });
+        document.getElementById("boxesState").innerText = "Active Boxes: " + activeBoxes + " / " + boxesLength;
 
-            //Create notifications
-            const data = doc.data().notifications;
+        //Removing content from notif-holder. It should be empty by default anyways, unless we use placeholder data
+        $('.notif-holder').empty();
 
-            console.log(doc.data().address);
+        //Create notifications
+        const data = doc.data().notifications;
 
-            //create the card view element here for now. dirty approach, fix later
-            var h2Element = $('<h2>', {
-                class: 'card-font ml-auto mr-4 mt-3 mb-0 card-font-l',
-                text: doc.data().address
-            });
-
-            var pElement = $('<p>', {
-                class: 'card-font ml-auto mr-4 mb-0 card-font-m',
-                text: doc.data().doors + ' boxes are functional'
-            });
-
-            var h1Element = $('<h1>', {
-                class: 'card-font ml-auto mr-4 card-font-m',
-                text: doc.data().battery + '% battery remaining'
-            });
-            /*
-            var pElement2 = $('<p>', {
-                class: 'card-font ml-4 mb-4 card-font-s',
-                text: 'Last filled on '
-            });
-            */
-            // Append everything to card div
-            cardDiv.append(h2Element, pElement, h1Element); //, pElement2
-
-            // Append the card div to the row div
-            rowDiv.append(cardDiv);
-
-            // Append the row div to element. Do this for each one user is "subscribed" to
-            $('.box-status-holder').prepend(rowDiv);
-
-            // Loop through each key in the data object and add it to the DOM. This one is used to create the notifications.
+        if (data.length === 0) {
+            // If data array is empty, add an h3 element to notif-holder
+            $('.notif-holder').prepend($('<h3>', { text: 'No notifications available!', class: 'empty-notif' }));
+        } 
+        else {
             for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const value = data[key];
+                if (data.hasOwnProperty(key)) {
+                    const value = data[key];
 
-                var classToAdd = 'alert-' + data[key].class;
-                var notifDate = data[key].timestamp.toDate().toDateString();     //value is in nanoseconds
-                var notifTime = data[key].timestamp.toDate().toLocaleTimeString('en-US');
+                    var classToAdd = 'alert-' + data[key].class;
+                    var notifDate = data[key].timestamp.toDate().toDateString();     //value is in nanoseconds
+                    var notifTime = data[key].timestamp.toDate().toLocaleTimeString('en-US');
 
-                var notifTimestamp = notifTime + ', ' + notifDate;
-                
-                var notifDiv = $('<div>', {
-                    class: 'alert row',
-                    role: 'alert'
-                });
-                $(notifDiv).addClass(classToAdd);
+                    var notifTimestamp = notifTime + ', ' + notifDate;
+                    
+                    var notifDiv = $('<div>', {
+                        class: 'alert row',
+                        role: 'alert'
+                    });
+                    $(notifDiv).addClass(classToAdd);
 
-                var notifLocationDiv = $('<div>', {
-                    class: 'col-md-2',
-                    text: doc.data().address
-                });
-                
-                var notifMessageDiv = $('<div>', {
-                    class: 'col-md-8',
-                    text: data[key].message
-                });
-                
-                var notifTimesDiv = $('<div>', {
-                    class: 'col-md-2 align-right',
-                    text: notifTimestamp
-                });
-                
-                notifDiv.append(notifLocationDiv, notifMessageDiv, notifTimesDiv);
-                
-                $('.notif-holder').prepend(notifDiv);
-
-            }
-            wasClicked = true;
+                    var notifLocationDiv = $('<div>', {
+                        class: 'col-md-2',
+                        text: doc.data().address
+                    });
+                    
+                    var notifMessageDiv = $('<div>', {
+                        class: 'col-md-8',
+                        text: data[key].message
+                    });
+                    
+                    var notifTimesDiv = $('<div>', {
+                        class: 'col-md-2 align-right',
+                        text: notifTimestamp
+                    });
+                    
+                    notifDiv.append(notifLocationDiv, notifMessageDiv, notifTimesDiv);
+                    
+                    $('.notif-holder').prepend(notifDiv);
+                }
             }
         }
+    }
 }
+
+//// BOX thing generator. These are visible on the device list!
+function createBox(data) {
+    // Create elements
+    const row = document.createElement("div");
+    row.classList.add("row");
+  
+    const col8 = document.createElement("div");
+    col8.classList.add("col-lg-8");
+  
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.google.com/maps/embed/v1/view?key=AIzaSyD4g6gWDJO0I2MmnpAonq9Sp0XIt2DVHSo&center=${data.location.latitude},${data.location.longitude}&zoom=13`;
+    iframe.classList.add("h-100", "w-100");
+    iframe.style.border = "0";
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.setAttribute("loading", "lazy");
+  
+    col8.appendChild(iframe);
+  
+    const col4 = document.createElement("div");
+    col4.classList.add("col");
+  
+    const innerRow = document.createElement("div");
+    innerRow.classList.add("row");
+  
+    const innerCol = document.createElement("div");
+    innerCol.classList.add("col");
+  
+    // Create form outlines
+    const formOutlines = ["Device name: " + data.deviceName, "Organization: " + data.organizationName , "Street: " + data.street, "Lat: " + data.location.latitude + "  Long: " + data.location.longitude];
+    formOutlines.forEach((labelText) => {
+      const formOutline = document.createElement("div");
+      formOutline.classList.add("form-outline", "mb-4");
+  
+      const label = document.createElement("label");
+      label.classList.add("form-label");
+      label.textContent = labelText;
+  
+      formOutline.appendChild(label);
+      innerCol.appendChild(formOutline);
+    });
+  
+    // Create button
+    const button = document.createElement("button");
+    button.type = "submit";
+    button.classList.add("btn", "btn-primary", "mb-5", "mb-md-0");
+    button.setAttribute("data-mdb-button-init", "");
+    button.setAttribute("data-mdb-ripple-init", "");
+    button.textContent = "Fill This Box";
+    button.onclick = function() {
+        window.location.href = "https://firewood2go.eu/index.php/admin-fill-box-" + data.organizationName + "-" + data.deviceName + "/";
+    };
+  
+    innerCol.appendChild(button);
+    innerRow.appendChild(innerCol);
+    col4.appendChild(innerRow);
+  
+    row.appendChild(col8);
+    row.appendChild(col4);
+  
+    return row;
+  }
+
+  //function to append boxes to a container
+  function appendBoxes(container, boxData) {
+      const box = createBox(boxData);
+      container.appendChild(box);
+      const hr = document.createElement("hr");
+      container.appendChild(hr);
+  }

@@ -12,13 +12,6 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
 function halko_setup() {
 	/*
 		* Make theme available for translation.
@@ -45,10 +38,6 @@ function halko_setup() {
 		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		*/
 	add_theme_support( 'post-thumbnails' );
-
-	// Adds Gutenberg block support
-	add_theme_support( 'responsive-embeds' );
-	add_theme_support('wp-block-styles');
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(

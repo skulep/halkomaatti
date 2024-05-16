@@ -21,21 +21,39 @@ get_header('admin');
 ?>
 
 
-	<main id="primary" class="site-main">
-		<h1 class="text-center">Box Status</h1>
-		<select id="locationDropdown"></select>
-		<button onclick="readUsingOption()">Get Data</button>
+<main id="primary" class="site-main">
 
+		<div class="container pt-2">
+			<div class="row">
+				<div class="col">
+					<div class="weather-card one">
+						<div class="top">
+							<div class="wrapper">
+								<div class="mynav">
+									<button class="dd-button" onclick="toggleDropdown()"><span class="lnr lnr-chevron-down"></span></button>
+									<div id="myDropdown" class="dropdown-content">
 
-		<div class="container-fluid px-1 px-md-4 py-5 mx-auto">
-			<div class="box-status-holder"></div>
+									</div>
+								</div>
+							<h1 id="deviceName" class="heading">Example</h1>
+							<h3 id="organizationName" class="location">Use the top right menu to select a location ->></h3>
+							<p class="temp">
+								<span id="batteryValue" class="temp-value">95%</span>
+							</p>
+							<h3 id="streetName" class="location pb-2">Ex Street 103</h3>
+							<h3 id="boxesState" class="location pb-2">Active Boxes: 0/20</h3>
+							<hr>
+							<div class="notif-holder"></div>
+							</div>
+				
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<h1 class="text-center">Notifications</h1>
-		<div class="notif-holder"></div>
-		
-		
-	</main><!-- #main -->
+</main><!-- #main -->
 
 <?php
 get_sidebar();

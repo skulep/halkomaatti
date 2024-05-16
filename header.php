@@ -92,7 +92,8 @@
 
 
 				<a class="btn nav-item me-auto p-2" type="button" href="https://firewood2go.eu/index.php/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
-				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/customer-info/"><i class="bi bi-info-circle"></i> About</a>
+				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/customer-info/"><i class="bi bi-info-circle"></i> About </a>
+				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/admin-main/"><i class="bi bi-info-circle"></i> Management Page </a>
 			</div>
 		</div>
 	</nav>
