@@ -1,7 +1,10 @@
+//import { secrets } from './secret.js';
+
+
+//remove for final and move elsewhere
+
 // Firebase Functions.
 // Functions to add elements to sites, grab data from Firebase and other.
-
-const { secrets } = require('./secret.js');
 
 const consumer_key = secrets.consumer_key;
 const consumer_secret = secrets.consumer_secret;
@@ -38,12 +41,8 @@ async function getDocumentData(collectionName, documentName) {
         if (locationCoords) {
             locationCoords.textContent = doc.data().coordinates.latitude + ", " + doc.data().coordinates.longitude;
         }
-
-
-
         //Create box buttons
         
-
         const data2 = doc.data().box;    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var buttonText = 1;
         var btnDiv = $('<div>', {
@@ -77,15 +76,15 @@ async function getDocumentData(collectionName, documentName) {
             $(newButton).on("click", function() {
                 if ($(this).hasClass("filled")) {
                 $(this).removeClass("filled");
-                $(this).addClass("empty");
+                $(this).addClass("faulty");
                 }
                 else if ($(this).hasClass("empty")) {
                 $(this).removeClass("empty");
-                $(this).addClass("faulty");
+                $(this).addClass("filled");
                 }
                 else if ($(this).hasClass("faulty")) {
                 $(this).removeClass("faulty");
-                $(this).addClass("filled");
+                $(this).addClass("empty");
                 }
             });
 
@@ -557,4 +556,71 @@ function createBox(data) {
       container.appendChild(box);
       const hr = document.createElement("hr");
       container.appendChild(hr);
+  }
+
+
+  //function to create and upload a "open box"-code
+  async function openAllBoxes() {
+    //Get collection/document using site URL
+    if(currentUrl.includes("/admin-fill-box")) {
+        var urlSplit = currentUrl.split("/");
+        var firestorePath = urlSplit[4].split("-");
+        
+        var orgpath = firestorePath[3].charAt(0).toUpperCase() + firestorePath[3].slice(1);
+        var maticpath = firestorePath[4].charAt(0).toUpperCase() + firestorePath[4].slice(1);
+        
+        const collectionRef = db.collection(orgpath);
+        const documentRef = collectionRef.doc(maticpath);
+        const doc = await documentRef.get();
+
+        //IF doc exists, get the number of boxes, divide by 48 (max count) and floor the value.
+        if (doc.exists) {
+            const boxes = doc.data().box;
+            const boxesLength = boxes.length;
+            console.log(boxesLength);
+
+            let cuCount = boxes.length / 48;
+            cuCount = Math.floor(cuCount);
+
+            const newOrderMap = {};
+    
+            //Create a "open all" code for each control unit
+            for (let a = 0; cuCount >= a; a++) {
+                let lastByte = 134 + a;
+                let newOrderCode = "02 0" + a + " 48 81 03 " + lastByte;
+                console.log(newOrderCode);
+                newOrderMap[a] = newOrderCode;
+            }
+            
+              // Add the entries to the "orders" map field. Doesn't allow duplicates
+              /*
+              documentRef.update({
+                'orders': firebase.firestore.FieldValue.arrayUnion(newOrderMap)
+              }).then(() => {
+                console.log('Order entries added successfully!');
+              }).catch((error) => {
+                console.error('Error adding order entries: ', error);
+              });
+              */
+
+             // Add the entries to the "orders" map field. Allows duplicates to be added
+              documentRef.get().then((doc) => {
+                if (doc.exists) {
+                  const orders = doc.data().orders || [];
+                  orders.push(newOrderMap); // Append the new entry, allowing duplicates
+                  documentRef.update({
+                    'orders': orders
+                  }).then(() => {
+                    console.log('Order entry added successfully!');
+                  }).catch((error) => {
+                    console.error('Error adding order entry: ', error);
+                  });
+                } else {
+                  console.error('No such document!');
+                }
+              }).catch((error) => {
+                console.error('Error getting document:', error);
+              });
+        }
+    }
   }

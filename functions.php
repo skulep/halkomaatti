@@ -398,9 +398,15 @@ add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
 
 function custom_firebase_scripts_function()
 {
- 	wp_enqueue_script('custom_firebase', get_template_directory_uri() . '/js/custom_firebase.js', array('firebase_app', 'firebase_auth', 'firebase_database', 'firebase_firestore', 'firebase'));
+ 	wp_enqueue_script('custom_firebase', get_template_directory_uri() . '/js/custom_firebase.js', array('firebase_app', 'firebase_auth', 'firebase_database', 'firebase_firestore', 'firebase'), '1.0.0', true);
+	wp_script_add_data('custom_firebase', 'type', 'module');
+
+	//Testing adding secret.js too.
+	//wp_enqueue_script('secret-js', get_template_directory_uri() . '/js/secret.js',array(),'1.0.0',true);
+	//wp_script_add_data('secret-js', 'type', 'module');
 }
 add_action('wp_enqueue_scripts', 'custom_firebase_scripts_function');
+
 
 function firebase_fetch_func($atts)
 {

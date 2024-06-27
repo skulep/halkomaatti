@@ -21,7 +21,7 @@ if (!empty($allowed_roles)) {
     $user_roles = $current_user->roles;
 
     $is_allowed = false;
-	$is_admin = in_array('administrator', $user_roles);
+	  $is_admin = in_array('administrator', $user_roles);
 
 	//Check if user's role is allowed. Admin is always allowed, other roles need to be written down in Allowed Roles Field
     foreach ($allowed_roles as $role) {
@@ -63,9 +63,24 @@ get_header('admin');
 		<p id="rowCoords" class="text-center">Placeholder</p>
     
     <div class="text-center">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        View Help
-      </button>
+ 
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-2 pt-2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              View Help
+            </button>
+          </div>
+          <div class="col-lg-auto pt-2">
+            
+          </div>
+          <div class="col col-lg-2 pt-2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#openAllModal">
+              Open All Boxes
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 	</div>
 <!---- We create button+select elements here using JS. 
@@ -111,11 +126,29 @@ get_header('admin');
         </button>
       </div>
       <div class="modal-body">
-	  	<p class="text-center"><i class="bi bi-square-fill icon-green">  Filled Box</i></p>
-		<p class="text-center"><i class="bi bi-square-fill icon-grey">  Empty Box</i></p>
-		<p class="text-center"><i class="bi bi-square-fill icon-red">  Faulty Box</i></p>
-		<p class="text-center">Tap the box to toggle. Select the item using the select option below the box.</p>
-		<p class="text-center">Select device's state and click "Mark as Filled" to push your changes.</p>
+        <p class="text-center"><i class="bi bi-square-fill icon-green">  Filled Box</i></p>
+        <p class="text-center"><i class="bi bi-square-fill icon-grey">  Empty Box</i></p>
+        <p class="text-center"><i class="bi bi-square-fill icon-red">  Faulty Box</i></p>
+        <p class="text-center">Tap the box to toggle. Select the item using the select option below the box.</p>
+        <p class="text-center">Select device's state and click "Mark as Filled" to push your changes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="openAllModal" tabindex="-1" role="dialog" aria-labelledby="openAllModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="openAllModalLabel">Are you sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">This may take a while, depending on how many locks there are to open.</p>
+        <a class="w-100 btn confirm-fill btn-lg btn-primary mb-5" id="open-for-filling" role="button"  type="button" onclick="openAllBoxes()" data-dismiss="modal">Open all boxes</a>
       </div>
     </div>
   </div>
