@@ -26,79 +26,89 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'halko' ); ?></a>
 
-
 	<nav class="navbar navbar-expand-lg navbar-light px-2">
-		<a class="navbar-brand" href="http://firewood2go.eu">Vedogvarer</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav display-flex">
+    <a class="navbar-brand" href="<?php echo get_home_url(); ?>">Vedogvarer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav w-100">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-pin-map"></i> Locations
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: rgba(166, 228, 194, 1)">
+                    <?php
+                    $taxonomy     = 'product_cat';
+                    $orderby      = 'name';  
+                    $show_count   = 0;      
+                    $pad_counts   = 0;      
+                    $hierarchical = 1;      
+                    $title        = '';  
+                    $empty        = 0;
 
-				<button class="btn dropdown-toggle me-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="bi bi-pin-map"></i> Locations
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    $args = array(
+                        'taxonomy'     => $taxonomy,
+                        'orderby'      => $orderby,
+                        'show_count'   => $show_count,
+                        'pad_counts'   => $pad_counts,
+                        'hierarchical' => $hierarchical,
+                        'title_li'     => $title,
+                        'hide_empty'   => $empty
+                    );
+                    $all_categories = get_categories( $args );
+                    foreach ($all_categories as $cat) {
+                        if($cat->category_parent == 0) {
+                            $category_id = $cat->term_id;
 
-				<?php
+                            $args2 = array(
+                                'taxonomy'     => $taxonomy,
+                                'child_of'     => 0,
+                                'parent'       => $category_id,
+                                'orderby'      => $orderby,
+                                'show_count'   => $show_count,
+                                'pad_counts'   => $pad_counts,
+                                'hierarchical' => $hierarchical,
+                                'title_li'     => $title,
+                                'hide_empty'   => $empty
+                            );
+                            $sub_cats = get_categories( $args2 );
+                            if($sub_cats) {
+                                foreach($sub_cats as $sub_category) {
+                                    echo '<a class="dropdown-item" href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
+                                }
+                            }
+                        }       
+                    }
+                    ?>
+                </div>
+            </div>
 
-					$taxonomy     = 'product_cat';
-					$orderby      = 'name';  
-					$show_count   = 0;      // 1 for yes, 0 for no
-					$pad_counts   = 0;      // 1 for yes, 0 for no
-					$hierarchical = 1;      // 1 for yes, 0 for no  
-					$title        = '';  
-					$empty        = 0;
-
-					$args = array(
-							'taxonomy'     => $taxonomy,
-							'orderby'      => $orderby,
-							'show_count'   => $show_count,
-							'pad_counts'   => $pad_counts,
-							'hierarchical' => $hierarchical,
-							'title_li'     => $title,
-							'hide_empty'   => $empty
-					);
-					$all_categories = get_categories( $args );
-					foreach ($all_categories as $cat) {
-						if($cat->category_parent == 0) {
-							$category_id = $cat->term_id;       
-							#echo '<br /><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
-							#We do not want to show the main categories here.
-
-							$args2 = array(
-									'taxonomy'     => $taxonomy,
-									'child_of'     => 0,
-									'parent'       => $category_id,
-									'orderby'      => $orderby,
-									'show_count'   => $show_count,
-									'pad_counts'   => $pad_counts,
-									'hierarchical' => $hierarchical,
-									'title_li'     => $title,
-									'hide_empty'   => $empty
-							);
-							$sub_cats = get_categories( $args2 );
-								if($sub_cats) {
-
-									foreach($sub_cats as $sub_category) {
-										echo  '<br/><a class="btn dropdown-item" type="button" aria-pressed="true" href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
-									}
-								}
-						}       
-					}
-				?>
-
-				</div>
-				</button>
-
-
-				<a class="btn nav-item me-auto p-2" type="button" href="https://firewood2go.eu/index.php/cart/"><i class="bi bi-cart3"></i> Cart (<?php echo WC()->cart->get_cart_contents_count() ?>) </a>
-				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/customer-info/"><i class="bi bi-info-circle"></i> About </a>
-				<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/admin-main/"><i class="bi bi-info-circle"></i> Management Page </a>
+			<div>
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/cart/">
+					<i class="bi bi-cart3"></i> Cart (<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>)
+				</a>
+			</div>	
+            <div>
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/customer-info/">
+					<i class="bi bi-info-circle"></i> About 
+				</a>
 			</div>
-		</div>
-	</nav>
-
-
+			<div>
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/legal/">
+					<i class="bi bi-bank2"></i> Legal 
+				</a>
+			</div>
+            
+            <!-- Wrapper for alignment -->
+            <div class="ml-auto">
+                <a class="btn nav-item nav-link p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/admin-main/">
+                    Log In <i class="bi bi-person-gear"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
 
 	<header id="masthead" class="site-header">
 		<div class="site-branding">
@@ -133,4 +143,14 @@
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 
-	
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var dropdownItems = document.querySelectorAll('.dropdown-item');
+			dropdownItems.forEach(function (item) {
+				item.addEventListener('click', function (e) {
+					e.preventDefault();
+					window.location.href = this.href;
+				});
+			});
+		});
+	</script>

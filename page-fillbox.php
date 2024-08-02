@@ -9,6 +9,7 @@ $page_id = get_the_ID();
 
 $allowed_roles = get_field('allowed_roles_list');
 
+
 if (!empty($allowed_roles)) {
     // Convert the string of roles to an array. Note: uses comma as a separator
     $allowed_roles = explode(',', $allowed_roles);
@@ -35,14 +36,15 @@ if (!empty($allowed_roles)) {
 		//User is allowed -- load page normally.
         //echo do_shortcode('[need_login]');
     } else {
-		echo '<script>alert("You are not authorized to view this page.")
-		window.open("https://firewood2go.eu/index.php/admin-main/","_self")</script>'; 
+      $redirect_url = get_home_url() . '/index.php/admin-main/';
+      echo '<script>alert("You are not authorized to view this page."); window.open("' . $redirect_url . '", "_self");</script>';
     }
 } else {
-	echo '<script>alert("You are not authorized to view this page.")
-	window.open("https://firewood2go.eu/index.php/admin-main/","_self")</script>'; 
+	$redirect_url = get_home_url() . '/index.php/admin-main/';
+  echo '<script>alert("You are not authorized to view this page."); window.open("' . $redirect_url . '", "_self");</script>';
 }
 ?>
+
 
 <?php
 /*

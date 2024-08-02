@@ -19,6 +19,16 @@ get_header();
 		<div class="container">
 
 			<?php
+				// Check if it's a product category page
+				if (is_product_category()) {
+					$google_map = get_field('google_maps_category_page_embed', get_queried_object());
+
+					if ($google_map) {
+						echo '<div class="category-google-map mb-2 border bg-primary">';
+						echo '<iframe src="' . esc_url($google_map) . '" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="100%" height="320"></iframe>';
+						echo '</div>';
+					}
+				}
 				woocommerce_content();
 			?>
 		</div>

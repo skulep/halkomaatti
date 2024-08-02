@@ -1,7 +1,4 @@
-//import { secrets } from './secret.js';
-
-
-//remove for final and move elsewhere
+import { secrets } from './secret.js';
 
 // Firebase Functions.
 // Functions to add elements to sites, grab data from Firebase and other.
@@ -12,6 +9,10 @@ const maps_api = secrets.maps_api;
 
 var itemsToUpdate = [
 ];
+const productData = new Map;
+
+//From functions.php. Only works on this site unless I'm mistaken
+const siteUrl = siteData.homeUrl;
 
 //Fetch all data from Firebase. Check line 280-320(ish) for function call
 
@@ -48,6 +49,27 @@ async function getDocumentData(collectionName, documentName) {
         var btnDiv = $('<div>', {
             class: 'row pt-5 pb-5'
         });
+
+        //var options = [];
+        
+
+        // Do getProducts outside the loop. This will be shared for each product so it's not necessary.  
+        //productData can then be used to populate the 'option'
+        try {
+        const products = await getProductsInCategory(documentName);  //reminder documentName == location/device name so this should work, unless something got messed up during setup.
+
+            //console.log("Product was found, processing");
+            if (products) {
+                const filteredProducts = filterProductsByCategory(products, documentName);
+                // Processing the found products 
+                filteredProducts.forEach(product => {
+                    productData.set(product.id, product.name); // Set product name and id in a map
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
 
         // Loop through each key in the data object and add it to the DOM. This one is used to create the notifications.
         data2.forEach(boxData => {
@@ -104,51 +126,39 @@ async function getDocumentData(collectionName, documentName) {
             var dbID = boxData.id;
 
             var options = [];
-            const productData = new Map;
+            //const productData = new Map;
 
-            getProductsInCategory(documentName)  //reminder documentName == location/device name so this should work.
-                .then(products => {
-                    if (products) {
-                        const filteredProducts = filterProductsByCategory(products, documentName);
-                        // Processing the found products 
-                        filteredProducts.forEach(product => {
-                            productData.set(product.id, product.name); // Set product name and id in a map
-                        });
 
-                        //xdd
-                        for (let [productId, productName] of productData.entries()) {
-                            var optionName = "option" + (options.length + 1);
-                            optionName = document.createElement("option");
-                            //if (options.length === 0) {
-                            //    optionName.selected = true;
-                            //}
-                        
-                            optionName.value = productId;
-                            optionName.textContent = productName;
-                            selectElement.append(optionName);
-                            options.push(optionName);
-                        }
+            // Do getProducts outside the loop. This will be shared for each product so it's not necessary.  
+            //productData can then be used to populate the 'option'
+            //console.log("pData", productData);        
+            //Filling option(s) using product data
+            for (let [productId, productName] of productData.entries()) {
+                //console.log("Creating options");
+                var optionName = "option" + (options.length + 1);
+                optionName = document.createElement("option");
+            
+                optionName.value = productId;
+                optionName.textContent = productName;
+                selectElement.append(optionName);
+                options.push(optionName);
+            }
 
-                        //Try to find the CURRENT id, and use it as 'default'. Makes it easier to fill the boxes ig.
+            //Try to find the CURRENT id, and use it as 'default'. Makes it easier to fill the boxes ig.
+            if (dbID) {
+                for (let i = 0; i < options.length; i++) {
 
-                        if (dbID) {
-                            for (let i = 0; i < options.length; i++) {
+                    var optionVal = options[i].value;
 
-                                var optionVal = options[i].value;
-
-                                if (dbID == optionVal) {
-                                    options[i].selected = true;
-                                }
-                            }
-                        }
-                        else {
-                            console.log("dbid was null");
-                        }
+                    if (dbID == optionVal) {
+                        options[i].selected = true;
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                }
+            }
+            else {
+                console.log("dbid was null");
+            }
+
 
             //append buttons + select boxes and name them
             btnInnerDiv.append(newButton);
@@ -166,15 +176,15 @@ async function getDocumentData(collectionName, documentName) {
 
 
 async function getDeviceData() {
-    if(window.location.href == "https://firewood2go.eu/index.php/admin-box-info/") {
+    if(window.location.href == siteUrl + "/index.php/admin-box-info/") {
         const collectionRef = db.collection("listOfOrganization");
         const documentRef = collectionRef.doc("listOfDevices");
         const doc = await documentRef.get();
         if (doc.exists) {
             const listOfDevices = doc.data().list;  //Grabs the list of devices. array with map objects inside that have the required info for this.
-            console.log(listOfDevices);
+            //console.log(listOfDevices);
             listOfDevices.forEach(devData => {
-                console.log("device data found: " + devData.deviceName, devData.organizationName, devData.location);
+                //console.log("device data found: " + devData.deviceName, devData.organizationName, devData.location);
                 const container = document.getElementById("container"); //Get 'container'
                 appendBoxes(container, devData);
             });
@@ -201,7 +211,7 @@ async function getHomepageData() {
             };
             dropdownContent.appendChild(link);
 
-            console.log("ELEMENT ADDED to myDropdown:" + devData.deviceName);
+            //console.log("ELEMENT ADDED to myDropdown:" + devData.deviceName);
         });
     } else {
         console.log("Document does not exist");
@@ -222,31 +232,93 @@ if(currentUrl.includes("/admin-fill-box")) {
 }
 
 //admin box info ==== dispensers-tab
-if(window.location.href == "https://firewood2go.eu/index.php/admin-box-info/") {
+if(window.location.href == siteUrl + "/index.php/admin-box-info/") {
     getDeviceData();
 }
 
 //admin-main, its supposed to have a dropdown menu thing that you can choose a location from.
-if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
+if(window.location.href == siteUrl + "/index.php/admin-main/") {
     getHomepageData();
 }
 
+//needs to be global, used to create the notification
+var dbUpdateStatus = false;
+
+//Function will additionally take "boxes" from previous/older version of the function
+async function addToFirestore(boxes, docRef) {
+    var timestamp = new Date($.now());
+
+    var pushData = {
+        class: $("#class-select").val(),
+        message: $("#message-field").val(),
+        timestamp: timestamp
+    };
+
+    try {
+        // Fetch the current notifications
+        var doc = await docRef.get();
+        var notifications = []; //New array, used to store the 5 newest notifications. Utilizes timestamp
+
+        if (doc.exists) {
+            notifications = doc.data().notifications || [];
+        }
+
+        // Add the new notification to the array
+        notifications.push(pushData);
+
+        //Check if there are over 5 notifications - if yes, delete the oldest one
+        if (notifications.length > 5) {
+            notifications.sort((a, b) => a.timestamp - b.timestamp); // Sort notifications by timestamp
+            notifications.shift(); // Remove using shift()
+        }
+
+        // Update the Firestore document with the new notifications and boxes arrays
+        await docRef.set({
+            notifications: notifications,
+            box: boxes
+        }, { merge: true });
+
+        //console.log("Firestore updated successfully!");
+        dbUpdateStatus = true;
+
+    } catch (error) {
+            console.error("Error updating Firestore: ", error);
+            dbUpdateStatus = false;
+        }
+}
+
+
+
 //Get Box info and create Box buttons --- also on button click update all button data + create notification
 //Only on the fillbox page
-(function ($) {
-    $( document ).ready(function(){
-    'use strict';
+//(function ($) {
+    $(document).ready(function() {
+        'use strict';
+        var buttonClicked = false;
+    
         $("#confirm-fill").click(function () {
+            if (buttonClicked) {
+                //console.log("Button already clicked, returning");
+                return;
+            }
+            buttonClicked = true;
+
+            $(this).prop('disabled', true); // Disabling the button ...
+            $(this).text("Please wait, currently working..."); // and changing the text on click
+            $(this).removeClass("btn-primary"); //Also removing/adding a class to change the color
+            $(this).addClass("btn-grey-border");
+
+            /*
             var timestamp = new Date($.now());
 
             var pushData = {
                 class: $("#class-select").val(),
                 message: $("#message-field").val(),
                 timestamp: timestamp
-            };
+            };*/
 
             //Individual box data to Firebase
-            var boxes = [];
+            var boxes = []; //Use in function addSortedNotification
             var buttonsLen = document.getElementsByClassName("fill-button").length;
             
             for (let x = 1; x <= buttonsLen; x++) {
@@ -272,56 +344,38 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
                 boxes.push(boxData);
             }
 
-            console.log(boxes);
-
-            var dbUpdateStatus = false;
-
-            db.collection(orgpath).doc(maticpath).set({
-                notifications: firebase.firestore.FieldValue.arrayUnion(pushData),
-                box: boxes
-            }, {merge: true})
-
-            .then(function() {
-                console.log("Document successfully written!");
-                dbUpdateStatus = true;
-            })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-                dbUpdateStatus = false;
-            });
-
-            console.log(boxes);
+            
+            //Get docRef and pass it to addToFirestore
+            var docRef = db.collection(orgpath).doc(maticpath);
+            addToFirestore(boxes, docRef);
 
             //Adding items to array
-            //updates all product data.
+            //updates all product data. This now also includes products in category without any item in it
 
             //var buttonsLen = document.getElementsByClassName("fill-button").length;
+
+            //placing all products we have into itemsToUpdate first. this way, even if something goes wrong or if product is removed it should not be available for purchase
+            //using productData for this, since it'll have all of our products
+            for (let [productId, productName] of productData.entries()) {
+                var newItem = {id: productId, newStock: 0};  //Add 0 item so you can set stock status to 0.
+                console.log(newItem);
+                console.log("Initial entry added: ", productName);
+                itemsToUpdate.push(newItem);
+            }
+
+            //Populating stock...
             for (let i = 0; i < buttonsLen; i++) {
                 var buttonNumber = i+1;
                 var selectedId = $('#id-select-' + buttonNumber).val();
-
                   if ($('#fill-button' + buttonNumber).hasClass("filled")) {
-                    var newItem = {id: selectedId, newStock: 1};  //Only need to add 1 item at once.
-                    var itemToUpdate = itemsToUpdate.find(item => item.id === newItem.id); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
-                    console.log(itemToUpdate);
-                    if (itemsToUpdate.some(item => item.id === newItem.id)) {
-                        console.log("ID already exists in the array. Stock value will be updated");
+                    selectedId = parseInt(selectedId, 10);
+                    var itemToUpdate = itemsToUpdate.find(item => item.id === selectedId); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
+
+                    if (itemToUpdate) {
                         itemToUpdate.newStock += 1;
+                        console.log(itemToUpdate);
                     } else {
-                        console.log("ID does not exist in the array. New entry added");
-                        itemsToUpdate.push(newItem);
-                    }
-                  }
-                  //!!!!!!!! can make this a lot shorter than currently. just for testing purposes :)
-                  else {
-                    var newItem = {id: selectedId, newStock: 0};  //Add 0 item so you can set stock status to 0.
-                    var itemToUpdate = itemsToUpdate.find(item => item.id === newItem.id); //Check if new item already exists in the array. If not, it is created. If it does, the stock value will increment by one.
-                    console.log(itemToUpdate);
-                    if (itemsToUpdate.some(item => item.id === newItem.id)) {
-                        console.log("ID already exists in the array.");
-                    } else {
-                        console.log("ID does not exist in the array. New entry added at value 0.");
-                        itemsToUpdate.push(newItem);
+                        console.log("ID does not exist in the array. why? this should not happen...");
                     }
                   }
             }
@@ -329,7 +383,7 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
             //Updates product stock to Woocommerce
             for (let i = 0; i < itemsToUpdate.length; i++) {
             
-                let url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+                let url = siteUrl + '/index.php/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
             
                 fetch(url, {
                     method: 'POST',
@@ -340,10 +394,10 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Product stock updated successfully:', data);
-
+                        //console.log('Product stock updated successfully:', data);
                         if (dbUpdateStatus) {
-                            alert("Successfully updated Firestore state and WooCommerce stock. You can now close/exit this site.");
+                            alert("Successfully updated Firestore state and WooCommerce stock. Redirecting to the main page.");
+                            window.location.href = siteUrl + "/index.php/admin-main/";
                         }
                         
                     })
@@ -358,12 +412,12 @@ if(window.location.href == "https://firewood2go.eu/index.php/admin-main/") {
     });
 
 
-})(jQuery)
+//})(jQuery)
 
 // Grabs items in category using the category slug.
 async function getProductsInCategory(categorySlug) {
     const lowerCaseSlug = categorySlug.toLowerCase();
-    const url = 'https://firewood2go.eu/index.php/wp-json/wc/v3/products?category/'+ lowerCaseSlug + '&consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+    const url = siteUrl + '/index.php/wp-json/wc/v3/products?category/'+ lowerCaseSlug + '&consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -381,18 +435,6 @@ async function getProductsInCategory(categorySlug) {
 function filterProductsByCategory(products, categorySlug) {
     const lowerCaseSlug = categorySlug.toLowerCase();
     return products.filter(product => product.categories.some(category => category.slug === lowerCaseSlug));
-}
-
-
-//Newer cleaner version of this. simple as.
-function toggleDropdown() {
-    console.log("yep");
-    var dropdown = document.getElementById("myDropdown");
-    if (dropdown.style.display === "none") {
-        dropdown.style.display = "block";
-    } else {
-        dropdown.style.display = "none";
-    }
 }
 
 async function changeText(deviceName, organizationName, streetName) {
@@ -414,13 +456,11 @@ async function changeText(deviceName, organizationName, streetName) {
 
         //Fetching a custom background image if one has been entered
         if (doc.data().imageLink !== null && doc.data().imageLink !== undefined && doc.data().imageLink !== '') {
-            console.log("Attempting to change the BG image");
             var imageLink = doc.data().imageLink;
             // Attempting to change the background image URL
             topElement.style.backgroundImage = `url(${imageLink})`;
         }
         else {
-            console.log("No custom image link provided, using default");
             topElement.style.backgroundImage = 'url("https://s-media-cache-ak0.pinimg.com/564x/cf/1e/c4/cf1ec4b0c96e59657a46867a91bb0d1e.jpg")'
         }
 
@@ -488,14 +528,20 @@ async function changeText(deviceName, organizationName, streetName) {
     }
 }
 
+//for createBox
+//makes it look a bit nicer IMO.
+var isFlipped = false;
+
+
 //// BOX thing generator. These are visible on the device list!
 function createBox(data) {
+
     // Create elements
     const row = document.createElement("div");
     row.classList.add("row");
   
     const col8 = document.createElement("div");
-    col8.classList.add("col-lg-8");
+    col8.classList.add("col");
   
     const iframe = document.createElement("iframe");
     iframe.src = `https://www.google.com/maps/embed/v1/view?key=${maps_api}&center=${data.location.latitude},${data.location.longitude}&zoom=13`;
@@ -537,16 +583,23 @@ function createBox(data) {
     button.setAttribute("data-mdb-ripple-init", "");
     button.textContent = "Fill This Box";
     button.onclick = function() {
-        window.location.href = "https://firewood2go.eu/index.php/admin-fill-box-" + data.organizationName + "-" + data.deviceName + "/";
+        window.location.href = siteUrl + "/index.php/admin-fill-box-" + data.organizationName + "-" + data.deviceName + "/";
     };
   
     innerCol.appendChild(button);
     innerRow.appendChild(innerCol);
     col4.appendChild(innerRow);
-  
-    row.appendChild(col8);
-    row.appendChild(col4);
-  
+
+    if (isFlipped) {
+        row.appendChild(col4);
+        row.appendChild(col8);
+        isFlipped = false;
+    }
+    else {
+        row.appendChild(col8);
+        row.appendChild(col4);
+        isFlipped = true;
+    }
     return row;
   }
 
@@ -579,31 +632,29 @@ function createBox(data) {
             const boxesLength = boxes.length;
             console.log(boxesLength);
 
-            let cuCount = boxes.length / 48;
-            cuCount = Math.floor(cuCount);
+            let cuCount = Math.floor(boxes.length / 48);
 
             const newOrderMap = {};
     
             //Create a "open all" code for each control unit
             for (let a = 0; cuCount >= a; a++) {
-                let lastByte = 134 + a;
-                let newOrderCode = "02 0" + a + " 48 81 03 " + lastByte;
+                const lastByte = (134 + a);
+                let newOrderCode = "2 " + a + " 48 81 03 " + lastByte;
                 console.log(newOrderCode);
                 newOrderMap[a] = newOrderCode;
             }
             
               // Add the entries to the "orders" map field. Doesn't allow duplicates
-              /*
               documentRef.update({
-                'orders': firebase.firestore.FieldValue.arrayUnion(newOrderMap)
-              }).then(() => {
+                orders: newOrderMap
+            }).then(() => {
                 console.log('Order entries added successfully!');
-              }).catch((error) => {
+            }).catch((error) => {
                 console.error('Error adding order entries: ', error);
-              });
-              */
-
+            });
+              
              // Add the entries to the "orders" map field. Allows duplicates to be added
+             /*
               documentRef.get().then((doc) => {
                 if (doc.exists) {
                   const orders = doc.data().orders || [];
@@ -621,6 +672,7 @@ function createBox(data) {
               }).catch((error) => {
                 console.error('Error getting document:', error);
               });
+              */
         }
     }
   }

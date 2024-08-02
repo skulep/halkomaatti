@@ -17,9 +17,9 @@
 			<div class="row">
 				<div class="col-md-14 d-flex justify-content-center">
 					<ul class="bottom-nav-bar-list">
-						<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/admin-main/"><i class="bi bi-house-door"></i> Home</a>
-						<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/admin-box-info/"><i class="bi bi-box-seam"></i> Dispensers</a>
-						<a class="btn nav-item nav-link me-auto p-2" type="button" href="https://firewood2go.eu/index.php/admin-notifications/"><i class="bi bi-bell"></i> Notifications</a>
+						<a class="btn nav-item nav-link me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/admin-main/"><i class="bi bi-house-door"></i> Home</a>
+						<a class="btn nav-item nav-link me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/admin-box-info/"><i class="bi bi-box-seam"></i> Devices</a>
+						
 					</ul>
 				</div>
 			</div>

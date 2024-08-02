@@ -30,9 +30,8 @@ get_header('admin');
 						<div class="top">
 							<div class="wrapper">
 								<div class="mynav">
-									<button class="dd-button" onclick="toggleDropdown()"><span class="lnr lnr-chevron-down"></span></button>
-									<div id="myDropdown" class="dropdown-content">
-
+									<button class="dd-button"><span class="lnr lnr-chevron-down"></span></button>;
+									<div id="myDropdown" class="dropdown-content" style="display: none;">
 									</div>
 								</div>
 							<h1 id="deviceName" class="heading">Example</h1>

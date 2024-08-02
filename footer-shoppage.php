@@ -25,7 +25,7 @@
 					</div>
 
 					<div class="col-4 d-flex justify-content-end">
-						<a class="btn btn-primary" href="https://firewood2go.eu/index.php/cart/" role="button">
+						<a class="btn btn-primary" href="<?php echo get_home_url(); ?>/index.php/cart/" role="button">
 							Cart <i class="bi bi-cart2"></i>
 						</a>
 					</div>

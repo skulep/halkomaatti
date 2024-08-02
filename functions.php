@@ -219,110 +219,132 @@ add_action('enqueue_block_editor_assets', 'enqueue_block_editor_assets');
 
 
 function custom_webhook_payload($payload, $resource, $resource_id, $event) {
+    // Check if the resource is 'order'
     if ($resource !== 'order') {
         return $payload;
-	}
-	//We do not need all these fields. Unset can remove them
-	unset($payload['_links']);
-	unset($payload['billing']);
-	unset($payload['shipping']);
-	unset($payload['shipping_lines']);
-	unset($payload['tax_lines']);
-	unset($payload['refunds']);
-	unset($payload['fee_lines']);
-	//unset($payload['line_items']); //this one is actually needed
-	unset($payload['meta_data']);
-	unset($payload['cart_hash']);
-	unset($payload['cart_tax']);
-	unset($payload['coupon_lines']);
-	unset($payload['created_via']);
-	unset($payload['currency']);
-	unset($payload['currency_symbol']);
-	unset($payload['customer_id']);
-	unset($payload['customer_ip_address']);
-	unset($payload['customer_note']);
-	unset($payload['customer_user_agent']);
+    }
 
-	unset($payload['date_completed']);
-	unset($payload['date_completed_gmt']);
-	unset($payload['date_created']);  //not sure if needed. will add it for clarity reasons
-	unset($payload['date_created_gmt']);
-	unset($payload['date_modified']);
-	unset($payload['date_modified_gmt']);
-	unset($payload['date_paid']);
-	unset($payload['date_paid_gmt']);
+    // Get the order by ID
+    $order = wc_get_order($resource_id);
 
-	unset($payload['discount_tax']);
-	unset($payload['discount_total']);
+    // Check if the order exists
+    if (!$order) {
+        return false; // Exit if the order does not exist
+    }
 
-	unset($payload['id']);
-	unset($payload['is_editable']);
-	unset($payload['needs_payment']);
-	unset($payload['needs_processing']);
-	unset($payload['number']);
-	unset($payload['order_key']);
-	unset($payload['parent_id']);
-	unset($payload['payment_method']);
-	unset($payload['payment_method_title']);
-	unset($payload['payment_url']);
-	unset($payload['prices_include_tax']);
-	unset($payload['shipping_tax']);
-	unset($payload['shipping_total']);
-	unset($payload['status']);
-	unset($payload['total']);
-	unset($payload['total_tax']);
-	unset($payload['transaction_id']);
-	unset($payload['version']);
+    // Check if the order is already processed to prevent duplicate processing
+    if ($order->get_meta('_webhook_processed') === 'yes') {
+        return false; // Exit if the webhook has already been processed for this order
+    }
 
+    // Check if the order is 'completed'
+    if ($order->get_status() !== 'completed') {
+        return false; // Exit without returning the payload if the order is not completed
+    }
 
-	//Get order data and create it
+    // Mark the order as processed for webhook
+    $order->update_meta_data('_webhook_processed', 'yes');
+    $order->save(); // Save the order with the new meta data
 
-	$items = $payload['line_items'];
-	$orders_array = [];
-	
-	foreach ($items as $key=>$item) {
+    // We do not need all these fields. Unset can remove them
+    unset($payload['_links']);
+    unset($payload['billing']);
+    unset($payload['shipping']);
+    unset($payload['shipping_lines']);
+    unset($payload['tax_lines']);
+    unset($payload['refunds']);
+    unset($payload['fee_lines']);
+    // unset($payload['line_items']); //this one is(was) actually needed
+    unset($payload['meta_data']);
+    unset($payload['cart_hash']);
+    unset($payload['cart_tax']);
+    unset($payload['coupon_lines']);
+    unset($payload['created_via']);
+    unset($payload['currency']);
+    unset($payload['currency_symbol']);
+    unset($payload['customer_id']);
+    unset($payload['customer_ip_address']);
+    unset($payload['customer_note']);
+    unset($payload['customer_user_agent']);
 
-		//Get categories using item ID
-		$product = wc_get_product($item['product_id']);
-		$categories = [];
-		$category_ids = $product->get_category_ids();
-	
-		// Get categories in proper order -> Main-, then subcategory
-		foreach ($category_ids as $category_id) {
-			$category_hierarchy = [];
-			$current_category_id = $category_id;
-			while ($current_category_id !== 0) {
-				$category = get_term($current_category_id, 'product_cat');
-				$category_hierarchy[] = $category->name;
-				$current_category_id = $category->parent;
-			}
+    unset($payload['date_completed']);
+    unset($payload['date_completed_gmt']);
+    unset($payload['date_created']); //(can) add this for clarity reasons. Firebase creates a date field once it's been processed with the function
+    unset($payload['date_created_gmt']);
+    unset($payload['date_modified']);
+    unset($payload['date_modified_gmt']);
+    unset($payload['date_paid']);
+    unset($payload['date_paid_gmt']);
 
-			// Reverse the array to get the main category first
-			$category_hierarchy = array_reverse($category_hierarchy);
-			foreach ($category_hierarchy as $cat) {
-				//check if category exists. hopefully it will be in order :D :gun:
-				if (!in_array($cat, $categories)) {
-					$categories[] = $cat;
-				}
-			}
-		}
+    unset($payload['discount_tax']);
+    unset($payload['discount_total']);
 
-		$item_data = [
-			'name' => $item['name'],
-			'id' => $item['product_id'],
-			'quantity' => $item['quantity'],
-			'categories' => $categories
-		];
+    unset($payload['id']);
+    unset($payload['is_editable']);
+    unset($payload['needs_payment']);
+    unset($payload['needs_processing']);
+    unset($payload['number']);
+    unset($payload['order_key']);
+    unset($payload['parent_id']);
+    unset($payload['payment_method']);
+    unset($payload['payment_method_title']);
+    unset($payload['payment_url']);
+    unset($payload['prices_include_tax']);
+    unset($payload['shipping_tax']);
+    unset($payload['shipping_total']);
+    unset($payload['status']);
+    unset($payload['total']);
+    unset($payload['total_tax']);
+    unset($payload['transaction_id']);
+    unset($payload['version']);
 
-		$orders_array[] = $item_data;
-	}
+    // Get order data and create it
+    $items = $payload['line_items'];
+    $orders_array = [];
+    
+    foreach ($items as $key => $item) {
+        // Get categories using item ID
+        $product = wc_get_product($item['product_id']);
+        $categories = [];
+        $category_ids = $product->get_category_ids();
+    
+        // Get categories in proper order -> Main-, then subcategory
+        foreach ($category_ids as $category_id) {
+            $category_hierarchy = [];
+            $current_category_id = $category_id;
+            while ($current_category_id !== 0) {
+                $category = get_term($current_category_id, 'product_cat');
+                $category_hierarchy[] = $category->name;
+                $current_category_id = $category->parent;
+            }
 
-	$payload['orders'] = $orders_array;
+            // Reverse the array to get the main category first
+            $category_hierarchy = array_reverse($category_hierarchy);
+            foreach ($category_hierarchy as $cat) {
+                // Check if category exists. hopefully it will be in order :D :gun:
+                if (!in_array($cat, $categories)) {
+                    $categories[] = $cat;
+                }
+            }
+        }
 
-	unset($payload['line_items']); //Removing this at the very end since it is not needed anymore
+        $item_data = [
+            'name' => $item['name'],
+            'id' => $item['product_id'],
+            'quantity' => $item['quantity'],
+            'categories' => $categories
+        ];
+
+        $orders_array[] = $item_data;
+    }
+
+    $payload['orders'] = $orders_array;
+
+    unset($payload['line_items']); // Removing this at the very end since it is not needed anymore
     return $payload;
 }
-//Edits the 'order created' webhook. This will be sent to Firebase
+
+// Edits the 'order created' webhook. This will be sent to Firebase
 add_filter('woocommerce_webhook_payload', 'custom_webhook_payload', 10, 4);
 
 
@@ -395,17 +417,43 @@ add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
 
 
 //Firebase func
+//Just JS files :)
+function custom_firebase_scripts_function() {
+    // Register the scripts
+    wp_register_script('secret', get_template_directory_uri() . '/js/secret.js', array(), null, true);
+    wp_register_script('custom-firebase', get_template_directory_uri() . '/js/custom_firebase.js', array(), null, true);
+	wp_register_script('toggle-admin-dropdown', get_template_directory_uri() . '/js/toggle-admin-dropdown.js', array(), null, true);
 
-function custom_firebase_scripts_function()
-{
- 	wp_enqueue_script('custom_firebase', get_template_directory_uri() . '/js/custom_firebase.js', array('firebase_app', 'firebase_auth', 'firebase_database', 'firebase_firestore', 'firebase'), '1.0.0', true);
-	wp_script_add_data('custom_firebase', 'type', 'module');
+    // then enqueue the scripts
+    wp_enqueue_script('secret');
+    wp_enqueue_script('custom-firebase');
+	wp_enqueue_script('toggle-admin-dropdown');
 
-	//Testing adding secret.js too.
-	//wp_enqueue_script('secret-js', get_template_directory_uri() . '/js/secret.js',array(),'1.0.0',true);
-	//wp_script_add_data('secret-js', 'type', 'module');
+	wp_localize_script('custom-firebase', 'siteData', array(
+        'homeUrl' => home_url()
+    ));
 }
 add_action('wp_enqueue_scripts', 'custom_firebase_scripts_function');
+
+//Add site_data to wp_header so it can be called instantly
+function add_inline_site_data() {
+    echo '<script type="text/javascript">
+        var siteData = {
+            homeUrl: "' . home_url() . '"
+        };
+    </script>';
+}
+add_action('wp_head', 'add_inline_site_data');
+
+
+function add_module_type_attribute($tag, $handle, $src) {
+    // Add type="module" to specific scripts
+    if ('secret' === $handle || 'custom-firebase' === $handle) {
+        $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'add_module_type_attribute', 10, 3);
 
 
 function firebase_fetch_func($atts)
@@ -424,5 +472,177 @@ add_shortcode('need_login', 'shortcode_needLogin');
 function shortcode_needLogin() {
     if (!is_user_logged_in()) {
         auth_redirect();
+    }
+}
+
+// https://stackoverflow.com/questions/52523582/allow-only-one-product-category-in-cart-at-once-in-woocommerce
+// shamelessly borrowed
+add_filter( 'woocommerce_add_to_cart_validation', 'only_one_product_category_allowed', 20, 3 );
+function only_one_product_category_allowed( $passed, $product_id, $quantity) {
+
+    // Getting the product categories term slugs in an array for the current product
+    $term_slugs   = wp_get_post_terms( $product_id, 'product_cat', array('fields' => 'slugs') );
+
+    // Loop through cart items
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item ){
+
+        // Check if the product category of the current product don't match with a cart item
+        if( ! has_term( $term_slugs, 'product_cat', $cart_item['product_id'] ) ){
+
+            // Displaying a custom notice
+            wc_add_notice( __('Only items from one product category are allowed in cart at once. Please review your cart and remove any products from other categories.'), 'error' );
+
+            // Avoid add to cart
+            return false; // exit
+        }
+    }
+    return $passed;
+}
+
+
+//Updating cart item count using js/ajax
+//Enqueuing the new JS file used exclusively for this
+function enqueue_custom_scripts() {
+    wp_enqueue_script( 'update-cart-count', get_template_directory_uri() . '/js/update-cart-count.js', array('jquery'), '1.0', true );
+
+    // Localize script to pass the AJAX URL to the script
+    wp_localize_script( 'update-cart-count', 'cartCountAjax', array(
+        'ajaxurl' => admin_url( 'admin-ajax.php' )
+    ));
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_scripts' );
+
+//Updates cart whenever the item in stock value has changed
+function update_cart_count_callback() {
+    echo WC()->cart->get_cart_contents_count();
+    wp_die();
+}
+add_action( 'wp_ajax_update_cart_count', 'update_cart_count_callback' );
+add_action( 'wp_ajax_nopriv_update_cart_count', 'update_cart_count_callback' );
+
+
+
+//Cron function
+//to mail monthly sales reports
+//to admin mail account (or others)
+//Checks if it's first of the month
+if (!wp_next_scheduled('check_first_day_of_month_for_sales_report')) {
+    wp_schedule_event(time(), 'daily', 'check_first_day_of_month_for_sales_report');
+}
+
+add_action('check_first_day_of_month_for_sales_report', 'schedule_monthly_sales_report');
+ 
+function schedule_monthly_sales_report() {
+	
+    if (date('j') == 1) { // Check if today is the 1st day of the month  //Uncomment to actually make it work!!
+		send_sales_report_to_admin();
+    }
+}
+
+//Function to capture some sales data and send it to the admin's email address
+//Only completed/successful orders, uses main categories only.
+//Limiting to orders from the previous month only
+
+
+function get_woocommerce_sales_by_primary_category() {
+    $args = array(
+        'status' => 'completed',
+        'limit' => -1,
+        'date_query' => array(
+            'after' => date('Y-m-d', strtotime('first day of last month')),
+            'before' => date('Y-m-d', strtotime('last day of last month')),
+            'inclusive' => true,
+        ),
+    );
+
+    $orders = wc_get_orders($args);
+    $report = array();
+
+    foreach ($orders as $order) {
+        foreach ($order->get_items() as $item) {
+            $product = $item->get_product();
+            $categories = wp_get_post_terms($product->get_id(), 'product_cat', array('fields' => 'ids'));
+            foreach ($categories as $category_id) {
+                $parent = get_term_by('id', $category_id, 'product_cat')->parent;
+                if ($parent == 0) { // Ensure it's a primary category
+                    $category_name = get_term_by('id', $category_id, 'product_cat')->name;
+                    if (!isset($report[$category_name])) {
+                        $report[$category_name] = array();
+                    }
+                    if (!isset($report[$category_name][$product->get_id()])) {
+                        $report[$category_name][$product->get_id()] = array(
+                            'product_name' => $product->get_name(),
+                            'quantity' => 0,
+                            'total' => 0
+                        );
+                    }
+                    $report[$category_name][$product->get_id()]['quantity'] += $item->get_quantity();
+                    $report[$category_name][$product->get_id()]['total'] += $item->get_total();
+                    break; // Stop after the first primary category
+                }
+            }
+        }
+    }
+
+    return $report;
+}
+
+
+
+//add_action('send_monthly_sales_report', 'send_sales_report_to_admin');
+
+//Create and send a monthly sales report to admin's email
+function send_sales_report_to_admin() {
+	$report = get_woocommerce_sales_by_primary_category();
+
+    $message = "Monthly Sales Report\n\n";
+    $message .= date('1.m.Y', strtotime('first day of last month')) . " - " . date('t.m.Y', strtotime('last day of last month')) . "\n\n";
+
+    foreach ($report as $category_name => $products) {
+        $message .= "Category Name: $category_name\n";
+        $category_total = 0;
+        foreach ($products as $product) {
+            $message .= "Product: " . $product['product_name'] . " - Units Sold: " . $product['quantity'] . "\n";
+            $message .= "Item Sales Total: " . number_format($product['total'], 2) . "kr\n\n";
+            $category_total += $product['total'];
+        }
+        $message .= "Net Total for $category_name: " . number_format($category_total, 2) . "kr\n\n";
+    }
+	//$message .= "End of report. In case if you feel like data is missing - please make sure all orders created have been marked as 'completed';
+	
+    $admin_email = get_option('admin_email');
+	$subject = "Monthly Sales Report:  " . date('1.m.Y', strtotime('first day of last month')) . " - " . date('t.m.Y', strtotime('last day of last month'));
+	wp_mail($admin_email, $subject, $message);
+}
+
+
+// Automatically make processed orders into complete. Otherwise it'd have to be manually done :()
+//These are required for the monthly report
+add_action( 'woocommerce_order_status_processing', 'custom_autocomplete_order' );
+function custom_autocomplete_order( $order_id ) {
+	if ( ! $order_id ) {
+		return;
+	}
+	$order = wc_get_order( $order_id );
+	$order->update_status( 'completed' );
+}
+
+
+//Make sure these are unchecked by default
+add_filter( 'woocommerce_terms_is_checked_default', '__return_false' );
+add_filter( 'woocommerce_legal_terms_is_checked_default', '__return_false' );
+
+//Require the checkbox at checkout to be checked
+add_action( 'woocommerce_checkout_process', 'custom_legal_terms_validation' );
+function custom_legal_terms_validation() {
+    if ( ! isset( $_POST['legal_terms'] ) ) {
+        wc_add_notice( __( 'You must accept the legal terms to proceed.', 'woocommerce' ), 'error' );
+    }
+}
+
+add_action( 'woocommerce_checkout_update_order_meta', 'custom_legal_terms_update_order_meta' );
+function custom_legal_terms_update_order_meta( $order_id ) {
+    if ( isset( $_POST['legal_terms'] ) ) {
+        update_post_meta( $order_id, '_legal_terms', sanitize_text_field( $_POST['legal_terms'] ) );
     }
 }

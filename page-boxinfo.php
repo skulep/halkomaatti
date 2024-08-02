@@ -4,17 +4,14 @@
 /*
 Template Name: Admin Box Info
 */
-
 get_header('admin');
 ?>
-
 	<main id="primary" class="site-main">
-
 
 	<section class="text-center">
 		<div class="row">
-			<div class="col-lg-8">
-				<div class="container" id="container">
+			<div class="col">
+				<div class="container-fluid custom-container" id="container">
 					<h1 class="pb-5">Device List</h1>
 				</div>
 			</div>

@@ -28,16 +28,18 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light px-2">
-  	<a class="navbar-brand" href="https://firewood2go.eu/index.php/admin-main/">Vedogvarer</a>
+  	<a class="navbar-brand" href="<?php echo get_home_url(); ?>/index.php/admin-main/">Vedogvarer</a>
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
   	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     	<div class="navbar-nav display-flex">
-			<a class="nav-item nav-link" href="https://firewood2go.eu/index.php/admin-box-info/">Dispensers</a>
-			<a class="nav-item nav-link" href="https://firewood2go.eu/index.php/admin-organizations/">Organizations</a>
-			<a class="nav-item nav-link" href="#">Settings</a>
-			<a class="nav-item nav-link text-right" href="https://firewood2go.eu/index.php/admin-login/">Log Out</a>
+			<div class="vr"></div>
+			<a class="nav-item nav-link" href="<?php echo get_home_url(); ?>/index.php/admin-box-info/">Device List</a>
+			<div class="vr"></div>
+			<a class="nav-item nav-link" href="<?php echo get_home_url(); ?>">Customer Home Page</a>
+			<div class="vr"></div>
+			<a class="nav-item nav-link text-right" href="<?php echo get_home_url(); ?>/wp-login.php?action=logout">Log Out</a>
 
     	</div>
   	</div>

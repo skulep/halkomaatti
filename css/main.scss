@@ -1,22 +1,30 @@
 //Add Bootstrap specific code before the import
-
+/* Old theme
 $primary: #4CAF50;
 $secondary: #008000;
 $accent: #FF5722;
-
 $warning: #edffbc;
 $danger: #ff7c6b;
 $success: #6dffb6;
 $defaultbtn: #E5E5E5;
-
 $defaultfont: #333333;
-
-
 $grey-bg: #fafafa;
 $grey-border: #cacaca;
-
 $background-color: #F5F5F5;
+*/
 
+$primary: #23c686;
+$secondary: #099d02;
+$accent: #9fcdfd;
+$warning: #fc9d45;
+$danger: #ee725c;
+$success: #94fc89;
+$defaultbtn: #f0f7da;
+$defaultfont: #010101;
+$grey-bg: #fafafa;
+$grey-border: #7a9295;
+$background-color: #f5f8eb;
+//$background-color: #e3e6db;
 $theme-colors: (
     "primary": $primary,
     "warning": $warning,
@@ -25,19 +33,19 @@ $theme-colors: (
     "defaultfont": $defaultfont,
     "grey-border": $grey-border,
     "background-color": $background-color,
-    "accent": $accent
+    "accent": $accent,
+    "grey-bg": $grey-bg
 );
 
 $custom-color: (
-    "icon-background": rgba(107, 255, 119, 0.5)
+    "icon-background": rgba(54, 128, 45, 0.5)
 );
 
 $theme-colors: map-merge($theme-colors, $custom-color);
 
 
 //Import Bootstrap
-@import "./bootstrap-5.3.0-alpha1/scss/bootstrap";
-
+@import "./bootstrap-5.3.3/scss/bootstrap";
 
 //Global
 
@@ -49,9 +57,9 @@ body {
     color: $grey-bg;
 }
 
-.a:visited {
-    color: $grey-bg;
-}
+a, a:visited, a:hover, a:active {
+    color: inherit;
+ }
 
 .btn-rounded {
     width: 30px;
@@ -142,6 +150,10 @@ body {
 
 .dropdown.item {
     background-color: $primary;
+}
+
+.navbar-nav .ml-auto {
+  margin-left: auto;
 }
 
 
@@ -264,6 +276,16 @@ body {
     align-content: center;
 }
 
+
+//Text box + the text on top of it
+.mask {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 250px;
+  border-radius: 15px; /* Adjust this value to change the roundness */
+  padding: 20px; /* Optional: Adds some padding around the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+}
+
 .banner{position:relative}
 .banner-img {
     width:100%;
@@ -333,6 +355,10 @@ body {
 
 .dropdown-content a:hover {
   background-color: #f1f1f1;
+}
+
+#myDropdown {
+    display: none;
 }
 
 
@@ -428,3 +454,130 @@ body {
 .empty-notif {
     color: grey; /* Change color to your desired color */
 }
+
+
+//"About" -page
+header.masthead {
+    position: relative;
+    background-color: #343a40;
+    background: url("https://img.freepik.com/free-photo/close-up-bonfire-with-flames_23-2148506916.jpg?t=st=1721035736~exp=1721036336~hmac=00999132a01e4274d8cf7857f8b0987bc10afaeb1a86851323d75ce9b5adce03") no-repeat center center;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+  header.masthead:before {
+    content: "";
+    position: absolute;
+    background-color: #1c375e;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+  }
+  header.masthead h1, header.masthead .h1 {
+    font-size: 2rem;
+  }
+  @media (min-width: 768px) {
+    header.masthead {
+      padding-top: 12rem;
+      padding-bottom: 12rem;
+    }
+    header.masthead h1, header.masthead .h1 {
+      font-size: 3rem;
+    }
+  }
+
+  .showcase .showcase-text {
+    padding: 3rem;
+  }
+  .showcase .showcase-img {
+    min-height: 30rem;
+    background-size: cover;
+  }
+  @media (min-width: 768px) {
+    .showcase .showcase-text {
+      padding: 7rem;
+    }
+  }
+
+
+  .features-icons {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+  .features-icons .features-icons-item {
+    max-width: 20rem;
+  }
+  .features-icons .features-icons-item .features-icons-icon {
+    height: 7rem;
+  }
+  .features-icons .features-icons-item .features-icons-icon i {
+    font-size: 4.5rem;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+
+  .my-auto {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+  }
+
+.g-0,
+.gx-0 {
+  --bs-gutter-x: 0;
+}
+
+.order-lg-first {
+    order: -1 !important;
+  }
+  .order-lg-0 {
+    order: 0 !important;
+  }
+  .order-lg-1 {
+    order: 1 !important;
+  }
+  .order-lg-2 {
+    order: 2 !important;
+  }
+  .order-lg-3 {
+    order: 3 !important;
+  }
+  .order-lg-4 {
+    order: 4 !important;
+  }
+  .order-lg-5 {
+    order: 5 !important;
+  }
+  .order-lg-last {
+    order: 6 !important;
+  }
+
+  .p-0 {
+    padding: 0 !important;
+  }
+
+  .mx-auto {
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  //maybe this matters...
+  @media (min-width: 992px) {
+    .col-lg-4 {
+      flex: 0 0 auto;
+      width: 33.33333333%;
+    }
+    .col-lg-5 {
+      flex: 0 0 auto;
+      width: 41.66666667%;
+    }
+    .col-lg-6 {
+      flex: 0 0 auto;
+      width: 50%;
+    }
+
+  }
