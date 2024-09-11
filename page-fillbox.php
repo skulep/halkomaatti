@@ -45,7 +45,6 @@ if (!empty($allowed_roles)) {
 }
 ?>
 
-
 <?php
 /*
 Template Name: Admin Fill Box
@@ -150,7 +149,7 @@ get_header('admin');
       </div>
       <div class="modal-body">
         <p class="text-center">This may take a while, depending on how many locks there are to open.</p>
-        <a class="w-100 btn confirm-fill btn-lg btn-primary mb-5" id="open-for-filling" role="button"  type="button" onclick="openAllBoxes()" data-dismiss="modal">Open all boxes</a>
+        <a class="w-100 btn confirm-fill btn-lg btn-primary mb-5" id="openBoxesButton" role="button" type="button" data-dismiss="modal">Open all boxes</a>
       </div>
     </div>
   </div>

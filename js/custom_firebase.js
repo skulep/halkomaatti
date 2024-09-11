@@ -611,8 +611,21 @@ function createBox(data) {
       container.appendChild(hr);
   }
 
-
   //function to create and upload a "open box"-code
+  //first connecting an eventListener to it
+  document.addEventListener('DOMContentLoaded', (event) => {
+    // Get a reference to the button element
+    const openBoxesButton = document.getElementById('openBoxesButton');
+
+    // Attach an event listener to the button
+    openBoxesButton.addEventListener('click', () => {
+        openAllBoxes().catch(error => {
+            console.error('Error running openAllBoxes:', error);
+        });
+    });
+});
+
+
   async function openAllBoxes() {
     //Get collection/document using site URL
     if(currentUrl.includes("/admin-fill-box")) {

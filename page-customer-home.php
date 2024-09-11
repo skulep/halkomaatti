@@ -23,8 +23,8 @@ get_header();
 	$taxonomy     = 'product_cat';
 	$orderby      = 'name';  
 	$show_count   = 0;      // 1 for yes, 0 for no
-	$pad_counts   = 0;      // 1 for yes, 0 for no
-	$hierarchical = 1;      // 1 for yes, 0 for no  
+	$pad_counts   = 0;
+	$hierarchical = 1;
 	$title        = '';  
 	$empty        = 0;
 
@@ -42,7 +42,7 @@ get_header();
 		if($cat->category_parent == 0) {
 			$category_id = $cat->term_id;       
 			#echo '<br /><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
-			#We do not want to show the main categories here.
+			#We do not want to show the main categories here, commenting it out
 
 			$args2 = array(
 					'taxonomy'     => $taxonomy,
