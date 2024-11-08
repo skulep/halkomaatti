@@ -29,7 +29,7 @@ get_header('admin');
 				<input type="checkbox" value="remember-me"> Remember me
 		</label>
     </div>
-	<a class="w-100 btn btn-lg btn-primary" href="<?php echo get_home_url(); ?>/index.php/admin-main/" role="button">Log In</a> 
+	<a class="w-100 btn btn-lg btn-primary" href="<?php echo get_home_url(); ?>/admin-main/" role="button">Log In</a> 
   </form>
 </main>    
 

@@ -39,7 +39,7 @@
 			 <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 				 <input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="legal_terms" <?php checked(false); ?> id="legal_terms"/>
 				 <span class="woocommerce-legal-terms-checkbox-text">
-					 <?php printf( __( 'I have read the legal terms available at %s', 'woocommerce' ), '<a href="' . esc_url( get_home_url() . '/index.php/legal/' ) . '" target="_blank">' . esc_html__( 'this link', 'woocommerce' ) . '</a>' ); ?>
+					 <?php printf( __( 'I have read the legal terms available at %s', 'woocommerce' ), '<a href="' . esc_url( get_home_url() . '/legal/' ) . '" target="_blank">' . esc_html__( 'this link', 'woocommerce' ) . '</a>' ); ?>
 				 </span>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woocommerce' ); ?>">*</abbr>
 			 </label>
 			 <input type="hidden" name="legal-terms-field" value="0" />

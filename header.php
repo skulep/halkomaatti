@@ -85,24 +85,24 @@
             </div>
 
 			<div>
-				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/cart/">
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/cart/">
 					<i class="bi bi-cart3"></i> Cart (<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>)
 				</a>
 			</div>	
             <div>
-				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/customer-info/">
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/customer-info/">
 					<i class="bi bi-info-circle"></i> About 
 				</a>
 			</div>
 			<div>
-				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/legal/">
+				<a class="btn nav-item me-auto p-2" type="button" href="<?php echo get_home_url(); ?>/legal/">
 					<i class="bi bi-bank2"></i> Legal 
 				</a>
 			</div>
             
             <!-- Wrapper for alignment -->
             <div class="ml-auto">
-                <a class="btn nav-item nav-link p-2" type="button" href="<?php echo get_home_url(); ?>/index.php/admin-main/">
+                <a class="btn nav-item nav-link p-2" type="button" href="<?php echo get_home_url(); ?>/admin-main/">
                     Log In <i class="bi bi-person-gear"></i>
                 </a>
             </div>

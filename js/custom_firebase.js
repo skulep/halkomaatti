@@ -176,7 +176,7 @@ async function getDocumentData(collectionName, documentName) {
 
 
 async function getDeviceData() {
-    if(window.location.href == siteUrl + "/index.php/admin-box-info/") {
+    if(window.location.href == siteUrl + "/admin-box-info/") {
         const collectionRef = db.collection("listOfOrganization");
         const documentRef = collectionRef.doc("listOfDevices");
         const doc = await documentRef.get();
@@ -223,7 +223,7 @@ async function getHomepageData() {
 var currentUrl = window.location.href;
 if(currentUrl.includes("/admin-fill-box")) {
     var urlSplit = currentUrl.split("/");
-    var firestorePath = urlSplit[4].split("-");
+    var firestorePath = urlSplit[3].split("-");
     
     var orgpath = firestorePath[3].charAt(0).toUpperCase() + firestorePath[3].slice(1);
     var maticpath = firestorePath[4].charAt(0).toUpperCase() + firestorePath[4].slice(1);
@@ -232,12 +232,12 @@ if(currentUrl.includes("/admin-fill-box")) {
 }
 
 //admin box info ==== dispensers-tab
-if(window.location.href == siteUrl + "/index.php/admin-box-info/") {
+if(window.location.href == siteUrl + "/admin-box-info/") {
     getDeviceData();
 }
 
 //admin-main, its supposed to have a dropdown menu thing that you can choose a location from.
-if(window.location.href == siteUrl + "/index.php/admin-main/") {
+if(window.location.href == siteUrl + "/admin-main/") {
     getHomepageData();
 }
 
@@ -383,7 +383,7 @@ async function addToFirestore(boxes, docRef) {
             //Updates product stock to Woocommerce
             for (let i = 0; i < itemsToUpdate.length; i++) {
             
-                let url = siteUrl + '/index.php/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+                let url = siteUrl + '/wp-json/wc/v3/products/'+ itemsToUpdate[i].id + '?consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
             
                 fetch(url, {
                     method: 'POST',
@@ -397,7 +397,7 @@ async function addToFirestore(boxes, docRef) {
                         //console.log('Product stock updated successfully:', data);
                         if (dbUpdateStatus) {
                             alert("Successfully updated Firestore state and WooCommerce stock. Redirecting to the main page.");
-                            window.location.href = siteUrl + "/index.php/admin-main/";
+                            window.location.href = siteUrl + "/admin-main/";
                         }
                         
                     })
@@ -417,7 +417,7 @@ async function addToFirestore(boxes, docRef) {
 // Grabs items in category using the category slug.
 async function getProductsInCategory(categorySlug) {
     const lowerCaseSlug = categorySlug.toLowerCase();
-    const url = siteUrl + '/index.php/wp-json/wc/v3/products?category/'+ lowerCaseSlug + '&consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
+    const url = siteUrl + '/wp-json/wc/v3/products?category/'+ lowerCaseSlug + '&consumer_key='+ consumer_key +'&consumer_secret=' + consumer_secret;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -583,7 +583,7 @@ function createBox(data) {
     button.setAttribute("data-mdb-ripple-init", "");
     button.textContent = "Fill This Box";
     button.onclick = function() {
-        window.location.href = siteUrl + "/index.php/admin-fill-box-" + data.organizationName + "-" + data.deviceName + "/";
+        window.location.href = siteUrl + "/admin-fill-box-" + data.organizationName + "-" + data.deviceName + "/";
     };
   
     innerCol.appendChild(button);
@@ -630,7 +630,7 @@ function createBox(data) {
     //Get collection/document using site URL
     if(currentUrl.includes("/admin-fill-box")) {
         var urlSplit = currentUrl.split("/");
-        var firestorePath = urlSplit[4].split("-");
+        var firestorePath = urlSplit[3].split("-");
         
         var orgpath = firestorePath[3].charAt(0).toUpperCase() + firestorePath[3].slice(1);
         var maticpath = firestorePath[4].charAt(0).toUpperCase() + firestorePath[4].slice(1);

@@ -29,7 +29,7 @@ get_header('admin');
 			</div>
 		</div>
 
-		<a class="btn btn-primary" href="<?php echo get_home_url(); ?>/index.php/admin-fill-box/" role="button">Register to Fill</a> 
+		<a class="btn btn-primary" href="<?php echo get_home_url(); ?>/admin-fill-box/" role="button">Register to Fill</a> 
 		<br>
 		<a class="btn btn-outline-warning-border" href="#" role="button">Remove from database</a>
 

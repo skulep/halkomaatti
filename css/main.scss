@@ -1,17 +1,4 @@
 //Add Bootstrap specific code before the import
-/* Old theme
-$primary: #4CAF50;
-$secondary: #008000;
-$accent: #FF5722;
-$warning: #edffbc;
-$danger: #ff7c6b;
-$success: #6dffb6;
-$defaultbtn: #E5E5E5;
-$defaultfont: #333333;
-$grey-bg: #fafafa;
-$grey-border: #cacaca;
-$background-color: #F5F5F5;
-*/
 
 $primary: #23c686;
 $secondary: #099d02;
@@ -144,7 +131,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .dropdown-menu { 
-    background-color: $primary;
+    background-color: $background-color;
     color: $defaultfont;
 }
 
@@ -282,8 +269,8 @@ a, a:visited, a:hover, a:active {
   background-color: rgba(255, 255, 255, 0.7);
   width: 250px;
   border-radius: 15px; /* Adjust this value to change the roundness */
-  padding: 20px; /* Optional: Adds some padding around the text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+  padding: 20px; /* Adds some padding around the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
 }
 
 .banner{position:relative}
@@ -452,7 +439,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .empty-notif {
-    color: grey; /* Change color to your desired color */
+    color: grey;
 }
 
 
@@ -565,7 +552,7 @@ header.masthead {
     margin-left: auto !important;
   }
 
-  //maybe this matters...
+  //probably not required but everything works as intended, so it stays :shrug:
   @media (min-width: 992px) {
     .col-lg-4 {
       flex: 0 0 auto;
@@ -579,5 +566,56 @@ header.masthead {
       flex: 0 0 auto;
       width: 50%;
     }
-
   }
+
+  /*Front page language menu*/
+
+
+body,
+.tabs-to-dropdown .dropdown-toggle,
+.tabs-to-dropdown .dropdown-item {
+  font-size: 1.3rem;
+}
+
+.tabs-to-dropdown .nav-wrapper {
+  padding: 15px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.12);
+}
+
+.tabs-to-dropdown .nav-wrapper a {
+  color: $defaultfont;
+}
+
+.tabs-to-dropdown .nav-pills .nav-link.active {
+  background-color: $primary;
+}
+
+.tabs-to-dropdown .nav-pills li:not(:last-child) {
+  margin-right: 30px;
+}
+
+.tabs-to-dropdown .tab-content .container-fluid {
+  max-width: 1250px;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.tabs-to-dropdown .dropdown-menu {
+  border: none;
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.tabs-to-dropdown .dropdown-item {
+  padding: 14px 28px;
+  background-color: $background-color;
+}
+
+.tabs-to-dropdown .dropdown-item:active {
+  color: var(--white);
+}
+
+@media (min-width: 1280px) {
+  .tabs-to-dropdown .nav-wrapper {
+    padding: 15px 30px;
+  }
+}

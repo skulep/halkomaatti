@@ -36,11 +36,11 @@ if (!empty($allowed_roles)) {
 		//User is allowed -- load page normally.
         //echo do_shortcode('[need_login]');
     } else {
-      $redirect_url = get_home_url() . '/index.php/admin-main/';
+      $redirect_url = get_home_url() . '/admin-main/';
       echo '<script>alert("You are not authorized to view this page."); window.open("' . $redirect_url . '", "_self");</script>';
     }
 } else {
-	$redirect_url = get_home_url() . '/index.php/admin-main/';
+	$redirect_url = get_home_url() . '/admin-main/';
   echo '<script>alert("You are not authorized to view this page."); window.open("' . $redirect_url . '", "_self");</script>';
 }
 ?>
