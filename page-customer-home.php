@@ -106,52 +106,52 @@ get_header();
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-en" role="tabpanel" aria-labelledby="pills-en-tab">
       <div class="container-fluid">
-        <h1 class="mb-3 font-weight-bold">Vedogvarer</h2>
-        <h1 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h1>
+        <h1 class="mb-3 font-weight-bold">Vedogvarer - Buy firewood online, collect immediately.</h1>
+        <h2 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h2>
         <p>Vedogvarer offers high-quality Norwegian firewood and other camping supplies all around the clock. Buy online using Vipps or your credit card, then pick up from your selected device.</p>
-        <h1 class="mb-2"><i class="bi bi-graph-up-arrow"></i> High Quality</h1>
+        <h2 class="mb-2"><i class="bi bi-graph-up-arrow"></i> High Quality</h2>
         <p>Guaranteed high quality. Your order will be dry even during the harshest weather conditions.</p>
-        <h1 class="mb-2"><i class="bi bi-tree"></i> Renewable Wood</h1>
+        <h2 class="mb-2"><i class="bi bi-tree"></i> Renewable Wood</h2>
         <p>We sell wood from renewable forests only. The firewood is often of mixed varieties. See product info for more information.</p>
-        <h1 class="mb-2"><i class="bi bi-pin-map"></i> Multiple Diverse Locations</h1>
+        <h2 class="mb-2"><i class="bi bi-pin-map"></i> Multiple Diverse Locations</h2>
         <p>Select your pick-up location above. These locations currently include Tverrvik, Norway. More to come!</p>
-        <h1 class="mb-2"><i class="bi bi-wallet2"></i> Safe to Use</h1>
+        <h2 class="mb-2"><i class="bi bi-wallet2"></i> Safe to Use</h2>
         <p>All purchases are processed through WooCommerce and official providers. In case your purchase is unsuccessful, please contact us!</p>
-        <h1 class="mb-2"><i class="bi bi-cash-coin"></i> Support charities and small, local organizations</h1>
+        <h2 class="mb-2"><i class="bi bi-cash-coin"></i> Support charities and small, local organizations</h2>
         <p>Most purchases will also support a local organization and help them keep running. They might, for example, support a children's football team! This information will be listed on the store page.</p>
       </div>
     </div>
     <div class="tab-pane fade" id="pills-no" role="tabpanel" aria-labelledby="pills-no-tab">
       <div class="container-fluid">
-        <h2 class="mb-3 font-weight-bold">Vedogvarer</h1>
-        <h1 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h1>
+        <h1 class="mb-3 font-weight-bold">Vedogvarer - Kjøp ved på nett, hent umiddelbart.</h1>
+        <h2 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h2>
         <p>Vedogvarer tilbyr norsk ved og annet campingutstyr av høy kvalitet hele døgnet. Kjøp på nett med Vipps eller kredittkort, og hent på valgt enhet.</p>
-        <h1 class="mb-2"><i class="bi bi-graph-up-arrow"></i> Høy kvalitet</h1>
+        <h2 class="mb-2"><i class="bi bi-graph-up-arrow"></i> Høy kvalitet</h2>
         <p>Garantert høy kvalitet. Bestillingen din vil være tørr selv under de tøffeste værforhold.</p>
-        <h1 class="mb-2"><i class="bi bi-tree"></i> Fornybart trevirke</h1>
+        <h2 class="mb-2"><i class="bi bi-tree"></i> Fornybart trevirke</h2>
         <p>Vi selger kun ved fra fornybare skoger. Veden er ofte av blandede sorter. Se produktinfo for mer informasjon.</p>
-        <h1 class="mb-2"><i class="bi bi-pin-map"></i> Flere forskjellige lokasjoner</h1>
+        <h2 class="mb-2"><i class="bi bi-pin-map"></i> Flere forskjellige lokasjoner</h2>
         <p>Velg hentested ovenfor. Disse stedene inkluderer for øyeblikket Tverrvik, Norge. Flere kommer!</p>
-        <h1 class="mb-2"><i class="bi bi-wallet2"></i> Trygt å bruke</h1>
+        <h2 class="mb-2"><i class="bi bi-wallet2"></i> Trygt å bruke</h2>
         <p>Alle kjøp behandles gjennom WooCommerce og offisielle leverandører. Hvis kjøpet ditt ikke lykkes, vennligst kontakt oss!</p>
-        <h1 class="mb-2"><i class="bi bi-cash-coin"></i> Støtt veldedige organisasjoner og små, lokale organisasjoner</h1>
+        <h2 class="mb-2"><i class="bi bi-cash-coin"></i> Støtt veldedige organisasjoner og små, lokale organisasjoner</h2>
         <p>De fleste kjøp vil også støtte en lokal organisasjon og hjelpe dem med å holde driften i gang. De kan for eksempel støtte et fotballag for barn! Denne informasjonen vil bli oppført på butikksiden.</p>
       </div>
     </div>
     <div class="tab-pane fade" id="pills-fi" role="tabpanel" aria-labelledby="pills-fi-tab">
       <div class="container-fluid">
-        <h1 class="mb-3 font-weight-bold">Vedogvarer</h1>
-        <h1 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h1>
+        <h1 class="mb-3 font-weight-bold">Vedogvarer - Osta polttopuuta verkossa, nouda pisteestä heti.</h1>
+        <h2 class="mb-2"><i class="bi bi-clock-history"></i> 24/7 Service</h2>
         <p>Vedogvarer tarjoaa laadukkaita norjalaisia polttopuita ja muita retkeilytarvikkeita ympäri vuorokauden. Osta verkossa Vippsillä tai luottokortilla ja nouda sitten valitsemastasi laitteesta.</p>
-        <h1 class="mb-2"><i class="bi bi-graph-up-arrow"></i> Korkea laatu</h1>
+        <h2 class="mb-2"><i class="bi bi-graph-up-arrow"></i> Korkea laatu</h2>
         <p>Takuunalaista korkeaa laatua. Tilauksesi pysyy kuivana kovimmissakin sääolosuhteissa.</p>
-        <h1 class="mb-2"><i class="bi bi-tree"></i> Uusiutuva puu</h1>
+        <h2 class="mb-2"><i class="bi bi-tree"></i> Uusiutuva puu</h2>
         <p>Myymme puuta vain uusiutuvista metsistä. Polttopuut ovat usein sekalajikkeita. Katso lisätietoja tuotetiedoista.</p>
-        <h1 class="mb-2"><i class="bi bi-pin-map"></i> Useita erilaisia sijainteja</h1>
+        <h2 class="mb-2"><i class="bi bi-pin-map"></i> Useita erilaisia sijainteja</h2>
         <p>Valitse noutopaikkasi yllä. Näihin sijainteihin kuuluu tällä hetkellä Tverrvik, Norja. Lisää on tulossa!</p>
-        <h1 class="mb-2"><i class="bi bi-wallet2"></i> Turvallinen käyttää</h1>
+        <h2 class="mb-2"><i class="bi bi-wallet2"></i> Turvallinen käyttää</h2>
         <p>Kaikki ostokset käsitellään WooCommercen ja virallisten palveluntarjoajien kautta. Jos ostoksesi ei onnistu, ota meihin yhteyttä!</p>
-        <h1 class="mb-2"><i class="bi bi-cash-coin"></i> Tue hyväntekeväisyysjärjestöjä ja pieniä, paikallisia järjestöjä</h1>
+        <h2 class="mb-2"><i class="bi bi-cash-coin"></i> Tue hyväntekeväisyysjärjestöjä ja pieniä, paikallisia järjestöjä</h2>
         <p> Useimmat ostokset tukevat myös jotain paikallista järjestöä ja auttavat heitä jatkamaan toimintaansa. Ne voivat esimerkiksi tukea lasten jalkapallojoukkuetta! Tämä tieto mainitaan kaupan sivulla.</p>
       </div>
     </div>
