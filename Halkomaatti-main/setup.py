@@ -105,6 +105,7 @@ def save_text():
         "street": street,
         "doors": doors,
         "battery": 0,
+        "battery_timestamp": "",
         #"lastFilled": dt,
         #"lastRPiPing": dt,        
         #"lastUsed": dt,
