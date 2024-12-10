@@ -646,3 +646,25 @@ function custom_legal_terms_update_order_meta( $order_id ) {
         update_post_meta( $order_id, '_legal_terms', sanitize_text_field( $_POST['legal_terms'] ) );
     }
 }
+
+// Disables pointless plugins on listed pages. Disable function if page is not functioning as required.
+function disable_unused_plugins_on_pages($plugins) {
+    // Array requires page ID or slug. Plugins are to be disabled on these pages. /wp-admin/edit.php?post_type=page
+    $pages_to_skip = array(
+        'customer-info',
+        'home',
+        'privacy-policy',
+        'legal'
+    );
+
+    if (is_page($pages_to_skip)) {
+        // Insert plugin to disable. The path be found in AsuraHosting file manager. example; /wp-content/plugins/integrate-firebase/init.php
+        // Chosen file(s) should have fields for plugin name, description and so on.
+        $plugin_to_disable = 'integrate-firebase/init.php';
+
+        //Remove plugin from list of plugins
+        $plugins = array_diff($plugins, array($plugin_to_disable));
+    }
+    return $plugins;
+}
+add_filter('set_active_plugins', 'disable_unused_plugins_on_pages');

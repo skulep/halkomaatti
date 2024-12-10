@@ -8,7 +8,7 @@ Template Name: Customer Home Page
 get_header();
 ?>
 
-<div class="banner d-block" style="height: 350px; background-image: url('https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg'); background-size: cover; background-position: center;">
+<div class="banner d-block" style="height: 350px; background-image: url(''); background-size: cover; background-position: center;">
     <div class="container d-flex justify-content-center">
         <div class="mask d-flex flex-column justify-content-center text-center">
             <h4 class="text-center">In need of wood?<br>We have a solution!</h4>
@@ -167,21 +167,9 @@ get_header();
 	<script>
 		//image urls - using free images from pexels but hosted to imgur so they should stay alive :). now in 480x480p
         const imageUrls = [
-            'https://i.imgur.com/qu61ahL.jpeg',
-            'https://i.imgur.com/zgvIE7L.jpeg',
-            'https://i.imgur.com/y8zbLOx.jpeg',
-            'https://i.imgur.com/ONv5Aq0.jpeg',
-            'https://i.imgur.com/UUojpJQ.jpeg',
-            'https://i.imgur.com/M8UquLf.jpeg',
-            'https://i.imgur.com/ROApIMK.jpeg',
-            'https://i.imgur.com/6s9LYzT.jpeg',
-            'https://i.imgur.com/MIH4899.jpeg',
-            'https://i.imgur.com/8GanbJC.jpeg',
-            'https://i.imgur.com/zhYvrQJ.jpeg',
-            'https://i.imgur.com/TjYgbrH.jpeg',
-            'https://i.imgur.com/ZgjsaOT.jpeg',
-            'https://i.imgur.com/hgWw8VA.jpeg',
-            'https://i.imgur.com/hHjtQbg.jpeg'
+          'https://firewood2go.eu/wp-content/uploads/2024/12/hHjtQbg.webp',
+          'https://firewood2go.eu/wp-content/uploads/2024/12/ZgjsaOT.webp',
+          'https://firewood2go.eu/wp-content/uploads/2024/12/hgWw8VA.webp'
         ];
 
         // Function to set one of these images as BG
